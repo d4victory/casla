@@ -20,7 +20,7 @@ module.exports = function(express,app, passport, client, logger) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
 
         });
-    }).end();
+    });
 }
 
      //app.get('/test', function(req, res) {
