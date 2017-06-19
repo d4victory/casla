@@ -21,6 +21,7 @@ module.exports = function(express,app, passport, client, logger) {
 
         });
     });
+}
 
      //app.get('/test', function(req, res) {
        //  client.get("http://localhost:3000/division", function (divisiones, response) {
