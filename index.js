@@ -29,7 +29,7 @@ var logger = require('./logger');
 //              };
 
 //db connection
-var dbConfig = config.get(config.db);
+var dbConfig = config.get(db);
 mongoose.connect(dbConfig, function(err, res) {
   if(err) throw err;
   console.log('Connected to Database');
