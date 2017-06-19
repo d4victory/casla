@@ -10,7 +10,8 @@ var express         = require("express"),
     bodyParser      = require('body-parser'),
     port            = process.env.PORT || 8080,
     config          = require('config');
-    db_server       = process.env.DB_ENV || 'development',
+    env             = process.env.DB_ENV || 'development',
+    cfg             = require('./config/'),
     options         = require("options"),
     Client          = require('node-rest-client').Client;
     // paginate        = require('express-paginate');
@@ -29,8 +30,7 @@ var logger = require('./logger');
 //              };
 
 //db connection
-var dbConfig = config.get(db);
-mongoose.connect(dbConfig, function(err, res) {
+mongoose.connect(cfg.mongo.uri, function(err, res) {
   if(err) throw err;
   console.log('Connected to Database');
 });
@@ -70,10 +70,10 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 var models   = require('./models/includingModels')(app, mongoose);
 
 // routes ======================================================================
-require('./config/routes.js')(express,app, passport,client, logger); // load our routes and pass in our app and fully configured passport
-require('./config/admin')(app);
-require('./config/delegados')(app);
-require('./config/planilleros')(app);
+//require('./config/routes.js')(express,app, passport,client, logger); // load our routes and pass in our app and fully configured passport
+//require('./config/admin')(app);
+//require('./config/delegados')(app);
+//require('./config/planilleros')(app);
 // require('./config/jugadorRoutes')(express,app);
 
 // Start server
