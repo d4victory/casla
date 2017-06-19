@@ -21,7 +21,7 @@ var logger = require('./logger');
 // Connection to DB
 
 //db connection
-var cfg = require('../config');
+var cfg = require('./config');
 mongoose.connect(cfg.mongo.uri, function(err, res) {
   if(err) throw err;
   console.log('Connected to Database');
