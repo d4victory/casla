@@ -62,7 +62,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 var models   = require('./models/includingModels')(app, mongoose);
 
 // routes ======================================================================
-require('./config/routes.js')(express,app, passport,client, logger); // load our routes and pass in our app and fully configured passport
+//require('./config/routes.js')(express,app, passport,client, logger); // load our routes and pass in our app and fully configured passport
 //require('./config/admin')(app);
 //require('./config/delegados')(app);
 //require('./config/planilleros')(app);
