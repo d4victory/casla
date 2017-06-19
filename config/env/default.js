@@ -1,5 +1,7 @@
 module.exports = {
-  // node port
-  port: 3000
-  // other default settings
+  "dbConfig": {
+      "host": "localhost",
+      "port": 3000,
+      "dbName": "casla_dev"
+    }
 };
