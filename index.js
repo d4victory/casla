@@ -8,9 +8,10 @@ var express         = require("express"),
     cookieParser    = require('cookie-parser'),
     session         = require('express-session'),
     bodyParser      = require('body-parser'),
+    config          = require('config'),
     port            = process.env.PORT || 8080,
-    //config          = require('config');
-    env             = process.env.DB_ENV || 'development',
+    env             = process.env.NODE_ENV || 'development',
+    cfg             = require('./config.'+env),
     options         = require("options"),
     Client          = require('node-rest-client').Client;
     // paginate        = require('express-paginate');
@@ -22,8 +23,6 @@ var logger = require('./logger');
 // Connection to DB
 
 //db connection
-
-var cfg = require('./config');
 mongoose.connect(cfg.mongo.uri, function(err, res) {
   if(err) throw err;
   console.log('Connected to Database');
