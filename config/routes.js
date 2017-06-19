@@ -16,7 +16,7 @@ module.exports = function(express,app, passport, client, logger) {
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        client.get(cfg.mongo.uri+"/division", function (divisiones, response) {
+        client.get(cfg.mongo.db+"/division", function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
 
         });
