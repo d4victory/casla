@@ -10,8 +10,6 @@ var express         = require("express"),
     bodyParser      = require('body-parser'),
     config          = require('config'),
     port            = process.env.PORT || 8080,
-    env             = process.env.NODE_ENV || 'development',
-    cfg             = require('./config.'+env),
     options         = require("options"),
     Client          = require('node-rest-client').Client;
     // paginate        = require('express-paginate');
@@ -23,6 +21,11 @@ var logger = require('./logger');
 // Connection to DB
 
 //db connection
+var env = process.env.NODE_ENV || 'development'
+  , cfg = require('./config.'+env);
+
+module.exports = cfg;
+
 mongoose.connect(cfg.mongo.uri, function(err, res) {
   if(err) throw err;
   console.log('Connected to Database');
