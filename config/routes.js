@@ -10,7 +10,7 @@ module.exports = function(express,app, passport, client, logger) {
     require('../RESTServices/partidoRESTService')(express,app);
     require('../RESTServices/posicionEquipoRESTService')(express,app);
 	
-    var config = require('./config');
+    var config = require('config');
 
 	// =====================================
     // HOME PAGE (with login links) ========
