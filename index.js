@@ -9,8 +9,8 @@ var express         = require("express"),
     session         = require('express-session'),
     bodyParser      = require('body-parser'),
     port            = process.env.PORT || 8080,
-    config          = require('./config');
-    db_server       = process.env.DB_ENV || 'primary',
+    config          = require('config');
+    db_server       = process.env.DB_ENV || 'development',
     options         = require("options"),
     Client          = require('node-rest-client').Client;
     // paginate        = require('express-paginate');
@@ -23,15 +23,20 @@ var logger = require('./logger');
 // Connection to DB
 
 //db options
-var options = {
-                server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
-              };
+//var options = {
+//                server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+//                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
+//              };
 
 //db connection
-mongoose.connect(config.db, options);
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+var dbConfig = config.get(config.db);
+mongoose.connect(dbConfig, function(err, res) {
+  if(err) throw err;
+  console.log('Connected to Database');
+});
+
+//let db = mongoose.connection;
+//db.on('error', console.error.bind(console, 'connection error:'));
 
 //don't show the log when it is test
 //if(config.util.getEnv('NODE_ENV') !== 'test') {
