@@ -11,7 +11,7 @@
   ],
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node index.js"
+    "start": "./node_modules/.bin/nodemon index.js"
   },
   "repository": {
     "type": "git",
