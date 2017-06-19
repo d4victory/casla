@@ -9,7 +9,6 @@ var express         = require("express"),
     session         = require('express-session'),
     bodyParser      = require('body-parser'),
     config          = require('config'),
-    cfg             = require('../config')
     port            = process.env.PORT || 8080,
     options         = require("options"),
     Client          = require('node-rest-client').Client;
@@ -22,6 +21,7 @@ var logger = require('./logger');
 // Connection to DB
 
 //db connection
+var cfg = require('../config');
 mongoose.connect(cfg.mongo.uri, function(err, res) {
   if(err) throw err;
   console.log('Connected to Database');
