@@ -11,12 +11,13 @@ module.exports = function(express,app, passport, client, logger) {
     require('../RESTServices/posicionEquipoRESTService')(express,app);
 	
     var config = require('config');
+    var db = config.get('db');
 
 	// =====================================
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        client.get(config.get('db'), function (divisiones, response) {
+        client.get(db, function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
 
         });
