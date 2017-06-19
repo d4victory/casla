@@ -11,7 +11,6 @@ var express         = require("express"),
     port            = process.env.PORT || 8080,
     //config          = require('config');
     env             = process.env.DB_ENV || 'development',
-    cfg             = require('./config'),
     options         = require("options"),
     Client          = require('node-rest-client').Client;
     // paginate        = require('express-paginate');
@@ -20,16 +19,11 @@ client = new Client();
 var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
 
-
 // Connection to DB
 
-//db options
-//var options = {
-//                server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-//                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
-//              };
-
 //db connection
+
+var cfg = require('./config');
 mongoose.connect(cfg.mongo.uri, function(err, res) {
   if(err) throw err;
   console.log('Connected to Database');
