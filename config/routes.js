@@ -10,11 +10,6 @@ module.exports = function(express,app, passport, client, logger) {
     require('../RESTServices/partidoRESTService')(express,app);
     require('../RESTServices/posicionEquipoRESTService')(express,app);
 	
-    var config = require('./config');
-    var db = config.get('db');
-	
-	logger.debug('VER ACA: db');
-
 	// =====================================
     // HOME PAGE (with login links) ========
     // =====================================
