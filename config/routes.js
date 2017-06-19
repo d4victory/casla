@@ -9,13 +9,13 @@ module.exports = function(express,app, passport, client, logger) {
     require('../RESTServices/divisionRESTService')(express,app);
     require('../RESTServices/partidoRESTService')(express,app);
     require('../RESTServices/posicionEquipoRESTService')(express,app);
-	
     var cfg = require('../config');
 	
 	// =====================================
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
+	console.log('estoy en home page');
         client.get(cfg.mongo.uri+"/division", function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
 
