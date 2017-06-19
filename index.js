@@ -79,6 +79,6 @@ require('./config/planilleros')(app);
 // Start server
 app.listen(port, function() {
   console.log(process.version)
-  logger.info("Node server running on port 3000");
+  logger.info("Node server running on port:"+port);
   logger.debug('Debugging info');
 });
