@@ -3,23 +3,7 @@ var moment = require('moment');
 module.exports = function(app, isAdmin) {
     
     var cfg = require('../config');
-    
-    app.use(cookieParser('asdf33g4w4hghjkuil8saef345')); // cookie parser must use the same secret as express-session.
-
-    const cookieExpirationDate = new Date();
-    const cookieExpirationDays = 365;
-    cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
-
-    app.use(session({
-        secret: 'asdf33g4w4hghjkuil8saef345', // must match with the secret for cookie-parser
-        resave: true,
-        saveUninitialized: true,
-        cookie: {
-            httpOnly: true,
-            expires: cookieExpirationDate // use expires instead of maxAge
-        }
-     } ));
-    
+   
     app.get('/torneos', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/torneo", function (torneos, response) {
             client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
@@ -77,7 +61,10 @@ module.exports = function(app, isAdmin) {
     app.post('/agregarTorneo', isAdmin, function(req, res) {
         var args = {
             data:  req.body ,
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json",
+                      "transfer-encoding": "chunked", 
+                      "Content-Length": Buffer.byteLength(data)
+                     }
         };
         client.post("http://"+cfg.hostname+"/torneo", args, function (data, response) {
             console.log("POST /torneo");
