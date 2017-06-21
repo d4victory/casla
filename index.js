@@ -14,8 +14,14 @@ var express = require("express"),
     Client = require('node-rest-client').Client;
 // paginate        = require('express-paginate');
 
-client = new Client();
+//configuro el cliente REST
+var clientOptions = {ciphers: 'DES-CBC3-SHA'};
+client = new Client(clientOptions);
+
+//configuro Swagger
 var swagger = require('./config/swaggerConfig')(app);
+
+//configuro logger
 var logger = require('./logger');
 
 // Connection to DB
