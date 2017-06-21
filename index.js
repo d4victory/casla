@@ -14,7 +14,7 @@ var express = require("express"),
     Client = require('node-rest-client').Client;
 // paginate        = require('express-paginate');
 
-client = new Client(options);
+client = new Client();
 var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
 
@@ -24,10 +24,18 @@ var mongodbUri = cfg.mongo.uri;
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
 
-mongoose.connect(mongodbUri, options);
-var conn = mongoose.connection;  
+mongoose.connect(mongodbUri, options, function (err, res) {
+    if (err) throw err;
+    console.log('Connected to Database:' + cfg.mongo.uri);
+}); 
 
+var conn = mongoose.connection;             
+ 
 conn.on('error', console.error.bind(console, 'connection error:'));  
+ 
+conn.once('open', function() {
+  // Wait for the database connection to establish, then start the app.                         
+});
 
 //mongoose.connect(cfg.mongo.uri,options, function (err, res) {
 //    if (err) throw err;
