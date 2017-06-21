@@ -62,8 +62,7 @@ module.exports = function(app, isAdmin) {
         var args = {
             data:  req.body ,
             headers: { "Content-Type": "application/json",
-                      "transfer-encoding": "chunked", 
-                      "Content-Length": Buffer.byteLength(data)
+                      "transfer-encoding": "chunked"
                      }
         };
         client.post("http://"+cfg.hostname+"/torneo", args, function (data, response) {
