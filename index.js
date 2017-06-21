@@ -14,7 +14,25 @@ var express         = require("express"),
     Client          = require('node-rest-client').Client;
     // paginate        = require('express-paginate');
 
-client = new Client();
+var options = {
+connection: {
+rejectUnauthorized: false,
+headers: {
+"Content-Type": "application/json"
+}
+},
+requestConfig: {
+timeout: 60000,
+noDelay: true,
+keepAlive: true,
+keepAliveDelay: 1000
+},
+responseConfig: {
+timeout: 300000
+}
+};
+
+client = new Client(options);
 var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
 //var mongojs = require('mongojs');
