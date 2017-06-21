@@ -16,7 +16,6 @@ var express = require("express"),
 
 var options = {
     connection: {
-        secureOptions: constants.SSL_OP_NO_TLSv1_2,
         ciphers: 'ECDHE-RSA-AES256-SHA:AES256-SHA:RC4-SHA:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
         honorCipherOrder: true,
         rejectUnauthorized: false,
