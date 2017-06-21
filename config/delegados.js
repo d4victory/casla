@@ -6,7 +6,7 @@ module.exports = function(app) {
     app.get('/delegado', isDelegado, function(req, res) {
         if (req.user.equipo){
             client.get("http://"+cfg.hostname+"/equipo"+req.user.equipo, function (equipo, response) {
-                client.get"http://"+cfg.hostname+"/division", function (divisiones, response) {
+                client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
                     client.get("http://"+cfg.hostname+"/jugador/equipo/"+req.user.equipo, function (jugadores, response) {
                         res.render('./ejs/delegados/miEquipo.ejs', {user: req.user, equipo:equipo, message: req.flash('loginMessage'),
                             jugadores:jugadores, divisiones:divisiones, resultado: req.session.statusDelete});
