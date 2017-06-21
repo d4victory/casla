@@ -27,6 +27,7 @@ module.exports = function(app) {
 // route middleware to make sure a user is ADMIN
 function isAdmin(req, res, next) {
     console.log("ENTRE AL ISADMIN")
+    console.log("req: "+req)
     // if user is authenticated in the session, carry on 
     if ( (req.isAuthenticated()) && ( (req.user.role == "ADMIN") || (req.user.role == "SUPER_ADMIN"))) // SUPER_ADMIN can access everything
         return next();
