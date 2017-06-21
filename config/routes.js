@@ -19,7 +19,7 @@ module.exports = function(express,app, passport, client, logger) {
 	console.log('le voy a pegar a:'+cfg.hostname+'/division');
 	
 	    //cfg.hostname
-        client.get("mongodb://<dbuser>:<dbpassword>@ds123182.mlab.com:23182/division", function (divisiones, response) {
+        client.get("http://ds123182.mlab.com:23182/division", function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
         });
     });
