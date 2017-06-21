@@ -14,37 +14,25 @@ var express = require("express"),
     Client = require('node-rest-client').Client;
 // paginate        = require('express-paginate');
 
-var options = {
-    connection: {
-        ciphers: 'ECDHE-RSA-AES256-SHA:AES256-SHA:RC4-SHA:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
-        honorCipherOrder: true,
-        rejectUnauthorized: false,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    },
-    requestConfig: {
-        timeout: 60000,
-        noDelay: true,
-        keepAlive: true,
-        keepAliveDelay: 1000
-    },
-    responseConfig: {
-        timeout: 300000
-    }
-};
-
 client = new Client(options);
 var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
 
 // Connection to DB
 var cfg = require('./config');
+var mongodbUri = cfg.mongo.uri;
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
 
-mongoose.connect(cfg.mongo.uri,options, function (err, res) {
-    if (err) throw err;
-    console.log('Connected to Database:' + cfg.mongo.uri);
-});
+mongoose.connect(mongodbUri, options);
+var conn = mongoose.connection;  
+
+conn.on('error', console.error.bind(console, 'connection error:'));  
+
+//mongoose.connect(cfg.mongo.uri,options, function (err, res) {
+//    if (err) throw err;
+//    console.log('Connected to Database:' + cfg.mongo.uri);
+//});
 
 //mongoose.connect('mongodb://localhost/casla', function(err, res) {
 //  if(err) throw err;
