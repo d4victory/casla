@@ -28,7 +28,8 @@ var logger = require('./logger');
 var cfg = require('./config');
 var mongodbUri = cfg.mongo.uri;
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
-                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } },
+                ciphers: 'DES-CBC3-SHA'};
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
