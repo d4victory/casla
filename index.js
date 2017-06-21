@@ -106,7 +106,7 @@ require('./config/routes.js')(express, app, passport, client, logger); // load o
 require('./config/admin')(app);
 require('./config/delegados')(app);
 require('./config/planilleros')(app);
-require('./config/jugadorRoutes')(express,app);
+//require('./config/jugadorRoutes')(express,app);
 
 // Start server
 app.listen(port, function () {
