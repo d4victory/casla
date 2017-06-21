@@ -15,7 +15,7 @@
     "url": "https://github.com/d4victory/casla/issues"
   },
   "engines": {
-    "node": ">=6.x"
+    "node": "6.11.0"
   },
   "dependencies": {
     "autoloader": "^2.1.0",
