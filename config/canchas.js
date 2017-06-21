@@ -4,7 +4,7 @@ module.exports = function(app,isAdmin) {
 
     app.post('/nuevaCancha', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
-        client.get("http://"+cfg.hostname+"/torneo/""+req.body.torneoid, function (torneo, response) {
+        client.get("http://"+cfg.hostname+"/torneo/"+req.body.torneoid, function (torneo, response) {
             res.render('./ejs/canchas/agregarCancha.ejs', {user: req.user, torneo: torneo, divisiones:divisiones, message: req.flash('loginMessage')});
         });
         });
