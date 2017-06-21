@@ -19,9 +19,7 @@ module.exports = function(express,app, passport, client, logger, args) {
 	
         client.get(cfg.mongo.uri+"/division",args, function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
-        }).on('error', function (err) {
-		console.log('something went wrong on the request', err.request.options);
-	});
+        });
 }
 
      //app.get('/test', function(req, res) {
