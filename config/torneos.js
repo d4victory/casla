@@ -4,6 +4,22 @@ module.exports = function(app, isAdmin) {
     
     var cfg = require('../config');
     
+    app.use(cookieParser('asdf33g4w4hghjkuil8saef345')); // cookie parser must use the same secret as express-session.
+
+    const cookieExpirationDate = new Date();
+    const cookieExpirationDays = 365;
+    cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
+
+    app.use(session({
+        secret: 'asdf33g4w4hghjkuil8saef345', // must match with the secret for cookie-parser
+        resave: true,
+        saveUninitialized: true,
+        cookie: {
+            httpOnly: true,
+            expires: cookieExpirationDate // use expires instead of maxAge
+        }
+     } ));
+    
     app.get('/torneos', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/torneo", function (torneos, response) {
             client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
