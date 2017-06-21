@@ -23,20 +23,29 @@ var mongojs = require('mongojs');
 
 //db connection
 var cfg = require('./config');
-var db = mongojs(cfg.mongo.uri);
+//var db = mongojs(cfg.mongo.uri);
 
-db.on('error', function (err) {
-    console.log('database error', err);
-});
+//db.on('error', function (err) {
+//    console.log('database error', err);
+//});
 
-db.on('connect', function () {
-    console.log('database connected: '+cfg.mongo.uri);
-});
+//db.on('connect', function () {
+//    console.log('database connected: '+cfg.mongo.uri);
+//});
 
 //mongoose.connect(cfg.mongo.uri, function(err, res) {
 //  if(err) throw err;
 //  console.log('Connected to Database:'+cfg.mongo.uri);
 //});
+
+mongoose.connect(cfg.mongo.uri, {
+    server: {
+        socketOptions: {
+            socketTimeoutMS: 0,
+            connectTimeoutMS: 0
+        }
+    }
+});
 
 //let db = mongoose.connection;
 //db.on('error', console.error.bind(console, 'connection error:'));
