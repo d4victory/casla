@@ -1,90 +1,51 @@
-var express         = require("express"),
-    app             = express(),
-    methodOverride  = require("method-override"),
-    mongoose        = require('mongoose'),
-    morgan          = require('morgan'),
-    passport        = require('passport'),
-    flash           = require('connect-flash'),
-    cookieParser    = require('cookie-parser'),
-    session         = require('express-session'),
-    bodyParser      = require('body-parser'),
-    config          = require('config'),
-    port            = process.env.PORT || 8080,
-    options         = require("options"),
-    Client          = require('node-rest-client').Client;
-    // paginate        = require('express-paginate');
+var express = require("express"),
+    app = express(),
+    methodOverride = require("method-override"),
+    mongoose = require('mongoose'),
+    morgan = require('morgan'),
+    passport = require('passport'),
+    flash = require('connect-flash'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    bodyParser = require('body-parser'),
+    config = require('config'),
+    port = process.env.PORT || 8080,
+    options = require("options"),
+    Client = require('node-rest-client').Client;
+// paginate        = require('express-paginate');
 
 var options = {
-connection: {
-rejectUnauthorized: false,
-headers: {
-"Content-Type": "application/json"
-}
-},
-requestConfig: {
-timeout: 60000,
-noDelay: true,
-keepAlive: true,
-keepAliveDelay: 1000
-},
-responseConfig: {
-timeout: 300000
-}
+    connection: {
+        secureOptions: constants.SSL_OP_NO_TLSv1_2,
+        ciphers: 'ECDHE-RSA-AES256-SHA:AES256-SHA:RC4-SHA:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+        honorCipherOrder: true,
+        rejectUnauthorized: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    },
+    requestConfig: {
+        timeout: 60000,
+        noDelay: true,
+        keepAlive: true,
+        keepAliveDelay: 1000
+    },
+    responseConfig: {
+        timeout: 300000
+    }
 };
 
 client = new Client(options);
 var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
-//var mongojs = require('mongojs');
 
 // Connection to DB
-var clientArgs = {
-    requestConfig: {
-        timeout: 5000, //request timeout in milliseconds 
-        noDelay: true, //Enable/disable the Nagle algorithm 
-        keepAlive: true, //Enable/disable keep-alive functionalityidle socket. 
-        keepAliveDelay: 5000 //and optionally set the initial delay before the first keepalive probe is sent 
-    },
-    responseConfig: {
-        timeout: 5000 //response timeout 
-    }
-};
-
-
-//db connection
 var cfg = require('./config');
-//var db = mongojs(cfg.mongo.uri);
 
-//db.on('error', function (err) {
-//    console.log('database error', err);
-//});
-
-//db.on('connect', function () {
-//    console.log('database connected: '+cfg.mongo.uri);
-//});
-
-//mongoose.connect(cfg.mongo.uri, function(err, res) {
-//  if(err) throw err;
-//  console.log('Connected to Database:'+cfg.mongo.uri);
-//});
-
-mongoose.connect(cfg.mongo.uri, {
-    server: {
-        socketOptions: {
-            socketTimeoutMS: 0,
-            connectTimeoutMS: 0
-        }
-    }
+mongoose.connect(cfg.mongo.uri,options, function (err, res) {
+    if (err) throw err;
+    console.log('Connected to Database:' + cfg.mongo.uri);
 });
-
-//let db = mongoose.connection;
-//db.on('error', console.error.bind(console, 'connection error:'));
-
-//don't show the log when it is test
-//if(config.util.getEnv('NODE_ENV') !== 'test') {
-//    //use morgan to log at command line
-//    app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
-//}
 
 //mongoose.connect('mongodb://localhost/casla', function(err, res) {
 //  if(err) throw err;
@@ -92,7 +53,7 @@ mongoose.connect(cfg.mongo.uri, {
 //});
 
 
-require('./config/passport')(passport,logger); // pass passport for configuration
+require('./config/passport')(passport, logger); // pass passport for configuration
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
@@ -101,26 +62,26 @@ app.use(bodyParser()); // get information from html forms
 
 app.set('views', __dirname + "/views");
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname+'/views'));
+app.use(express.static(__dirname + '/views'));
 
 // required for passport
-app.use(session({ secret: 'lancha-dante' })); // session secret
+app.use(session({secret: 'lancha-dante'})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-var models   = require('./models/includingModels')(app, mongoose);
+var models = require('./models/includingModels')(app, mongoose);
 
 // routes ======================================================================
-require('./config/routes.js')(express,app, passport,client, logger,clientArgs); // load our routes and pass in our app and fully configured passport
+require('./config/routes.js')(express, app, passport, client, logger); // load our routes and pass in our app and fully configured passport
 //require('./config/admin')(app);
 //require('./config/delegados')(app);
 //require('./config/planilleros')(app);
 //require('./config/jugadorRoutes')(express,app);
 
 // Start server
-app.listen(port, function() {
-  console.log(process.version)
-  logger.info("Node server running on port:"+port);
-  logger.debug('Debugging info');
+app.listen(port, function () {
+    console.log(process.version)
+    logger.info("Node server running on port:" + port);
+    logger.debug('Debugging info');
 });

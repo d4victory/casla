@@ -2,14 +2,6 @@
   "name": "casla",
   "version": "1.0.0",
   "description": "Web para el torneo de socios de SL",
-  "keywords": [
-    "express",
-    "mongoose",
-    "mongodb",
-    "passport",
-    "demo"
-  ],
-  "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },

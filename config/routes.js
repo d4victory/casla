@@ -1,4 +1,4 @@
-module.exports = function(express,app, passport, client, logger, args) {
+module.exports = function(express,app, passport, client, logger) {
 
     require('../RESTServices/jugadorRESTService')(express,app);
     require('../RESTServices/torneoRESTService')(express,app);
@@ -17,7 +17,7 @@ module.exports = function(express,app, passport, client, logger, args) {
     app.get('/', function(req, res) {
 	console.log('estoy en home page');
 	
-        client.get(cfg.mongo.uri+"/division",args, function (divisiones, response) {
+        client.get(cfg.mongo.uri+"/division", function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
         });
     });
