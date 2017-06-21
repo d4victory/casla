@@ -15,6 +15,7 @@ var express = require("express"),
 // paginate        = require('express-paginate');
 
 //configuro el cliente REST
+/*
 var clientOptions = {
     // proxy configuration 
     proxy: {
@@ -47,8 +48,8 @@ var clientOptions = {
         timeout: 5000 //response timeout 
     }
 };
-
-client = new Client(clientOptions);
+*/
+client = new Client();
 
 //configuro Swagger
 var swagger = require('./config/swaggerConfig')(app);
