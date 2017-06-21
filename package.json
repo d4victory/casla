@@ -15,7 +15,7 @@
     "url": "https://github.com/d4victory/casla/issues"
   },
   "engines": {
-    "node": "6.11.0"
+    "node": "8.1.2"
   },
   "dependencies": {
     "autoloader": "^2.1.0",
@@ -28,7 +28,7 @@
     "config":"1.26.1",
     "dotenv": "~4.0.0",
     "ejs": "~0.8.5",
-    "express": "^4.7.1",
+    "express": "^4.15.3",
     "express-paginate": "^0.2.2",
     "express-session": "~1.0.0",
     "fs": "0.0.1-security",
@@ -41,7 +41,7 @@
     "mongoose-paginate": "^5.0.3",
     "morgan": "~1.0.0",
     "multer": "^1.3.0",
-    "node-rest-client": "^3.1.0",
+    "node-rest-client": "3.0.0",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
     "passport-github": "~1.1.0",
