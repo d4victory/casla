@@ -69,7 +69,7 @@ db.once('open', function() {
     console.log('connection with database: ' + mongodbUri + ' was successfully.');
 });
 
-mongoose.connect(mongodbUri, options);
+mongoose.connect(mongodbUri, { useMongooseUri: true});
 
 //mongoose.connect(cfg.mongo.uri,options, function (err, res) {
 //    if (err) throw err;
