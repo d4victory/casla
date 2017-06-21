@@ -18,7 +18,7 @@ module.exports = function(express,app, passport, client, logger) {
 	console.log('estoy en home page');
 	
 	    //cfg.mongo.uri
-        client.get(cfg.mongo.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.hostname+"/division", function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
         });
     });
