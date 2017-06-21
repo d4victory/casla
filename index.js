@@ -17,15 +17,26 @@ var express         = require("express"),
 client = new Client();
 var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
+var mongojs = require('mongojs');
 
 // Connection to DB
 
 //db connection
 var cfg = require('./config');
-mongoose.connect(cfg.mongo.uri, function(err, res) {
-  if(err) throw err;
-  console.log('Connected to Database:'+cfg.mongo.uri);
+var db = mongojs(cfg.mongo.uri);
+
+db.on('error', function (err) {
+    console.log('database error', err);
 });
+
+db.on('connect', function () {
+    console.log('database connected: '+cfg.mongo.uri);
+});
+
+//mongoose.connect(cfg.mongo.uri, function(err, res) {
+//  if(err) throw err;
+//  console.log('Connected to Database:'+cfg.mongo.uri);
+//});
 
 //let db = mongoose.connection;
 //db.on('error', console.error.bind(console, 'connection error:'));
