@@ -20,6 +20,18 @@ var logger = require('./logger');
 //var mongojs = require('mongojs');
 
 // Connection to DB
+var clientArgs = {
+    requestConfig: {
+        timeout: 5000, //request timeout in milliseconds 
+        noDelay: true, //Enable/disable the Nagle algorithm 
+        keepAlive: true, //Enable/disable keep-alive functionalityidle socket. 
+        keepAliveDelay: 5000 //and optionally set the initial delay before the first keepalive probe is sent 
+    },
+    responseConfig: {
+        timeout: 5000 //response timeout 
+    }
+};
+
 
 //db connection
 var cfg = require('./config');
@@ -82,7 +94,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 var models   = require('./models/includingModels')(app, mongoose);
 
 // routes ======================================================================
-require('./config/routes.js')(express,app, passport,client, logger); // load our routes and pass in our app and fully configured passport
+require('./config/routes.js')(express,app, passport,client, logger,clientArgs); // load our routes and pass in our app and fully configured passport
 //require('./config/admin')(app);
 //require('./config/delegados')(app);
 //require('./config/planilleros')(app);
