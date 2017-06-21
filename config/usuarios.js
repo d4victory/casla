@@ -1,8 +1,11 @@
 module.exports = function(app,isAdmin) {
+    
+    var cfg = require('../config');
+    
     app.get('/usuarios', isAdmin, function(req, res) {
-        client.get("http://localhost:3000/user/notAdmins", function (data, response) {
-            client.get("http://localhost:3000/division", function (divisiones, response) {
-                client.get("http://localhost:3000/equipo", function (equipos, response) {
+        client.get("http://"+cfg.hostname+"/user/notAdmins", function (data, response) {
+            client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+                client.get("http://"+cfg.hostname+"/equipo", function (equipos, response) {
                     var equiposMap =  {};
                     for (var i = 0; i < equipos.length; i++) {
                         equiposMap[equipos[i]._id] = equipos[i].nombre;
@@ -24,13 +27,13 @@ module.exports = function(app,isAdmin) {
     });
 
     app.get('/agregarUsuarios', isAdmin, function(req, res) {
-        client.get("http://localhost:3000/division", function (divisiones, response) {
+        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
             res.render('./ejs/usuarios/agregarUsuarios.ejs', {user: req.user,divisiones:divisiones, message: req.flash('loginMessage')});
         });
     });
 
     app.post('/deleteUser', isAdmin, function(req, res) {
-        client.delete("http://localhost:3000/user/"+req.body.userid, function (data, response) {
+        client.delete("http://"+cfg.hostname+"/user/"+req.body.userid, function (data, response) {
             console.log("DELETE /user/"+req.body.userid);
             req.session.statusDelete = response.statusCode;
             res.redirect('/usuarios');
@@ -42,7 +45,7 @@ module.exports = function(app,isAdmin) {
             data:  req.body ,
             headers: { "Content-Type": "application/json" }
         };
-        client.put("http://localhost:3000/user/"+req.body.userid, args, function (data, response) {
+        client.put("http://"+cfg.hostname+"/user/"+req.body.userid, args, function (data, response) {
             console.log("PUT /user/"+req.body.userid);
             req.session.statusDelete = response.statusCode;
             res.redirect('/usuarios');
