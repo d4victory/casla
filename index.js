@@ -17,7 +17,7 @@ var express         = require("express"),
 client = new Client();
 var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
-var mongojs = require('mongojs');
+//var mongojs = require('mongojs');
 
 // Connection to DB
 
