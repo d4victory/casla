@@ -27,7 +27,7 @@ var clientOptions = {
     // (ie: options to connect to IIS with SSL)	 
     connection: {
         //secureOptions: constants.SSL_OP_NO_TLSv1_2,
-        ciphers: 'DES-CBC3-SHA'
+        ciphers: 'ECDHE-RSA-AES256-SHA:AES256-SHA:RC4-SHA:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM'
         //honorCipherOrder: true
     },
     // will replace content-types used to match responses in JSON and XML parsers 
