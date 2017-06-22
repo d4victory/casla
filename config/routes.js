@@ -16,6 +16,8 @@ module.exports = function(express,app, passport, client, logger) {
     // =====================================
     app.get('/', function(req, res) {	
 	    //cfg.hostname
+	    
+	    console.log("VER ACA ROUTES:"+"    http://"+cfg.hostname+"/division");
         client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
             res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
         });
