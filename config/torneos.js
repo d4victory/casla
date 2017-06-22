@@ -73,7 +73,7 @@ module.exports = function(app, isAdmin) {
             }
         };
         
-        client.post("http://"+cfg.hostname+"/torneo", args, function (data, response) {
+        client.post("http://"+cfg.hostname+"/torneo/", args, function (data, response) {
             console.log("POST /torneo");
             res.redirect('/torneos');
         });
