@@ -129,7 +129,7 @@ exports.addTorneo = function(req, res) {
 	torneo.save(function(err, torneo) {
 		if(err) return res.send(500, err.message);
 		logger.info(req.user+" ha agregado un nuevo torneo: "+torneo.nombre+". Jugadores por equipo: "+torneo.jugadores_por_equipo);
-    	res.status(200).jsonp(torneo);
+    	res.status(200).jsonp(torneo).end();
 	});
 };
 
