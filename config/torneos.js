@@ -61,16 +61,16 @@ module.exports = function(app, isAdmin) {
     app.post('/agregarTorneo', isAdmin, function(req, res) {
         var args = {
             data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-            //requestConfig: {
-            //    timeout: 1000, //request timeout in milliseconds 
-            //    noDelay: true, //Enable/disable the Nagle algorithm 
-            //    keepAlive: true, //Enable/disable keep-alive functionalityidle socket. 
-             //   keepAliveDelay: 1000 //and optionally set the initial delay before the first keepalive probe is sent 
-            //},
-            //responseConfig: {
-              //  timeout: 1000 //response timeout 
-            //}
+            headers: { "Content-Type": "application/json" },
+            requestConfig: {
+                timeout: 50000, //request timeout in milliseconds 
+                noDelay: true, //Enable/disable the Nagle algorithm 
+                keepAlive: true, //Enable/disable keep-alive functionalityidle socket. 
+                keepAliveDelay: 50000 //and optionally set the initial delay before the first keepalive probe is sent 
+            },
+            responseConfig: {
+                timeout: 50000 //response timeout 
+            }
         };
         
         console.log("VER ACA"+     "https://"+cfg.hostname+"/torneo"+args);
