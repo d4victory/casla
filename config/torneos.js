@@ -73,8 +73,8 @@ module.exports = function(app, isAdmin) {
             //}
         };
         
-        console.log("VER ACA"+     "http://"+cfg.hostname+"/torneo"+args);
-        client.post("http://"+cfg.hostname+"/torneo", args, function (data, response) {
+        console.log("VER ACA"+     "https://"+cfg.hostname+"/torneo"+args);
+        client.post("https://"+cfg.hostname+"/torneo", args, function (data, response) {
             console.log("POST /torneo");
             res.redirect('/torneos');
         });
