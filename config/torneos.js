@@ -62,7 +62,7 @@ module.exports = function(app, isAdmin) {
         var args = {
             data:  req.body ,
             headers: { "Content-Type": "application/json",
-                     "Content-Length": Buffer.byteLength(data)},
+                     "Content-Length": Buffer.byteLength(args.data)},
             requestConfig: {
                 timeout: 50000, //request timeout in milliseconds 
                 noDelay: true, //Enable/disable the Nagle algorithm 
