@@ -61,7 +61,8 @@ module.exports = function(app, isAdmin) {
     app.post('/agregarTorneo', isAdmin, function(req, res) {
         var args = {
             data:  req.body ,
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                     "Content-Length": Buffer.byteLength(data)},
             requestConfig: {
                 timeout: 50000, //request timeout in milliseconds 
                 noDelay: true, //Enable/disable the Nagle algorithm 
