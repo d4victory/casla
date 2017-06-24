@@ -74,10 +74,14 @@ module.exports = function(app, isAdmin) {
         };
         
         console.log("VER ACA"+     "https://"+cfg.hostname+"/torneo"+args);
-        client.post("http://"+cfg.hostname+"/torneo",args, function (data, response) {
-            console.log("POST /torneo");
-            res.redirect('/torneos');
-        });
+        try {
+            client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
+                console.log("POST /torneo");
+                res.redirect('/torneos');
+            });
+        } catch (err) {
+            console.log(err)
+        }
     });
 
     app.post('/deleteTorneo', isAdmin, function(req, res) {
