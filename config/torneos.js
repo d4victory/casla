@@ -66,10 +66,11 @@ module.exports = function(app, isAdmin) {
             headers: { "Content-Type": "application/json"}
         };
         
-        console.log("VER ACA "+"https://"+cfg.hostname+"/torneo"+args);
+        console.log("VER ACA "+"https://" + cfg.hostname + "/torneo"+args);
         try {
             client.post("https://" + cfg.hostname + "/torneo", args, function (data, response) {
                 console.log("POST /torneo");
+                console.log(response.toString())
                 res.redirect('/torneos');
             });
         } catch (err) {
