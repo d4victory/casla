@@ -125,12 +125,20 @@ exports.addTorneo = function(req, res) {
 		jugadores_por_equipo: 	req.body.jugadores_por_equipo,
 		activo: 				true //por defecto sera activo
 	});
-
-	torneo.save(function(err, torneo) {
-		if(err) return res.send(500, err.message);
-		logger.info(req.user+" ha agregado un nuevo torneo: "+torneo.nombre+". Jugadores por equipo: "+torneo.jugadores_por_equipo);
-    	res.status(200).jsonp(torneo).end();
-	});
+	try {
+        torneo.save(function (err, torneo) {
+         try{
+             console.log(err);
+            if (err) return res.send(500, err.message);
+            logger.info(req.user + " ha agregado un nuevo torneo: " + torneo.nombre + ". Jugadores por equipo: " + torneo.jugadores_por_equipo);
+            res.status(200).jsonp(torneo).end();
+        }catch (err)	{
+            console.log(err);
+        }
+        });
+    }catch (err)	{
+            console.log(err);
+    }
 };
 
 //PUT - Update a register already exists
