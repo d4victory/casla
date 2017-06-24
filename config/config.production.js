@@ -4,7 +4,7 @@ config.env = 'production';
 
 config.mongo.dbUsername = 'copaviejogasometro'
 config.mongo.dbPassword = 'Ka1438657'
-config.hostname = 'keroku-casla.herokuapp.com';
+config.hostname = 'ds123182.mlab.com:23182';
 config.mongo.db = 'casla';
 
 config.mongo.uri = 'mongodb://'+config.mongo.dbUsername+':'+config.mongo.dbPassword+'@'+config.hostname+'/'+config.mongo.db;

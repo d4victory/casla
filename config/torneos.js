@@ -2,8 +2,10 @@ var moment = require('moment');
 
 module.exports = function(app, isAdmin) {
     
-    var cfg = require('../config');
-   
+    // var cfg = require('../config');
+
+    var cfg = {hostname : 'keroku-casla.herokuapp.com'}
+
     app.get('/torneos', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/torneo", function (torneos, response) {
             client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
