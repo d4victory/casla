@@ -76,6 +76,7 @@ module.exports = function(app, isAdmin) {
         } catch (err) {
             console.log(err)
         }
+        res.redirect('/torneos');
     });
 
     app.post('/deleteTorneo', isAdmin, function(req, res) {
