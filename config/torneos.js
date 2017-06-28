@@ -71,12 +71,11 @@ module.exports = function(app, isAdmin) {
             client.post("https://" + cfg.hostname + "/torneo", args, function (data, response) {
                 console.log("POST /torneo");
                 console.log(response.toString())
-                res.redirect('/torneos');
             });
         } catch (err) {
             console.log(err)
         }
-        res.writeHead(response.toString());
+        res.redirect('/torneos');
     });
 
     app.post('/deleteTorneo', isAdmin, function(req, res) {
