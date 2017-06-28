@@ -71,6 +71,8 @@ module.exports = function(app, isAdmin) {
             client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
                 console.log("POST /torneo");
                 console.log('response statusCode:' + response.statusCode);
+                res.writeHead(200);
+                res.redirect('/torneos');
             });
          
         } catch (err) {
