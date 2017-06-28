@@ -77,6 +77,7 @@ module.exports = function(app, isAdmin) {
                 console.log('parsed response body as js object' + data);
                 // raw response 
                 console.log('raw response ' + response);
+                res.redirect('/torneos');
             });
             
             req.on('requestTimeout', function (req) {
@@ -96,7 +97,7 @@ module.exports = function(app, isAdmin) {
         } catch (err) {
             console.log(err)
         }
-        res.redirect('/torneos');
+        
     });
 
     app.post('/deleteTorneo', isAdmin, function(req, res) {
