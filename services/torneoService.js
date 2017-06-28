@@ -136,7 +136,6 @@ exports.addTorneo = function(req, res) {
             console.log(err);
         }
         });
-		res.redirect('/torneos');
     }catch (err)	{
             console.log(err);
     }
