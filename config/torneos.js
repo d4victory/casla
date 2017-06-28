@@ -70,7 +70,7 @@ module.exports = function(app, isAdmin) {
         try {
             client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
                 console.log("POST /torneo");
-                console.log(response.toString())
+                console.log('response statusCode:' + response.statusCode);
             });
         } catch (err) {
             console.log(err)
