@@ -61,6 +61,7 @@ module.exports = function(app, isAdmin) {
     });
 
     app.post('/agregarTorneo', isAdmin, function(req, res) {
+        res.setHeader('Content-Type', 'application/json');
         var args = {
             data:  req.body ,
             headers: { "Content-Type": "application/json"}
