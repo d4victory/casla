@@ -68,9 +68,30 @@ module.exports = function(app, isAdmin) {
         
         console.log("VER ACA "+"https://" + cfg.hostname + "/torneo"+args);
         try {
-            client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
-                console.log("POST /torneo");
-                console.log('response statusCode:' + response.statusCode);
+            //client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
+              //  console.log("POST /torneo");
+               // console.log('response statusCode:' + response.statusCode);
+            //});
+            var req = client.post("http://keroku-casla.herokuapp.com/torneo",args,function(data, response){
+                // parsed response body as js object 
+                console.log(data);
+                // raw response 
+                console.log(response);
+            });
+            
+            req.on('requestTimeout', function (req) {
+                console.log('request has expired');
+                req.abort();
+            });
+ 
+            req.on('responseTimeout', function (res) {
+                console.log('response has expired');
+
+            });
+
+            //it's usefull to handle request errors to avoid, for example, socket hang up errors on request timeouts 
+            req.on('error', function (err) {
+                console.log('request error', err);
             });
         } catch (err) {
             console.log(err)
