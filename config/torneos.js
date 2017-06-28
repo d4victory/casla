@@ -74,9 +74,9 @@ module.exports = function(app, isAdmin) {
             //});
             var req = client.post("http://keroku-casla.herokuapp.com/torneo",args,function(data, response){
                 // parsed response body as js object 
-                console.log(data);
+                console.log('parsed response body as js object' + data);
                 // raw response 
-                console.log(response);
+                console.log('raw response ' + response);
             });
             
             req.on('requestTimeout', function (req) {
