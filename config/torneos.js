@@ -68,7 +68,7 @@ module.exports = function(app, isAdmin) {
         
         console.log("VER ACA "+"https://" + cfg.hostname + "/torneo"+args);
         try {
-            client.post("https://" + cfg.hostname + "/torneo", args, function (data, response) {
+            client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
                 console.log("POST /torneo");
                 console.log(response.toString())
             });
