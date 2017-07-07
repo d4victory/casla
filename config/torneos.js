@@ -65,7 +65,7 @@ module.exports = function(app, isAdmin) {
         var args = {
             data:  req.body ,
             headers: { "Content-Type": "application/json",
-                       "Host": keroku-casla.herokuapp.com}
+                       "Host": "keroku-casla.herokuapp.com"}
         };
         
         console.log("VER ACA "+"https://" + cfg.hostname + "/torneo"+args);
