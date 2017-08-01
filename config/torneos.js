@@ -101,10 +101,7 @@ module.exports = function (app, isAdmin) {
                 console.log("POST /torneo");
                 console.log('response statusCode:' + response.statusCode);
                 res.redirect('/torneos');
-            }.fail(function (err) {
-                console.error(err);
-                response.error(err)
-            }));
+            });
         } catch (err) {
             console.log(err)
         }
