@@ -1,5 +1,4 @@
 var moment = require('moment');
-//var MongoClient = require('mongodb').MongoClient;
 
 module.exports = function (app, isAdmin) {
 
@@ -108,33 +107,6 @@ module.exports = function (app, isAdmin) {
         }
 
     });
-
-    // var url = "https://" + cfg.hostname + "/torneo";
-    // //Establish Connection
-    // MongoClient.connect('mongodb://copaviejogasometro:Ka1438657@ds123182.mlab.com:23182/casla', function (err, database) {
-    //     if (err)
-    //         throw err
-    //     else
-    //     {
-    //         db = database;
-    //         console.log('Connected to MongoDB');
-    //         //Start app only after connection is ready
-    //         app.listen(3000);
-    //     }
-    // });
-    //
-    // app.post('/agregarTorneo', isAdmin, function (req, res) {
-    //     // Insert JSON straight into MongoDB
-    //     db.collection('torneos').insert(req.body, function (err, result) {
-    //         if (err)
-    //             res.send('Error');
-    //         else
-    //             res.send('Success');
-    //     });
-    // });
-
-
-
 
     app.post('/deleteTorneo', isAdmin, function (req, res) {
         client.delete("http://" + cfg.hostname + "/torneo/" + req.body.torneoid, function (data, response) {
