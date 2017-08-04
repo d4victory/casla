@@ -1,5 +1,5 @@
 var moment = require('moment');
-var MongoClient = require('mongodb').MongoClient;
+//var MongoClient = require('mongodb').MongoClient;
 
 module.exports = function (app, isAdmin) {
 
@@ -86,52 +86,52 @@ module.exports = function (app, isAdmin) {
         });
     });
 
-    // app.post('/agregarTorneo', isAdmin, function (req, res) {
-    //     //res.setHeader('Content-Type', 'application/json');
-    //     var args = {
-    //         data: req.body,
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Host": "keroku-casla.herokuapp.com"
-    //         }
-    //     };
-    //
-    //     console.log("VER ACA " + "https://" + cfg.hostname + "/torneo" + args);
-    //     try {
-    //         client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
-    //             console.log("POST /torneo");
-    //             console.log('response statusCode:' + response.statusCode);
-    //             res.redirect('/torneos');
-    //         });
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    //
-    // });
-
-    var url = "https://" + cfg.hostname + "/torneo";
-    //Establish Connection
-    MongoClient.connect('mongodb://copaviejogasometro:Ka1438657@ds123182.mlab.com:23182/casla', function (err, database) {
-        if (err)
-            throw err
-        else
-        {
-            db = database;
-            console.log('Connected to MongoDB');
-            //Start app only after connection is ready
-            app.listen(3000);
-        }
-    });
-
     app.post('/agregarTorneo', isAdmin, function (req, res) {
-        // Insert JSON straight into MongoDB
-        db.collection('torneos').insert(req.body, function (err, result) {
-            if (err)
-                res.send('Error');
-            else
-                res.send('Success');
-        });
+        //res.setHeader('Content-Type', 'application/json');
+        var args = {
+            data: req.body,
+            headers: {
+                "Content-Type": "application/json",
+                "Host": "keroku-casla.herokuapp.com"
+            }
+        };
+
+        console.log("VER ACA " + "https://" + cfg.hostname + "/torneo" + args);
+        try {
+            client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
+                console.log("POST /torneo");
+                console.log('response statusCode:' + response.statusCode);
+                res.redirect('/torneos');
+            });
+        } catch (err) {
+            console.log(err)
+        }
+
     });
+
+    // var url = "https://" + cfg.hostname + "/torneo";
+    // //Establish Connection
+    // MongoClient.connect('mongodb://copaviejogasometro:Ka1438657@ds123182.mlab.com:23182/casla', function (err, database) {
+    //     if (err)
+    //         throw err
+    //     else
+    //     {
+    //         db = database;
+    //         console.log('Connected to MongoDB');
+    //         //Start app only after connection is ready
+    //         app.listen(3000);
+    //     }
+    // });
+    //
+    // app.post('/agregarTorneo', isAdmin, function (req, res) {
+    //     // Insert JSON straight into MongoDB
+    //     db.collection('torneos').insert(req.body, function (err, result) {
+    //         if (err)
+    //             res.send('Error');
+    //         else
+    //             res.send('Success');
+    //     });
+    // });
 
 
 
