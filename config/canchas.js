@@ -1,6 +1,6 @@
+var cfg = require('config');
+
 module.exports = function(app,isAdmin) {
-    
-    var cfg = require('../config');
 
     app.post('/nuevaCancha', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
@@ -38,6 +38,6 @@ module.exports = function(app,isAdmin) {
     //    client.delete("http://localhost:3000/division/"+req.body.divisionid, function (data, response) {
     //        req.session.statusDelete = response.statusCode;
     //        res.redirect('/divisionesDelTorneo?torneoid='+data);
-    //    });  
+    //    });
     //});
 }

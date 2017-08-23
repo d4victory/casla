@@ -1,7 +1,7 @@
 var moment = require('moment');
+var cfg = require('config');
 
 module.exports = function(app) {
-    var cfg = require('../config');
 
     app.get('/delegado', isDelegado, function(req, res) {
         if (req.user.equipo){

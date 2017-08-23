@@ -1,7 +1,7 @@
+var cfg = require('config');
+
 module.exports = function(app) {
-    
-    var cfg = require('../config');
-    
+
     app.get('/posicionesDeLaDivision/', function(req, res) {
         client.get("http://"+cfg.hostname+"/posicionEquipo/division/"+req.query.divisionid, function (posicionEquipo, response) {
             client.get("http://"+cfg.hostname+"/division/", function (divisiones, response) {

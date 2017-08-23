@@ -1,6 +1,6 @@
+var cfg = require('config');
+
 module.exports = function(app,isAdmin) {
-    
-    var cfg = require('../config');
 
     app.post('/nuevaDivision', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {

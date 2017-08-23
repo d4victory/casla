@@ -1,7 +1,7 @@
+var cfg = require('config');
+
 module.exports = function(app,isAdmin) {
-    
-    var cfg = require('../config');
-    
+
     app.get('/usuarios', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/user/notAdmins", function (data, response) {
             client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {

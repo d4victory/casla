@@ -1,3 +1,8 @@
+// Setup node-config to read env configs from '/config/environments'
+var path = require ('path');
+process.env.NODE_CONFIG_DIR = path.join(__dirname, '/config/environments');
+
+
 var express = require("express"),
     app = express(),
     methodOverride = require("method-override"),
@@ -50,10 +55,18 @@ var clientOptions = {
 };
 */
 
+console.log(config)
+console.log(config.hostname)
+console.log(config.mongo)
+console.log(config.db)
+console.log(config.hola)
+
 client = new Client({
   proxy: {
     host: config.hostname,
-    port
+    port: port,
+    // user: config.mongo.dbUsername,
+    // password: config.mongo.dbPassword
   },
 });
 
@@ -64,8 +77,6 @@ var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
 
 // Connection to DB
-var cfg = require('./config');
-var mongodbUri = cfg.mongo.uri;
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } },
                 ciphers: 'DES-CBC3-SHA'};
@@ -73,10 +84,10 @@ var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function() {
-    console.log('connection with database: ' + mongodbUri + ' was successfully.');
+    console.log('connection with database: ' + config.mongo.uri + ' was successfully.');
 });
 
-mongoose.connect(mongodbUri, { useMongooseUri: true});
+mongoose.connect(config.mongo.uri, { useMongooseUri: true});
 
 //mongoose.connect(cfg.mongo.uri,options, function (err, res) {
 //    if (err) throw err;
@@ -87,7 +98,6 @@ mongoose.connect(mongodbUri, { useMongooseUri: true});
 //  if(err) throw err;
 //  console.log('Connected to Database');
 //});
-
 
 require('./config/passport')(passport, logger); // pass passport for configuration
 

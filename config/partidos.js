@@ -1,9 +1,8 @@
 // var moment = require('moment');
+var cfg = require('config');
 
 module.exports = function(app,isAdmin) {
-    
-    var cfg = require('../config');
-    
+
     app.get('/partidos', isAdmin, function(req, res) {
         client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
             client.get("http://"+cfg.hostname+"/partido/numeros_fechas", function (numeros_fechas, response) {

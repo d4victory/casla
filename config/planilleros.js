@@ -1,9 +1,8 @@
 //var moment = require('moment');
+var cfg = require('config');
 
 module.exports = function(app) {
-    
-    var cfg = require('../config');
-    
+
     app.get('/planillero', isPlanillero, function(req, res) {
         client.get("http://"+cfg.hostname+"/partido/estado/N.E", function (partidos, response) {
             client.get("http://"+cfg.hostname+"/equipo", function (equipos, response) {
@@ -76,7 +75,7 @@ module.exports = function(app) {
 // route middleware to make sure a user is logged in (DELEGADO)
 function isPlanillero(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if ((req.isAuthenticated()) && ( (req.user.role == "PLANILLERO") || (req.user.role == "ADMIN") ||(req.user.role == "SUPER_ADMIN")))
         return next();
 
