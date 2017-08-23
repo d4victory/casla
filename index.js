@@ -17,39 +17,45 @@ var express = require("express"),
 //configuro el cliente REST
 /*
 var clientOptions = {
-    // proxy configuration 
+    // proxy configuration
     proxy: {
-        host: "ds123182.mlab.com", // proxy host 
-        port: 23182, // proxy port 
-        user: "copaviejogasometro", // proxy username if required 
-        password: "Ka1438657" // proxy pass if required 
+        host: "ds123182.mlab.com", // proxy host
+        port: 23182, // proxy port
+        user: "copaviejogasometro", // proxy username if required
+        password: "Ka1438657" // proxy pass if required
     },
-    // aditional connection options passed to node http.request y https.request methods  
-    // (ie: options to connect to IIS with SSL)	 
+    // aditional connection options passed to node http.request y https.request methods
+    // (ie: options to connect to IIS with SSL)
     connection: {
         //secureOptions: constants.SSL_OP_NO_TLSv1_2,
         ciphers: 'ECDHE-RSA-AES256-SHA:AES256-SHA:RC4-SHA:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM'
         //honorCipherOrder: true
     },
-    // will replace content-types used to match responses in JSON and XML parsers 
+    // will replace content-types used to match responses in JSON and XML parsers
     mimetypes: {
         json: ["application/json", "application/json;charset=utf-8"],
         xml: ["application/xml", "application/xml;charset=utf-8"]
     },
-    //user: "admin", // basic http auth username if required 
-    //password: "123", // basic http auth password if required 
+    //user: "admin", // basic http auth username if required
+    //password: "123", // basic http auth password if required
     requestConfig: {
-        timeout: 5000, //request timeout in milliseconds 
-        noDelay: true, //Enable/disable the Nagle algorithm 
-        keepAlive: true, //Enable/disable keep-alive functionalityidle socket. 
-        keepAliveDelay: 5000 //and optionally set the initial delay before the first keepalive probe is sent 
+        timeout: 5000, //request timeout in milliseconds
+        noDelay: true, //Enable/disable the Nagle algorithm
+        keepAlive: true, //Enable/disable keep-alive functionalityidle socket.
+        keepAliveDelay: 5000 //and optionally set the initial delay before the first keepalive probe is sent
     },
     responseConfig: {
-        timeout: 5000 //response timeout 
+        timeout: 5000 //response timeout
     }
 };
 */
-client = new Client();
+
+client = new Client({
+  proxy: {
+    host: config.hostname,
+    port
+  },
+});
 
 //configuro Swagger
 var swagger = require('./config/swaggerConfig')(app);
@@ -60,7 +66,7 @@ var logger = require('./logger');
 // Connection to DB
 var cfg = require('./config');
 var mongodbUri = cfg.mongo.uri;
-var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } },
                 ciphers: 'DES-CBC3-SHA'};
 

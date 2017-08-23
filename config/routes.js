@@ -10,17 +10,15 @@ module.exports = function(express,app, passport, client, logger) {
     require('../RESTServices/partidoRESTService')(express,app);
     require('../RESTServices/posicionEquipoRESTService')(express,app);
     var cfg = require('../config');
-	
+
 	// =====================================
     // HOME PAGE (with login links) ========
     // =====================================
-    app.get('/', function(req, res) {	
-	    //cfg.hostname
-	    
-	    console.log("VER ACA ROUTES:"+"    http://"+cfg.hostname+"/division");
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
-            res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
-        });
+    app.get('/', function(req, res) {
+      console.log(`VER ACA ROUTES:    http://${cfg.hostname}/division`);
+      client.get(`http://${cfg.hostname}/division`, function (divisiones, response) {
+        res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
+      });
     });
 
 
@@ -59,7 +57,7 @@ module.exports = function(express,app, passport, client, logger) {
     app.get('/logout', function(req, res) {
         req.session.destroy(function (err) {
             res.clearCookie('connect.sid');
-           res.redirect('/'); 
+           res.redirect('/');
         });
     });
 
@@ -119,16 +117,16 @@ module.exports = function(express,app, passport, client, logger) {
        //  client.get("http://"+cfg.hostname+"/division"+req.query.divisionId, function (division, response) {
          //    res.render('./ejs/divisiones/posicionesDeLaDivision.ejs', {user: req.user, division: division, message: req.flash('loginMessage')});
          //});
-    
+
    //  });
-    
+
 
 }
 
 // route middleware to make sure a user is logged in (DELEGADO)
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 
@@ -139,8 +137,8 @@ function isLoggedIn(req, res, next) {
 // route middleware to make sure a user is logged in (DELEGADO)
 function isPlanillero(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
-    if ((req.isAuthenticated()) && ( (req.user.role == "PLANILLERO") || (req.user.role == "SUPER_ADMIN"))) 
+    // if user is authenticated in the session, carry on
+    if ((req.isAuthenticated()) && ( (req.user.role == "PLANILLERO") || (req.user.role == "SUPER_ADMIN")))
         return next();
 
     // if they aren't redirect them to the home page
@@ -156,7 +154,7 @@ function isUser(req, res, next) {
 // route middleware to make sure a user is SUPER_ADMIN
 function isSuperAdmin(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if ( (req.isAuthenticated()) && (req.user.role == "SUPER_ADMIN"))
         return next();
 
