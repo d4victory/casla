@@ -55,18 +55,12 @@ var clientOptions = {
 };
 */
 
-console.log(config)
-console.log(config.hostname)
-console.log(config.mongo)
-console.log(config.db)
-console.log(config.hola)
-
 client = new Client({
   proxy: {
     host: config.hostname,
     port: port,
-    // user: config.mongo.dbUsername,
-    // password: config.mongo.dbPassword
+    user: config.mongo.dbUsername,
+    password: config.mongo.dbPassword
   },
 });
 
