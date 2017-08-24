@@ -123,8 +123,3 @@ app.listen(port, function () {
     logger.info("Node server running on port:" + port);
     logger.debug('Debugging info');
 });
-
-process.on('uncaughtException', function (err) {
-  console.log("ON PROCESS UNCAUGHT EXCEPTION");
-  console.log(err);
-});

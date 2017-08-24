@@ -83,28 +83,31 @@ module.exports = function (app, isAdmin) {
     });
 
     app.post('/agregarTorneo', function (req, res) {
-        var args = {
-          data: req.body,
-          headers: {
-            "Content-Type": "application/json",
-            "Host": 'localhost'
-          }
-        };
+      console.log("body", req.body)
+      console.log("body json", JSON.stringify(req.body, null, 2))
+      var args = {
+        data: {
+          "jugadores_por_equipo": req.body["jugadores_por_equipo"],
+          "nombre": req.body.nombre
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
 
-        //console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
-        console.log("ARGS", JSON.stringify(args, null, 2));
+      //console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
+      console.log("ARGS", JSON.stringify(args, null, 2));
 
-        client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
-          console.log("POST /torneo");
-          console.log('response statusCode:' + response.statusCode);
-          res.redirect('/torneos');
-        })
-        .on('error', function (err) {
-          console.log('ERROOOOOOR')
-          console.log(err)
-          console.log('something went wrong al agregar torneo', err.request.options);
-        });;
-
+      client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
+        console.log("POST /torneo");
+        console.log('response statusCode:' + response.statusCode);
+        res.redirect('/torneos');
+      })
+      .on('error', function (err) {
+        console.log('ERROOOOOOR')
+        console.log(err)
+        console.log('something went wrong al agregar torneo', err.request.options);
+      });;
     });
 
     app.post('/deleteTorneo', isAdmin, function (req, res) {
