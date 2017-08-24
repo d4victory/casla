@@ -6,6 +6,7 @@ var logger = require('../logger');
 
 //GET - Return all divisiones in the DB
 exports.findAllDivisiones = function(req, res) {
+  console.log('eeee estot buscando las divisiones');
 	Division.find(function(err, divisiones) {
 
         divisiones.sort(function(a,b) {return (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0);} );
@@ -36,7 +37,7 @@ exports.findByTorneoId = function(req, res) {
 		    console.log('GET /division/torneo/' + req.params.id);
 			res.status(200).jsonp(divisiones);
 		});
-	}); 
+	});
 };
 
 
@@ -50,7 +51,7 @@ exports.findEquiposFromDivision = function(req, res) {
 		    console.log('GET /division/' + req.params.id+'/equipos');
 			res.status(200).jsonp(equipos);
 		});
-	}); 
+	});
 };
 
 
@@ -74,7 +75,7 @@ exports.addDivision = function(req, res) {
 				logger.info(req.user+" ha agregado al torneo "+torneo.nombre+" una nueva division: "+division.nombre);
 		      	res.status(200).jsonp(division);
 			});
-		});	
+		});
 	});
 };
 
@@ -88,7 +89,7 @@ exports.updateDivision = function(req, res) {
 		Torneo.findById(req.body.torneo, function(err, torneo) {
 			if(err) return res.send(500, err.message);
 			if (!torneo) {return res.send(404, "Torneo id not found");}
-			
+
 			division.nombre 				= req.body.nombre,
 			division.torneo		= req.body.torneo,
 			division.equipos = req.body.equipos
@@ -115,7 +116,7 @@ exports.addEquipo = function(req, res) {
 		Equipo.findById(req.params.idEquipo, function(err, equipo) {
 			if(err) return res.send(500, err.message);
 			if (!equipo) {return res.send(404, "Equipo id not found");}
-			
+
 
 			division.save(function(err) {
 				if(err) return res.send(500, err.message);
@@ -138,7 +139,7 @@ exports.deleteDivision = function(req, res) {
 		if (!division) {return res.send(404, "Equipo not found");}
 
 		var torneoDeLaDivision = division.torneo;
-		
+
 		Torneo.findById(torneoDeLaDivision, function(err, torneoDeLaDivision) {
 			if (torneoDeLaDivision){
 				torneoDeLaDivision.divisiones.pop(division);

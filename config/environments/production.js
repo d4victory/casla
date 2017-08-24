@@ -1,9 +1,9 @@
 module.exports = {
   db: 'mongodb://copaviejogasometro:Ka1438657@ds123182.mlab.com:23182/casla',
   env: 'production',
-  hostname: 'ds123182.mlab.com',
-  port: 23182,
-  nodeClientUrl: 'http://ds123182.mlab.com:23182',
+  hostname: 'keroku-casla.herokuapp.com',
+  port: 80, // heroku settings
+  nodeClientUrl: 'http://keroku-casla.herokuapp.com',
   mongo: {
     db: 'casla',
     uri: 'mongodb://copaviejogasometro:Ka1438657@ds123182.mlab.com:23182/casla',
