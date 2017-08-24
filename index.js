@@ -55,19 +55,21 @@ var clientOptions = {
 };
 */
 
-client = new Client({
-  proxy: {
-    host: config.hostname,
-    port: config.port
-  },
-});
+// client = new Client({
+//   proxy: {
+//     host: config.hostname,
+//     port: config.port
+//   },
+// });
 
-console.log('proxy setup', {
-  proxy: {
-    host: config.hostname,
-    port: config.port
-  },
-})
+// console.log('proxy setup', {
+//   proxy: {
+//     host: config.hostname,
+//     port: config.port
+//   },
+// })
+
+client = new Client();
 
 //configuro Swagger
 var swagger = require('./config/swaggerConfig')(app);
