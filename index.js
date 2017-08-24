@@ -58,11 +58,16 @@ var clientOptions = {
 client = new Client({
   proxy: {
     host: config.hostname,
-    port: config.port,
-    user: config.mongo.dbUsername,
-    password: config.mongo.dbPassword
+    port: config.port
   },
 });
+
+console.log('proxy setup', {
+  proxy: {
+    host: config.hostname,
+    port: config.port
+  },
+})
 
 //configuro Swagger
 var swagger = require('./config/swaggerConfig')(app);
