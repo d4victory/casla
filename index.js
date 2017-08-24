@@ -98,7 +98,8 @@ require('./config/passport')(passport, logger); // pass passport for configurati
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser()); // get information from html forms
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('views', __dirname + "/views");
 app.set('view engine', 'ejs');
