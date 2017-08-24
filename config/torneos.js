@@ -91,14 +91,19 @@ module.exports = function (app, isAdmin) {
           }
         };
 
-        console.log("VER ACA " + "https://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
+        console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
 
         try {
           client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
             console.log("POST /torneo");
             console.log('response statusCode:' + response.statusCode);
             res.redirect('/torneos');
-          });
+          })
+          .on('error', function (err) {
+            console.log('ERROOOOOOR')
+            console.log(err)
+            console.log('something went wrong al agregar torneo', err.request.options);
+          });;
         } catch (err) {
           console.log('Hubo un error al agregar el torneo');
           console.log(err);
