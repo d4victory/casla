@@ -83,24 +83,25 @@ module.exports = function (app, isAdmin) {
     });
 
     app.post('/agregarTorneo', isAdmin, function (req, res) {
-        //res.setHeader('Content-Type', 'application/json');
         var args = {
-            data: req.body,
-            headers: {
-                "Content-Type": "application/json",
-                "Host": "keroku-casla.herokuapp.com"
-            }
+          data: req.body,
+          headers: {
+            "Content-Type": "application/json",
+            "Host": "keroku-casla.herokuapp.com"
+          }
         };
 
-        console.log("VER ACA " + "https://" + cfg.hostname + "/torneo" + args);
+        console.log("VER ACA " + "https://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
+
         try {
-            client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
-                console.log("POST /torneo");
-                console.log('response statusCode:' + response.statusCode);
-                res.redirect('/torneos');
-            });
+          client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
+            console.log("POST /torneo");
+            console.log('response statusCode:' + response.statusCode);
+            res.redirect('/torneos');
+          });
         } catch (err) {
-            console.log(err);
+          console.log('Hubo un error al agregar el torneo');
+          console.log(err);
         }
 
     });
