@@ -55,21 +55,11 @@ var clientOptions = {
 };
 */
 
-// client = new Client({
-//   proxy: {
-//     host: config.hostname,
-//     port: config.port
-//   },
-// });
+client = new Client({
+  requestConfig: {
 
-// console.log('proxy setup', {
-//   proxy: {
-//     host: config.hostname,
-//     port: config.port
-//   },
-// })
-
-client = new Client();
+  }
+});
 
 //configuro Swagger
 var swagger = require('./config/swaggerConfig')(app);
@@ -132,4 +122,9 @@ app.listen(port, function () {
     console.log(process.version)
     logger.info("Node server running on port:" + port);
     logger.debug('Debugging info');
+});
+
+process.on('uncaughtException', function (err) {
+  console.log("ON PROCESS UNCAUGHT EXCEPTION");
+  console.log(err);
 });
