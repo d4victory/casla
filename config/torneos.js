@@ -1,5 +1,6 @@
 var moment = require('moment');
 var cfg = require('config');
+var request = require('request');
 
 module.exports = function (app, isAdmin) {
 
@@ -83,13 +84,8 @@ module.exports = function (app, isAdmin) {
     });
 
     app.post('/agregarTorneo', function (req, res) {
-      console.log("body", req.body)
-      console.log("body json", JSON.stringify(req.body, null, 2))
       var args = {
-        data: {
-          "jugadores_por_equipo": req.body["jugadores_por_equipo"],
-          "nombre": req.body.nombre
-        },
+        data: req.body,
         headers: {
           "Content-Type": "application/json"
         }
@@ -98,16 +94,33 @@ module.exports = function (app, isAdmin) {
       //console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
       console.log("ARGS", JSON.stringify(args, null, 2));
 
-      client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
+      // client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
+      //   console.log("POST /torneo");
+      //   console.log('response statusCode:' + response.statusCode);
+      //   res.redirect('/torneos');
+      // })
+      // .on('error', function (err) {
+      //   console.log('ERROOOOOOR')
+      //   console.log(err)
+      //   console.log('something went wrong al agregar torneo', err.request.options);
+      // });
+
+      request.post({
+        url: cfg.nodeClientUrl + "/torneo",
+        body: req.body,
+        json: true
+      }, function (error, response, body) {
+        if (error) {
+          console.log("ERROR");
+          console.log(error);
+          console.log('something went wrong al agregar torneo', err.request.options);
+        }
+
         console.log("POST /torneo");
         console.log('response statusCode:' + response.statusCode);
+        console.log("body", body);
         res.redirect('/torneos');
-      })
-      .on('error', function (err) {
-        console.log('ERROOOOOOR')
-        console.log(err)
-        console.log('something went wrong al agregar torneo', err.request.options);
-      });;
+      });
     });
 
     app.post('/deleteTorneo', isAdmin, function (req, res) {
