@@ -58,7 +58,7 @@ var clientOptions = {
 client = new Client({
   proxy: {
     host: config.hostname,
-    port: port,
+    port: config.port,
     user: config.mongo.dbUsername,
     password: config.mongo.dbPassword
   },

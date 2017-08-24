@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Web para el torneo de socios de SL",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",

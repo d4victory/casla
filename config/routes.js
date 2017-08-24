@@ -16,8 +16,8 @@ module.exports = function(express,app, passport, client, logger) {
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-      console.log(`VER ACA ROUTES:    http://${cfg.hostname}/division`);
-      client.get(`http://${cfg.hostname}/division`, function (divisiones, response) {
+      console.log(`VER ACA ROUTES:    http://${cfg.hostname}:${cfg.port}/division`);
+      client.get(`http://localhost/division`, function (divisiones, response) {
         res.render('./ejs/index.ejs', {user: req.user, divisiones:divisiones})
       });
     });
