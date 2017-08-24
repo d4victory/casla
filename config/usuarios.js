@@ -3,9 +3,9 @@ var cfg = require('config');
 module.exports = function(app,isAdmin) {
 
     app.get('/usuarios', isAdmin, function(req, res) {
-        client.get("http://"+cfg.hostname+"/user/notAdmins", function (data, response) {
-            client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
-                client.get("http://"+cfg.hostname+"/equipo", function (equipos, response) {
+        client.get(cfg.nodeClientUrl+"/user/notAdmins", function (data, response) {
+            client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
+                client.get(cfg.nodeClientUrl+"/equipo", function (equipos, response) {
                     var equiposMap =  {};
                     for (var i = 0; i < equipos.length; i++) {
                         equiposMap[equipos[i]._id] = equipos[i].nombre;
@@ -27,13 +27,13 @@ module.exports = function(app,isAdmin) {
     });
 
     app.get('/agregarUsuarios', isAdmin, function(req, res) {
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
             res.render('./ejs/usuarios/agregarUsuarios.ejs', {user: req.user,divisiones:divisiones, message: req.flash('loginMessage')});
         });
     });
 
     app.post('/deleteUser', isAdmin, function(req, res) {
-        client.delete("http://"+cfg.hostname+"/user/"+req.body.userid, function (data, response) {
+        client.delete(cfg.nodeClientUrl+"/user/"+req.body.userid, function (data, response) {
             console.log("DELETE /user/"+req.body.userid);
             req.session.statusDelete = response.statusCode;
             res.redirect('/usuarios');
@@ -45,7 +45,7 @@ module.exports = function(app,isAdmin) {
             data:  req.body ,
             headers: { "Content-Type": "application/json" }
         };
-        client.put("http://"+cfg.hostname+"/user/"+req.body.userid, args, function (data, response) {
+        client.put(cfg.nodeClientUrl+"/user/"+req.body.userid, args, function (data, response) {
             console.log("PUT /user/"+req.body.userid);
             req.session.statusDelete = response.statusCode;
             res.redirect('/usuarios');

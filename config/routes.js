@@ -35,7 +35,7 @@ module.exports = function(express,app, passport, client, logger) {
     // =====================================
     // show the login form
     app.get('/login', function(req, res) {
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
             res.render('./ejs/usuarios/login.ejs', {user: req.user, divisiones:divisiones, message: req.flash('loginMessage')})
         });
 
@@ -47,7 +47,7 @@ module.exports = function(express,app, passport, client, logger) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
             res.render('./ejs/login/profile.ejs', {user: req.user, divisiones:divisiones})
         });
     });
@@ -91,31 +91,31 @@ module.exports = function(express,app, passport, client, logger) {
 
     //VIEWS
     app.get('/goleadores', function(req, res) {
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
             res.render('./ejs/goleadores.ejs', {user: req.user, divisiones:divisiones})
         });
     });
 
     app.get('/sanciones', function(req, res) {
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
             res.render('./ejs/sanciones.ejs', {user: req.user, divisiones:divisiones})
         });
     });
 
     app.get('/fairplay', function(req, res) {
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
             res.render('./ejs/fairplay.ejs', {user: req.user, divisiones:divisiones})
         });
     });
 
     app.get('/superadmin', isSuperAdmin, function(req, res) {
-        client.get("http://"+cfg.hostname+"/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
             res.render('./ejs/superadmin.ejs', {user: req.user, divisiones:divisiones})
         });
     });
 
      //app.get('/posicionesDeLaDivision', function(req, res) {
-       //  client.get("http://"+cfg.hostname+"/division"+req.query.divisionId, function (division, response) {
+       //  client.get(cfg.nodeClientUrl+"/division"+req.query.divisionId, function (division, response) {
          //    res.render('./ejs/divisiones/posicionesDeLaDivision.ejs', {user: req.user, division: division, message: req.flash('loginMessage')});
          //});
 

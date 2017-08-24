@@ -4,8 +4,8 @@ var cfg = require('config'); //{hostname: 'keroku-casla.herokuapp.com'}
 module.exports = function (app, isAdmin) {
 
     app.get('/torneos', isAdmin, function (req, res) {
-        client.get("http://" + cfg.hostname + "/torneo", function (torneos, response) {
-            client.get("http://" + cfg.hostname + "/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl + "/torneo", function (torneos, response) {
+            client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
                 res.render('./ejs/torneos/torneos.ejs', {
                     message: req.flash('signupMessage'),
                     torneos: torneos,
@@ -18,7 +18,7 @@ module.exports = function (app, isAdmin) {
     });
 
     app.get('/agregarTorneos', isAdmin, function (req, res) {
-        client.get("http://" + cfg.hostname + "/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
             res.render('./ejs/torneos/agregarTorneos.ejs', {
                 user: req.user,
                 divisiones: divisiones,
@@ -28,8 +28,8 @@ module.exports = function (app, isAdmin) {
     });
 
     app.post('/equiposTorneo', isAdmin, function (req, res) {
-        client.get("http://" + cfg.hostname + "/torneo/" + req.body.torneoid + "/equipos", function (data, response) {
-            client.get("http://" + cfg.hostname + "/division", function (divisiones, response) {
+        client.get(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid + "/equipos", function (data, response) {
+            client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
                 res.render('./ejs/torneos/equiposTorneo.ejs', {
                     user: req.user,
                     divisiones: divisiones,
@@ -42,9 +42,9 @@ module.exports = function (app, isAdmin) {
     });
 
     app.post('/partidosTorneo', isAdmin, function (req, res) {
-        client.get("http://" + cfg.hostname + "/torneo/" + req.body.torneoid + "/partidos", function (data, response) {
-            client.get("http://" + cfg.hostname + "/division", function (divisiones, response) {
-                client.get("http://" + cfg.hostname + "/equipo", function (equipos, response) {
+        client.get(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid + "/partidos", function (data, response) {
+            client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
+                client.get(cfg.nodeClientUrl + "/equipo", function (equipos, response) {
                     var equiposMap = {};
                     for (var i = 0; i < equipos.length; i++) {
                         equiposMap[equipos[i]._id] = equipos[i].nombre;
@@ -65,8 +65,8 @@ module.exports = function (app, isAdmin) {
     });
 
     app.post('/canchasTorneo', isAdmin, function (req, res) {
-        client.get("http://" + cfg.hostname + "/torneo/" + req.body.torneoid + "/canchas", function (data, response) {
-            client.get("http://" + cfg.hostname + "/cancha", function (canchas, response) {
+        client.get(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid + "/canchas", function (data, response) {
+            client.get(cfg.nodeClientUrl + "/cancha", function (canchas, response) {
                 var canchasMap = {};
                 for (var i = 0; i < canchas.length; i++) {
                     canchasMap[canchas[i]._id] = canchas[i].nombre;
@@ -94,7 +94,7 @@ module.exports = function (app, isAdmin) {
 
         console.log("VER ACA " + "https://" + cfg.hostname + "/torneo" + args);
         try {
-            client.post("http://" + cfg.hostname + "/torneo", args, function (data, response) {
+            client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
                 console.log("POST /torneo");
                 console.log('response statusCode:' + response.statusCode);
                 res.redirect('/torneos');
@@ -106,7 +106,7 @@ module.exports = function (app, isAdmin) {
     });
 
     app.post('/deleteTorneo', isAdmin, function (req, res) {
-        client.delete("http://" + cfg.hostname + "/torneo/" + req.body.torneoid, function (data, response) {
+        client.delete(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid, function (data, response) {
             console.log("DELETE /torneo/" + req.body.torneoid);
             req.session.statusDelete = response.statusCode;
             res.redirect('/torneos');
