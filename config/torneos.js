@@ -1,5 +1,5 @@
 var moment = require('moment');
-var cfg = require('config'); //{hostname: 'keroku-casla.herokuapp.com'}
+var cfg = require('config');
 
 module.exports = function (app, isAdmin) {
 
@@ -87,11 +87,12 @@ module.exports = function (app, isAdmin) {
           data: req.body,
           headers: {
             "Content-Type": "application/json",
-            "Host": "keroku-casla.herokuapp.com"
+            "Host": 'localhost'
           }
         };
 
-        console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
+        //console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
+        console.log("ARGS", JSON.stringify(args, null, 2));
 
         client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
           console.log("POST /torneo");
