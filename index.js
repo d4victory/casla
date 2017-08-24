@@ -78,17 +78,17 @@ var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
 
 // Connection to DB
-var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } },
-                ciphers: 'DES-CBC3-SHA'};
+// var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+//                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } },
+//                 ciphers: 'DES-CBC3-SHA'};
+
+mongoose.connect(config.mongo.uri, { useMongoClient: true });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function() {
     console.log('connection with database: ' + config.mongo.uri + ' was successfully.');
 });
-
-mongoose.connect(config.mongo.uri, { useMongooseUri: true});
 
 //mongoose.connect(cfg.mongo.uri,options, function (err, res) {
 //    if (err) throw err;
