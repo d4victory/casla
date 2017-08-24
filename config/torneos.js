@@ -82,7 +82,7 @@ module.exports = function (app, isAdmin) {
         });
     });
 
-    app.post('/agregarTorneo', isAdmin, function (req, res) {
+    app.post('/agregarTorneo', function (req, res) {
         var args = {
           data: req.body,
           headers: {
@@ -93,7 +93,7 @@ module.exports = function (app, isAdmin) {
 
         console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
 
-        return client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
+        client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
           console.log("POST /torneo");
           console.log('response statusCode:' + response.statusCode);
           res.redirect('/torneos');
