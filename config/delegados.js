@@ -1,13 +1,12 @@
 var moment = require('moment');
-var cfg = require('config');
 
-module.exports = function(app) {
+module.exports = function(app, client) {
 
     app.get('/delegado', isDelegado, function(req, res) {
         if (req.user.equipo){
-            client.get(cfg.nodeClientUrl+"/equipo"+req.user.equipo, function (equipo, response) {
-                client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
-                    client.get(cfg.nodeClientUrl+"/jugador/equipo/"+req.user.equipo, function (jugadores, response) {
+            client.get("/equipo"+req.user.equipo, function (err, response, equipo) {
+                client.get("/division", function (err, response, divisiones) {
+                    client.get("/jugador/equipo/"+req.user.equipo, function (err, response, jugadores) {
                         res.render('./ejs/delegados/miEquipo.ejs', {user: req.user, equipo:equipo, message: req.flash('loginMessage'),
                             jugadores:jugadores, divisiones:divisiones, resultado: req.session.statusDelete});
                     });
@@ -20,8 +19,8 @@ module.exports = function(app) {
     });
 
     app.get('/addJugador', isDelegado, function(req, res) {
-        client.get(cfg.nodeClientUrl+"/equipo"+req.user.equipo, function (equipo, response) {
-            client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
+        client.get("/equipo"+req.user.equipo, function (err, response, equipo) {
+            client.get("/division", function (err, response, divisiones) {
                 res.render('./ejs/delegados/agregarJugador.ejs', {user: req.user, divisiones:divisiones, equipo:equipo, message: req.flash('loginMessage'),
                     resultado: req.session.statusDelete});
             });
@@ -29,9 +28,9 @@ module.exports = function(app) {
     });
 
     app.post('/datosJugador', isDelegado, function(req, res) {
-        client.get(cfg.nodeClientUrl+"/equipo/"+req.body.jugadorid, function (jugador, response) {
-            client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
-            client.get(cfg.nodeClientUrl+"/equipo"+req.user.equipo, function (equipo, response) {
+        client.get("/equipo/"+req.body.jugadorid, function (err, response, jugador) {
+            client.get("/division", function (err, response, divisiones) {
+            client.get("/equipo"+req.user.equipo, function (err, response, equipo) {
                 res.render('./ejs/delegados/datosJugador.ejs', {user: req.user, equipo:equipo, jugador:jugador, message: req.flash('loginMessage'),
                     resultado: req.session.statusDelete, divisiones:divisiones, moment:moment});
             });
@@ -60,14 +59,14 @@ module.exports = function(app) {
             data:  req.body ,
             headers: { "Content-Type": "application/json" }
         };
-        client.post(cfg.nodeClientUrl+"/jugador", args, function (data, response) {
+        client.post({url: "/jugador", body: req.body}, function (err, response, data) {
             console.log("POST /jugador");
             res.redirect('/delegado');
         });
     });
 
     app.post('/deleteJugador', isDelegado, function(req, res) {
-        client.delete(cfg.nodeClientUrl+"/jugador/"+req.body.jugadorid, function (data, response) {
+        client.delete("/jugador/"+req.body.jugadorid, function (err, response, data) {
             console.log("DELETE /jugador/"+req.body.jugadorid);
             req.session.statusDelete = response.statusCode;
             res.redirect('/delegado');

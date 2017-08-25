@@ -1,10 +1,8 @@
-var cfg = require('config');
-
-module.exports = function(app,isAdmin) {
+module.exports = function(app,isAdmin, client) {
 
     app.post('/nuevaCancha', isAdmin, function(req, res) {
-        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
-        client.get(cfg.nodeClientUrl+"/torneo/"+req.body.torneoid, function (torneo, response) {
+        client.get("/division", function (err, response, divisiones) {
+        client.get("/torneo/"+req.body.torneoid, function (err, response, torneo) {
             res.render('./ejs/canchas/agregarCancha.ejs', {user: req.user, torneo: torneo, divisiones:divisiones, message: req.flash('loginMessage')});
         });
         });
@@ -12,20 +10,16 @@ module.exports = function(app,isAdmin) {
 
     app.post('/agregarCancha', isAdmin, function(req, res) {
         console.log('estoy en /agregarCancha');
-        var args = {
-            data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-        };
-        client.post(cfg.nodeClientUrl+"/cancha", args, function (data, response) {
+        client.post({url: "/cancha", body: req.body}, function (err, response, data) {
             res.redirect('/canchasDelTorneo?torneoid='+data.torneo._id);
         });
     });
 
     app.get('/canchasDelTorneo', isAdmin, function(req, res) {
         console.log('estoy en /canchasDelTorneo');
-        client.get(cfg.nodeClientUrl+"/torneo/"+req.query.torneoid, function (torneo, response) {
-            client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
-                client.get(cfg.nodeClientUrl+"/cancha/torneo/"+req.query.torneoid, function (canchas, response) {
+        client.get("/torneo/"+req.query.torneoid, function (err, response, torneo) {
+            client.get("/division", function (err, response, divisiones) {
+                client.get("/cancha/torneo/"+req.query.torneoid, function (err, response, canchas) {
                     res.render('./ejs/canchas/canchasDelTorneo.ejs', {user: req.user, canchas: canchas, divisiones:divisiones,
                         torneo:torneo,  message: req.flash('loginMessage')});
                 });

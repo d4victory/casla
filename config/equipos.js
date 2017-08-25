@@ -1,10 +1,8 @@
-var cfg = require('config');
-
-module.exports = function(app,isAdmin) {
+module.exports = function(app,isAdmin, client) {
 
     app.get('/equipos', isAdmin, function(req, res) {
-        client.get(cfg.nodeClientUrl+"/equipo", function (equipos, response) {
-            client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
+        client.get("/equipo", function (err, response, equipos) {
+            client.get("/division", function (err, response, divisiones) {
                 var divisionesMap =  {};
                 for (var i = 0; i < divisiones.length; i++) {
                     divisionesMap[divisiones[i]._id] = divisiones[i].nombre;
@@ -16,7 +14,7 @@ module.exports = function(app,isAdmin) {
     });
 
     app.get('/agregarEquipos', isAdmin, function(req, res) {
-        client.get(cfg.nodeClientUrl+"/division", function (divisiones, response) {
+        client.get("/division", function (err, response, divisiones) {
             res.render('./ejs/equipos/agregarEquipos.ejs', {user: req.user,divisiones:divisiones, message: req.flash('loginMessage')});
         });
     });
@@ -26,7 +24,7 @@ module.exports = function(app,isAdmin) {
             data:  req.body ,
             headers: { "Content-Type": "application/json" }
         };
-        client.post(cfg.nodeClientUrl+"/equipo/", args, function (data, response) {
+        client.post({url: "/equipo/", body: req.body}, function (err, response, data) {
             console.log("POST /equipo");
             res.redirect('/equipos');
         });
@@ -38,23 +36,23 @@ module.exports = function(app,isAdmin) {
             headers: { "Content-Type": "application/json" }
         };
 
-        console.log(args);
-        client.post(cfg.nodeClientUrl+"/posicionEquipo/", args, function (data, response) {
-            client.put("http://localhost:3000/equipo/"+req.body.equipoid, args, function (data, response) {
-                console.log("PUT /equipo");
-                res.redirect('/equipos');
-            });
+        client.post({url: "/posicionEquipo/", body: req.body}, function (err, response, data) {
+          client.put({url: "/equipo/"+req.body.equipoid, body: req.body}, function (err, response, data) {
+            console.log("PUT /equipo");
+            res.redirect('/equipos');
+          });
         });
     });
 
 
     app.post('/deleteEquipo', isAdmin, function(req, res) {
-        client.delete(cfg.nodeClientUrl+"/equipo"+req.body.equipoid, function (data, response) {
-            client.delete(cfg.nodeClientUrl+"/posicionEquipo/equipo/"+req.body.equipoid,function (info, resp) {
-            console.log("DELETE /equipo/"+req.body.equipoid);
-            req.session.statusDelete = response.statusCode;
-            res.redirect('/equipos');
-            });
+      client.delete("/equipo"+req.body.equipoid, function (err, response, data) {
+        client.delete("/posicionEquipo/equipo/"+req.body.equipoid, function (err, response, info) {
+          console.log("DELETE /equipo/"+req.body.equipoid);
+          req.session.statusDelete = response.statusCode;
+          res.redirect('/equipos');
         });
+      });
     });
+
 }

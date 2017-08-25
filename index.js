@@ -2,7 +2,6 @@
 var path = require ('path');
 process.env.NODE_CONFIG_DIR = path.join(__dirname, '/config/environments');
 
-
 var express = require("express"),
     app = express(),
     methodOverride = require("method-override"),
@@ -16,49 +15,13 @@ var express = require("express"),
     config = require('config'),
     port = config.port,
     options = require("options"),
-    Client = require('node-rest-client').Client;
+    request = require('request');
 // paginate        = require('express-paginate');
 
-//configuro el cliente REST
-/*
-var clientOptions = {
-    // proxy configuration
-    proxy: {
-        host: "ds123182.mlab.com", // proxy host
-        port: 23182, // proxy port
-        user: "copaviejogasometro", // proxy username if required
-        password: "Ka1438657" // proxy pass if required
-    },
-    // aditional connection options passed to node http.request y https.request methods
-    // (ie: options to connect to IIS with SSL)
-    connection: {
-        //secureOptions: constants.SSL_OP_NO_TLSv1_2,
-        ciphers: 'ECDHE-RSA-AES256-SHA:AES256-SHA:RC4-SHA:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM'
-        //honorCipherOrder: true
-    },
-    // will replace content-types used to match responses in JSON and XML parsers
-    mimetypes: {
-        json: ["application/json", "application/json;charset=utf-8"],
-        xml: ["application/xml", "application/xml;charset=utf-8"]
-    },
-    //user: "admin", // basic http auth username if required
-    //password: "123", // basic http auth password if required
-    requestConfig: {
-        timeout: 5000, //request timeout in milliseconds
-        noDelay: true, //Enable/disable the Nagle algorithm
-        keepAlive: true, //Enable/disable keep-alive functionalityidle socket.
-        keepAliveDelay: 5000 //and optionally set the initial delay before the first keepalive probe is sent
-    },
-    responseConfig: {
-        timeout: 5000 //response timeout
-    }
-};
-*/
-
-client = new Client({
-  requestConfig: {
-
-  }
+// Config request
+var client = request.defaults({
+  baseUrl: config.requestBase,
+  json: true
 });
 
 //configuro Swagger
@@ -68,10 +31,6 @@ var swagger = require('./config/swaggerConfig')(app);
 var logger = require('./logger');
 
 // Connection to DB
-// var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-//                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } },
-//                 ciphers: 'DES-CBC3-SHA'};
-
 mongoose.connect(config.mongo.uri, { useMongoClient: true });
 
 var db = mongoose.connection;
@@ -80,17 +39,8 @@ db.once('open', function() {
     console.log('connection with database: ' + config.mongo.uri + ' was successfully.');
 });
 
-//mongoose.connect(cfg.mongo.uri,options, function (err, res) {
-//    if (err) throw err;
-//    console.log('Connected to Database:' + cfg.mongo.uri);
-//});
-
-//mongoose.connect('mongodb://localhost/casla', function(err, res) {
-//  if(err) throw err;
-//  console.log('Connected to Database');
-//});
-
-require('./config/passport')(passport, logger); // pass passport for configuration
+// pass passport for configuration
+require('./config/passport')(passport, logger);
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
@@ -112,10 +62,10 @@ var models = require('./models/includingModels')(app, mongoose);
 
 // routes ======================================================================
 require('./config/routes.js')(express, app, passport, client, logger); // load our routes and pass in our app and fully configured passport
-require('./config/admin')(app);
-require('./config/delegados')(app);
-require('./config/planilleros')(app);
-//require('./config/jugadorRoutes')(express,app);
+require('./config/admin')(app, client);
+require('./config/delegados')(app, client);
+require('./config/planilleros')(app, client);
+//require('./config/jugadorRoutes')(express,app, client);
 
 // Start server
 app.listen(port, function () {

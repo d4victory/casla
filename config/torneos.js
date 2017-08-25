@@ -1,12 +1,10 @@
 var moment = require('moment');
-var cfg = require('config');
-var request = require('request');
 
-module.exports = function (app, isAdmin) {
+module.exports = function (app, isAdmin, client) {
 
-    app.get('/torneos', isAdmin, function (req, res) {
-        client.get(cfg.nodeClientUrl + "/torneo", function (torneos, response) {
-            client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
+    app.get('/torneos', isAdmin, function(req, res) {
+        client.get("/torneo", function (err, response, torneos) {
+            client.get("/division", function (err, response, divisiones) {
                 res.render('./ejs/torneos/torneos.ejs', {
                     message: req.flash('signupMessage'),
                     torneos: torneos,
@@ -18,8 +16,8 @@ module.exports = function (app, isAdmin) {
         });
     });
 
-    app.get('/agregarTorneos', isAdmin, function (req, res) {
-        client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
+    app.get('/agregarTorneos', isAdmin, function(req, res) {
+        client.get("/division", function (err, response, divisiones) {
             res.render('./ejs/torneos/agregarTorneos.ejs', {
                 user: req.user,
                 divisiones: divisiones,
@@ -28,9 +26,9 @@ module.exports = function (app, isAdmin) {
         });
     });
 
-    app.post('/equiposTorneo', isAdmin, function (req, res) {
-        client.get(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid + "/equipos", function (data, response) {
-            client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
+    app.post('/equiposTorneo', isAdmin, function(req, res) {
+        client.get("/torneo/" + req.body.torneoid + "/equipos", function (err, response, data) {
+            client.get("/division", function (err, response, divisiones) {
                 res.render('./ejs/torneos/equiposTorneo.ejs', {
                     user: req.user,
                     divisiones: divisiones,
@@ -42,10 +40,10 @@ module.exports = function (app, isAdmin) {
         });
     });
 
-    app.post('/partidosTorneo', isAdmin, function (req, res) {
-        client.get(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid + "/partidos", function (data, response) {
-            client.get(cfg.nodeClientUrl + "/division", function (divisiones, response) {
-                client.get(cfg.nodeClientUrl + "/equipo", function (equipos, response) {
+    app.post('/partidosTorneo', isAdmin, function(req, res) {
+        client.get("/torneo/" + req.body.torneoid + "/partidos", function (err, response, data) {
+            client.get("/division", function (err, response, divisiones) {
+                client.get("/equipo", function (err, response, equipos) {
                     var equiposMap = {};
                     for (var i = 0; i < equipos.length; i++) {
                         equiposMap[equipos[i]._id] = equipos[i].nombre;
@@ -65,9 +63,9 @@ module.exports = function (app, isAdmin) {
         });
     });
 
-    app.post('/canchasTorneo', isAdmin, function (req, res) {
-        client.get(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid + "/canchas", function (data, response) {
-            client.get(cfg.nodeClientUrl + "/cancha", function (canchas, response) {
+    app.post('/canchasTorneo', isAdmin, function(req, res) {
+        client.get("/torneo/" + req.body.torneoid + "/canchas", function (err, response, data) {
+            client.get("/cancha", function (err, response, canchas) {
                 var canchasMap = {};
                 for (var i = 0; i < canchas.length; i++) {
                     canchasMap[canchas[i]._id] = canchas[i].nombre;
@@ -83,7 +81,7 @@ module.exports = function (app, isAdmin) {
         });
     });
 
-    app.post('/agregarTorneo', function (req, res) {
+    app.post('/agregarTorneo', isAdmin, function(req, res) {
       var args = {
         data: req.body,
         headers: {
@@ -91,25 +89,9 @@ module.exports = function (app, isAdmin) {
         }
       };
 
-      //console.log("VER ACA " + "http://" + cfg.hostname + "/torneo", JSON.stringify(args, null, 2));
       console.log("ARGS", JSON.stringify(args, null, 2));
 
-      // client.post(cfg.nodeClientUrl + "/torneo", args, function (data, response) {
-      //   console.log("POST /torneo");
-      //   console.log('response statusCode:' + response.statusCode);
-      //   res.redirect('/torneos');
-      // })
-      // .on('error', function (err) {
-      //   console.log('ERROOOOOOR')
-      //   console.log(err)
-      //   console.log('something went wrong al agregar torneo', err.request.options);
-      // });
-
-      request.post({
-        url: cfg.nodeClientUrl + "/torneo",
-        body: req.body,
-        json: true
-      }, function (error, response, body) {
+      client.post({url: "/torneo", body: req.body}, function (error, response, body) {
         if (error) {
           console.log("ERROR");
           console.log(error);
@@ -123,11 +105,11 @@ module.exports = function (app, isAdmin) {
       });
     });
 
-    app.post('/deleteTorneo', isAdmin, function (req, res) {
-        client.delete(cfg.nodeClientUrl + "/torneo/" + req.body.torneoid, function (data, response) {
-            console.log("DELETE /torneo/" + req.body.torneoid);
-            req.session.statusDelete = response.statusCode;
-            res.redirect('/torneos');
-        });
+    app.post('/deleteTorneo', isAdmin, function(req, res) {
+      client.delete("/torneo/" + req.body.torneoid, function (err, response, data) {
+        console.log("DELETE /torneo/" + req.body.torneoid);
+        req.session.statusDelete = response.statusCode;
+        res.redirect('/torneos');
+      });
     });
 }
