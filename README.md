@@ -9,8 +9,7 @@
 
 # Para deployar a heroku
 1) Agregar remote `heroku git:remote -a keroku-casla -r production`
-2) Push to deploy `git push production reestructurandoProyectoParaProd:master`
-3) Como estamos en una branch la forma de deployar es la de arriba, cuando esta branch se mergee a master y master sea la posta, deployar con `git push production master`
+2) Push to deploy `git push production master`
 
 # Para ver logs de heroku
 1) Correr `heroku logs -a keroku-casla -t`
