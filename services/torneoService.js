@@ -118,19 +118,24 @@ exports.findAllCanchas = function(req, res) {
 
 //POST - Insert a new Torneo in the DB
 exports.addTorneo = function(req, res) {
-	console.log('entre al addTorneo de torneoService');
+  console.log('entre al addTorneo de torneoService');
+  console.log('req.body', JSON.stringify(req.body, null, 2));
 
-	var torneo = new Torneo({
-		nombre:    				req.body.nombre,
-		jugadores_por_equipo: 	req.body.jugadores_por_equipo,
-		activo: 				true //por defecto sera activo
-	});
+  var torneo = new Torneo({
+    nombre: req.body.nombre,
+    jugadores_por_equipo: req.body.jugadores_por_equipo,
+    activo: true //por defecto sera activo
+  });
 
-	torneo.save(function(err, torneo) {
-		if(err) return res.send(500, err.message);
-		logger.info(req.user+" ha agregado un nuevo torneo: "+torneo.nombre+". Jugadores por equipo: "+torneo.jugadores_por_equipo);
-    	res.status(200).jsonp(torneo);
-	});
+  torneo.save(function (err, torneo) {
+    if (err) {
+      console.log(err);
+      return res.send(500, err.message);
+    }
+
+    logger.info(req.user + " ha agregado un nuevo torneo: " + torneo.nombre + ". Jugadores por equipo: " + torneo.jugadores_por_equipo);
+    res.status(200).jsonp(torneo);
+  });
 };
 
 //PUT - Update a register already exists

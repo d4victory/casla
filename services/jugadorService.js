@@ -44,7 +44,11 @@ exports.addJugador = function(req, res) {
 	console.log(req.body);
 
 	Equipo.findById(req.body.equipo, function(err, equipo) {
-		if(err) return res.send(500, err.message);
+		if (err) {
+      console.log("Error findById addJugador")
+      console.log(err.message);
+      return res.status(500).send(err.message);
+    }
 		if (!equipo) {return res.send(404, "Equipo not found");}
 
 		var jugador = new Jugador({
@@ -60,7 +64,12 @@ exports.addJugador = function(req, res) {
 		});
 
 		jugador.save(function(err, jugador) {
-			if(err) return res.send(500, err.message);
+			if (err) {
+        console.log("err save jugador addJugador");
+        console.log(err.message);
+        return res.status(500).send(err.message);
+      }
+
 			logger.info(req.user+" ha agregado al jugador "+jugador._id+" de nombre "+jugador.apellido+", "+jugador.nombre+", equipo "+equipo._id);
 			equipo.jugadores.push(jugador);
 			if (req.body.capitan == "true"){
@@ -71,14 +80,15 @@ exports.addJugador = function(req, res) {
 				}
 			}
 			equipo.save(function(err, equipo) {
-			try{
-				if(err) return res.send(500, err.message);
-				logger.info("El equipo "+equipo.nombre+" ha agregado al jugador "+jugador.apellido+", "+jugador.nombre);
-	    		res.status(200).jsonp(jugador);
-				}catch (err){
-				console.log(err)
-			}
-	    	});
+				if (err) {
+          console.log("err save equipo addJugador");
+          console.log(err.message);
+          return res.status(500).send(err.message);
+        }
+
+        logger.info("El equipo "+equipo.nombre+" ha agregado al jugador "+jugador.apellido+", "+jugador.nombre);
+	    	res.status(200).jsonp(jugador);
+	    });
 		});
 	});
 };
@@ -135,7 +145,7 @@ exports.deleteJugador = function(req, res) {
 	Jugador.findById(req.params.id, function(err, jugador) {
 
 		var equipoDelJugador = jugador.equipo;
-		
+
 		Equipo.findById(equipoDelJugador, function(err, equipo_del_jugador) {
 			equipo_del_jugador.jugadores.pop(jugador);
 			if (equipo_del_jugador.capitan == jugador._id){
