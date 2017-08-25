@@ -82,15 +82,6 @@ module.exports = function (app, isAdmin, client) {
     });
 
     app.post('/agregarTorneo', isAdmin, function(req, res) {
-      var args = {
-        data: req.body,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-
-      console.log("ARGS", JSON.stringify(args, null, 2));
-
       client.post({url: "/torneo", body: req.body}, function (error, response, body) {
         if (error) {
           console.log("ERROR");

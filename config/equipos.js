@@ -20,10 +20,6 @@ module.exports = function(app,isAdmin, client) {
     });
 
     app.post('/agregarEquipo', isAdmin, function(req, res) {
-        var args = {
-            data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-        };
         client.post({url: "/equipo/", body: req.body}, function (err, response, data) {
             console.log("POST /equipo");
             res.redirect('/equipos');
@@ -31,11 +27,6 @@ module.exports = function(app,isAdmin, client) {
     });
 
     app.post('/updateEquipo', isAdmin, function(req, res) {
-        var args = {
-            data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-        };
-
         client.post({url: "/posicionEquipo/", body: req.body}, function (err, response, data) {
           client.put({url: "/equipo/"+req.body.equipoid, body: req.body}, function (err, response, data) {
             console.log("PUT /equipo");

@@ -41,20 +41,12 @@ module.exports = function(app, client) {
     app.post('/cargarPartido', isPlanillero, function(req, res) {
         console.log('estoy en POST de /cargarPartido, partidoid='+req.query.partidoid);
 
-        var args = {
-            data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-        };
-
         client.put({url: "/partido/"+req.query.partidoid, body: req.body}, function (err, response, data) {
             data.data["equipo1Old"] = data.equipo1Old;
             data.data["equipo2Old"] = data.equipo2Old;
             data.data["status"] = data.status;
             data.data["statusOld"] = data.statusOld;
-            var args2 = {
-                data:  data.data ,
-                headers: { "Content-Type": "application/json" }
-            };
+
             client.post({url: "/posicionEquipo/updatePosicionEquipo/", body: data.data}, function (err, response, data) {
               console.log("PUT /partido");
               res.redirect('/partidos');

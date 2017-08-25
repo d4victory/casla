@@ -55,10 +55,6 @@ module.exports = function(app, client) {
 
 
     app.post('/agregarJugador', isDelegado, function(req, res) {
-        var args = {
-            data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-        };
         client.post({url: "/jugador", body: req.body}, function (err, response, data) {
             console.log("POST /jugador");
             res.redirect('/delegado');

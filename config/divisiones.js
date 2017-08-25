@@ -9,10 +9,6 @@ module.exports = function(app,isAdmin, client) {
     });
 
     app.post('/agregarDivision', isAdmin, function(req, res) {
-        var args = {
-            data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-        };
         client.post({url: "/division", body: req.body}, function (err, response, data) {
             res.redirect('/divisionesDelTorneo?torneoid='+data.torneo._id);
         });

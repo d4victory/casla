@@ -52,10 +52,6 @@ module.exports = function(app,isAdmin, client) {
   });
 
   app.post('/delegarEquipo', isAdmin, function(req, res) {
-    var args = {
-      data:  req.body ,
-      headers: { "Content-Type": "application/json" }
-    };
     client.put({url: "/user/"+req.body.userid, body: req.body}, function (err, response, data) {
       console.log("PUT /user/"+req.body.userid);
       req.session.statusDelete = response.statusCode;
@@ -115,10 +111,6 @@ module.exports = function(app,isAdmin, client) {
   });
 
   app.post('/delegarEquipo', isAdmin, function(req, res) {
-    var args = {
-        data:  req.body ,
-        headers: { "Content-Type": "application/json" }
-    };
     client.put({url: "/user/"+req.body.userid, body: req.body}, function (err, response, data) {
       console.log("PUT /user/"+req.body.userid);
       req.session.statusDelete = response.statusCode;

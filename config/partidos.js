@@ -37,10 +37,6 @@ module.exports = function(app,isAdmin, client) {
     });
 
     app.post('/agregarPartido', isAdmin, function(req, res) {
-        var args = {
-            data:  req.body ,
-            headers: { "Content-Type": "application/json" }
-        };
         client.post({url: "/partido", body: req.body}, function (err, response, data) {
             console.log("POST /partidos");
             res.redirect('/partidos');
@@ -52,10 +48,7 @@ module.exports = function(app,isAdmin, client) {
         data.data["equipo1Old"] = data.equipo1Old;
         data.data["equipo2Old"] = data.equipo2Old;
         data.data["statusOld"] = data.statusOld;
-        var args2 = {
-            data:  data.data ,
-            headers: { "Content-Type": "application/json" }
-        };
+
         client.post({url: "/posicionEquipo/updatePosicionEquipo/", body: data.data}, function (err, response, data) {
           console.log("DELETE /partido/"+req.body.partidoid);
           req.session.statusDelete = response.statusCode;
