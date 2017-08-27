@@ -28,7 +28,7 @@
       <div class="innerbannerwrap">
         <div class="content"></div>
         <div class="innerbannergoleadores">
-          <h2 class="bannerHeadline">Divisiones del torneo <span style="color: blue"><%= torneo.nombre %></span></h2>
+          <h2 class="bannerHeadline">Divisiones del torneo <%= torneo.nombre %></h2>
         </div>
       </div>
 
@@ -37,7 +37,7 @@
                 <table class=" table-striped" style="background-color: #4b5257; width: 85%; text-align: center" align="center">
                     <thead>
 
-                    <tr style="background-color: red">
+                    <tr style="background-color: midnightblue">
                     <td class="headline01 largepoint1">Ver equipos de:
                      <select name="division" id="divisionSelect">
                     		<option value="none" selected></option>
@@ -51,22 +51,13 @@
 
 
                     </thead>
+
                       <tbody id="dataDivision">
-
-
-
-
-
-
-
-
-
                       </tbody>
 
-
-                    <td style="background-color: darkblue"><br>
+                    <td class="headline05"><br>
                         <form action="/torneos" method="get">
-                            <button type="submit">VOLVER A TORNEOS</button>
+                            <button type="submit">Volver a Torneos</button>
                         </form>
                         <br>
                     </td>

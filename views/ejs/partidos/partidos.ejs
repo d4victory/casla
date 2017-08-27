@@ -39,59 +39,11 @@
             <% } %>
             <section class="innerpage_all_wrap bg-white">
                 <div class="container">
-     <!--               <div class="row">
-                        <div class="matchSchedule_details row">
-                            <div class="match_versus-wrap2">
-                                <div class="wrap_match-innerdetails">
-                                    <div class="headline01 largepoint1">Ver partidos fecha:</div>
-                                    <select name="fechaSelectName" id="fechaSelect">
-                                        <option value="none"></option>
-                                        <% for(var i=0; i < numeros_fechas.length; i++) { %> 
-                                        <option value="<%= numeros_fechas[i] %>"><%= numeros_fechas[i] %></option>
-                                        <% } %>
-                                    </select>
-                                    <ul class="point_table2">
-                                        <li class="clearfix">
-                                            <div class="subPoint_table">
-                                                <div class="headline01 smallpoint">Estado</div>
-                                                <div class="headline01 smallpoint">Equipo 1</div>
-                                                <div class="headline01 smallpoint">Res 1</div>
-                                                <div class="headline01 smallpoint">Res 2</div>
-                                                <div class="headline01 smallpoint">Equipo 2</div>
-                                                <div class="headline01 smallpoint">N° Fecha</div>
-                                                <div class="headline01 smallpoint">Fecha</div>
-                                                <div class="headline01 smallpoint">Division</div>
-                                                <div class="headline01 smallpoint">Amonestados</div>
-                                                <div class="headline01 smallpoint">Expulsados</div>
-                                                <div class="headline01 smallpoint">Goles</div>
-                                                <div class="headline01 smallpoint">Cambios</div>
-                                                <div class="headline01 smallpoint">
-                                                  <form action="/cargarPartido" method="get" id="formCargarPartido">
-                                                    <input type="hidden" class="form-control">
-                                                    <button type="submit" >Cargar</button>
-                                                  </form>
-                                                </div>
-                                                <div class="headline01 smallpoint">
-                                                  <div class="headline01 smallpoint1"><span>ELIMINAR</span></div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <div id="dataPartidosConFecha">
-                                        </div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
--->
-
                     <div class="table-responsive" style="background-color: #262626">
                         <div class="wrap_match-innerdetails">
                         <table class="table table-striped " style="text-align: center ">
 
-                             <% if ((user.role == "ADMIN") || (user.role == "SUPER_ADMIN")) { %>
+                             <% if ((user.role == "ADMIN") || (user.role == "SUPER_ADMIN") || (user.role == "PLANILLERO")) { %>
 
 
                                     <tr>

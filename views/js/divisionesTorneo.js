@@ -22,9 +22,6 @@ $("#divisionSelect").change(function(){
 			$.get('/equipo/division/'+divisionid, function(equipos) {
 				var html = "";
 
-
-
-
 				if(equipos.length==0){
 					html += '<tr class="headline05"> <td> Ninguno </td></tr>';
 				} else {
@@ -32,15 +29,6 @@ $("#divisionSelect").change(function(){
 						html+= '<tr class="headline05"><td>'+equipos[i].nombre+'</td></tr>';
 					};
 				}
-
-
-
-                html += '<tr class="headline01 "><td><br>' +
-                    '<form action="/deleteDivision" method="post" id="formDelete'+divisionid+'">'+
-                    '<button class="deleteDivision" id="'+divisionid+'-'+division.nombre+'" type="submit">Eliminar</button>'+
-                    '<input type="hidden" value='+ divisionid +' name="divisionid"/>'+
-                    '</form><br></td></tr>';
-
 
 				$("#dataDivision").append(html);
 			});
