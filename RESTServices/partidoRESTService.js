@@ -208,7 +208,6 @@ module.exports = function(express,app) {
 	 */
 	 partidos.delete('/:id', PartidoCtrl.deletePartido);
 
-
 	app.use('/partido', partidos);
 
 };

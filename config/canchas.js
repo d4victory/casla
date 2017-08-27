@@ -29,7 +29,7 @@ module.exports = function(app,isAdmin, client) {
     });
 
     //app.post('/deleteDivision', isAdmin, function(req, res) {
-    //    client.delete("http://localhost:3000/division/"+req.body.divisionid, function (data, response) {
+    //    client.delete("http://localhost:8080/division/"+req.body.divisionid, function (data, response) {
     //        req.session.statusDelete = response.statusCode;
     //        res.redirect('/divisionesDelTorneo?torneoid='+data);
     //    });

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Equipo  = mongoose.model('Equipo');
 var Torneo  = mongoose.model('Torneo');
 var Division  = mongoose.model('Division');
+var Partido  = mongoose.model('Partido');
 var logger = require('../logger');
 
 //GET - Return all equipos in the DB
@@ -119,6 +120,26 @@ exports.deleteEquipo = function(req, res) {
 			}
 
 		});
+
+        Partido.find({$or:[{"equipo1":req.params.id},{"equipo2":req.params.id}]}, function(err, partidos) {
+
+            for (var i = 0; i<partidos.length; i++) {
+                Division.findById(partidos[i].division, function (err, division) {
+                    if (err) return res.send(500, err.message);
+                    if (!division) {
+                        return res.send(404, "Division id not found");
+                    }
+                    division.partidos.pop(partidos[i]);
+                    division.save(function (err, division) {
+                        if (err) return res.send(500, err.message);
+                    });
+                });
+
+                partidos[i].remove(function(err) {
+                    if(err) return res.send(500, err.message);
+                })
+            }
+        });
 
 		if(err) return res.send(500, err.message);
 		if (!equipo) {return res.send(404, "Equipo not found");}

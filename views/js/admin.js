@@ -13,14 +13,14 @@ $("#buscadorUsuario").keyup(function(){
 	$("#datosUsers").empty();
 	var username = $("#buscadorUsuario").val();
 	if(username){
-		$.get('http://localhost:3000/user/username/'+username, function(users) {
-			$.get('http://localhost:3000/equipo', function(equipos) {
+		$.get({url:'/user/username/'+username}, function(users) {
+			$.get({url:'/equipo'}, function(equipos) {
 				showUsers(users,equipos);
 			});
 		});
 	} else {
-		$.get('http://localhost:3000/user/notAdmins', function(users) {
-			$.get('http://localhost:3000/equipo', function(equipos) {
+		$.get({url:'/user/notAdmins'}, function(users) {
+			$.get({url:'/equipo'}, function(equipos) {
 				showUsers(users,equipos);
 			});
 		});

@@ -18,8 +18,8 @@ $("#divisionSelect").change(function(){
 		$("#dataDivision").empty();
 
 		var divisionid = $("#divisionSelect").val();
-		$.get('http://localhost:3000/division/'+divisionid, function(division) {
-			$.get('http://localhost:3000/equipo/division/'+divisionid, function(equipos) {
+		$.get('/division/'+divisionid, function(division) {
+			$.get('/equipo/division/'+divisionid, function(equipos) {
 				var html = "";
 
 

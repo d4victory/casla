@@ -17,11 +17,11 @@ $(document).on("click", ".deletePartido", function (e) {
 $(document).on("click", ".cargarPartido", function (e) {
     e.preventDefault();
     var id = $(this).attr("id");
-    $.get('http://localhost:3000/partido/' + id, function (partido){
-        $.get('http://localhost:3000/equipo', function (equipos) {
-            $.get('http://localhost:3000/jugador/equipo/'+partido.equipo1, function (jugadores1) {
-                $.get('http://localhost:3000/jugador/equipo/'+partido.equipo2, function (jugadores2) {
-                    $.get('http://localhost:3000/division/'+partido.division, function (division) {
+    $.get({url:'/partido/' + id}, function (partido){
+        $.get({url:'/equipo'}, function (equipos) {
+            $.get({url:'/jugador/equipo/'+partido.equipo1}, function (jugadores1) {
+                $.get({url:'/jugador/equipo/'+partido.equipo2}, function (jugadores2) {
+                    $.get({url:'/division/'+partido.division}, function (division) {
 
                             console.log('Entrando en cargarPartido, partido: '+id);
                             partidoGlobal = partido;
@@ -101,11 +101,10 @@ $("#fechaSelect").change(function () {
         $("#dataPartidosConFecha").empty();
 
         var fecha_numero = $("#fechaSelect").val();
-        $.get('http://localhost:3000/partido/fecha_numero/' + fecha_numero, function (partidos) {
-            $.get('http://localhost:3000/equipo', function (equipos) {
-                $.get('http://localhost:3000/division', function (divisiones) {
-                    $.get('http://localhost:3000/cancha', function (cancha) {
-
+        $.get('/partido/fecha_numero/' + fecha_numero, function (partidos) {
+            $.get('/equipo', function (equipos) {
+                $.get('/division', function (divisiones) {
+                    $.get('/cancha', function (cancha) {
                         var equiposMap = {};
                         for (var i = 0; i < equipos.length; i++) {
                             equiposMap[equipos[i]._id] = equipos[i].nombre;
@@ -220,10 +219,10 @@ $("#fechaSelect1").change(function () {
         $("#dataPartidosConFecha").empty();
 
         var fecha_numero = $("#fechaSelect1").val();
-        $.get('http://localhost:3000/partido/fecha_numero/' + fecha_numero, function (partidos) {
-            $.get('http://localhost:3000/equipo', function (equipos) {
-                $.get('http://localhost:3000/division', function (divisiones) {
-                    $.get('http://localhost:3000/cancha', function (cancha) {
+        $.get({url:'/partido/fecha_numero/' + fecha_numero}, function (partidos) {
+            $.get({url:'/equipo'}, function (equipos) {
+                $.get({url:'/division'}, function (divisiones) {
+                    $.get({url:'/cancha'}, function (cancha) {
 
                         var equiposMap = {};
                         for (var i = 0; i < equipos.length; i++) {

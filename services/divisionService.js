@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Division  = mongoose.model('Division');
 var Torneo  = mongoose.model('Torneo');
+var Partido  = mongoose.model('Partido');
 var Equipo  = mongoose.model('Equipo');
 var logger = require('../logger');
 
@@ -161,6 +162,15 @@ exports.deleteDivision = function(req, res) {
 				}
 			});
 		};
+
+        Partido.find({"division":division}, function(err, partidos) {
+                for (var i = 0; i<partidos.length; i++) {
+                    partidos[i].remove(function(err) {
+                        if(err) return res.send(500, err.message);
+                    })
+                }
+        });
+
 
 		division.remove(function(err) {
 			if(err) return res.send(500, err.message);
