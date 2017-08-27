@@ -30,7 +30,6 @@ module.exports = function(app, client) {
     });
 
     app.get('/cargarPartido', isPlanillero, function(req, res) {
-        console.log('estoy en GET de /cargarPartido, partidoid='+req.query.partidoid);
         client.get("/partido/"+req.query.partidoid, function (err, response, partido) {
             client.get("/division", function (err, response, divisiones) {
                 res.render('./ejs/partidos/cargarPartido.ejs', {user: req.user, divisiones:divisiones, partido: partido, message: req.flash('loginMessage'), resultado: req.session.statusSaved});
@@ -39,16 +38,27 @@ module.exports = function(app, client) {
     });
 
     app.post('/cargarPartido', isPlanillero, function(req, res) {
-        console.log('estoy en POST de /cargarPartido, partidoid='+req.query.partidoid);
-
         client.put({url: "/partido/"+req.query.partidoid, body: req.body}, function (err, response, data) {
+            if (err) {
+              console.log("ERROR en PUT de /cargarPartido");
+              console.log(err);
+              console.log('something went wrong al cargar partido', err.request.options);
+            }
+
             data.data["equipo1Old"] = data.equipo1Old;
             data.data["equipo2Old"] = data.equipo2Old;
             data.data["status"] = data.status;
             data.data["statusOld"] = data.statusOld;
 
             client.post({url: "/posicionEquipo/updatePosicionEquipo/", body: data.data}, function (err, response, data) {
+              if (err) {
+                console.log("ERROR en POST de /cargarPartido");
+                console.log(err);
+                console.log('something went wrong al cargar partido', err.request.options);
+              }
               console.log("PUT /partido");
+              console.log('response statusCode:' + response.statusCode);
+              console.log("body", body);
               res.redirect('/partidos');
             });
         });
@@ -56,7 +66,7 @@ module.exports = function(app, client) {
 
 }
 
-// route middleware to make sure a user is logged in (DELEGADO)
+// route middleware to make sure a user is logged in (PLANILLERO)
 function isPlanillero(req, res, next) {
 
     // if user is authenticated in the session, carry on
