@@ -149,28 +149,28 @@ $("#fechaSelect").change(function () {
                             html += '<td class="headline06">' + divisionesMap[partidos[i].division] + '</td>';
                             html += '<td class="headline06">' + canchaMap[partidos[i].cancha] + '</td>';
 
-                            html += '<td class="headline06">';
-                            if (partidos[i].amonestados.length == 0) {
-                                html += 'Ninguno';
-                            } else {
-                                html += "VER AMONESTADOS";
-                            }
-                            html += '</td>';
-
-                            html += '<td class="headline06">';
-                            if (partidos[i].expulsados.length == 0) {
-                                html += 'Ninguno';
-                            } else {
-                                html += "VER EXPULSADOS";
-                            }
-                            html += '</td>';
-
-                            html += '<td class="headline06">';
-                            if (partidos[i].goles.length == 0) {
-                                html += 'Ninguno';
-                            } else {
-                                html += "VER GOLES";
-                            }
+                            // html += '<td class="headline06">';
+                            // if (partidos[i].amonestados.length == 0) {
+                            //     html += 'Ninguno';
+                            // } else {
+                            //     html += "VER AMONESTADOS";
+                            // }
+                            // html += '</td>';
+                            //
+                            // html += '<td class="headline06">';
+                            // if (partidos[i].expulsados.length == 0) {
+                            //     html += 'Ninguno';
+                            // } else {
+                            //     html += "VER EXPULSADOS";
+                            // }
+                            // html += '</td>';
+                            //
+                            // html += '<td class="headline06">';
+                            // if (partidos[i].goles.length == 0) {
+                            //     html += 'Ninguno';
+                            // } else {
+                            //     html += "VER GOLES";
+                            // }
                             html += '</td>';
 
                             //html += '<td class="headline06">';
