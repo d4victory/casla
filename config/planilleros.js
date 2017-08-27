@@ -1,7 +1,7 @@
 module.exports = function(app, client) {
 
     app.get('/planillero', isPlanillero, function(req, res) {
-      client.get("/partido/estado/N.E", function (err, response, partidos) {
+      client.get("/partido/estado/N.E.", function (err, response, partidos) {
         client.get("/equipo", function (err, response, equipos) {
           var equiposMap =  {};
           for (var i = 0; i < equipos.length; i++) {
