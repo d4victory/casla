@@ -28,10 +28,9 @@ module.exports = function(app,isAdmin, client) {
 
     });
 
-    //app.post('/deleteDivision', isAdmin, function(req, res) {
-    //    client.delete("http://localhost:8080/division/"+req.body.divisionid, function (data, response) {
-    //        req.session.statusDelete = response.statusCode;
-    //        res.redirect('/divisionesDelTorneo?torneoid='+data);
-    //    });
-    //});
+    app.post('/deleteCancha', isAdmin, function(req, res) {
+       client.delete("/cancha/"+req.body.canchaid, function (data, response) {
+           res.redirect('/canchasDelTorneo?torneoid='+response.body.torneo);
+       });
+    });
 }

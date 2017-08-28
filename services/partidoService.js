@@ -34,6 +34,15 @@ exports.findByFechaNumero = function(req, res) {
 	});
 };
 
+//GET - Return partidos from a fecha_numero
+exports.findByCancha = function(req, res) {
+    Partido.find({'cancha': req.params.cancha_id}, function(err, partidos) {
+        if(err) return res.send(500, err.message);
+        console.log('GET /partido/cancha/' + req.params.cancha_id);
+        res.status(200).jsonp(partidos);
+    });
+};
+
 //GET - Return partidos with an estado
 exports.findByEstado = function(req, res) {
 	Partido.find({ 'estado': req.params.estado}, function(err, partidos) {

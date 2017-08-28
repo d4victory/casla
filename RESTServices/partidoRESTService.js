@@ -74,6 +74,29 @@ module.exports = function(express,app) {
 	 */
 	 partidos.get('/fecha_numero/:fecha_numero', PartidoCtrl.findByFechaNumero);
 
+    /**
+     * @swagger
+     * /partido/cancha/{cancha_id}:
+     *   get:
+     *     tags:
+     *       - PartidoModel
+     *     description: Returns partidos with a specific cancha_id
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: cancha_id
+     *         description: cancha's id
+     *         in: path
+     *         required: true
+     *         type: integer
+     *     responses:
+     *       200:
+     *         description: An array of partidos
+     *         schema:
+     *           $ref: '#/definitions/PartidoModel'
+     */
+    partidos.get('/cancha/:cancha_id', PartidoCtrl.findByCancha);
+
 	 /**
 	 * @swagger
 	 * /partido/estado/{estado}:
