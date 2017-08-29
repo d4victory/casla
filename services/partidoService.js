@@ -60,6 +60,14 @@ exports.findNumerosFechasDisponibles = function(req, res){
     });
 }
 
+//GET - Returns distinct fecha_numero from partidos by Division
+exports.findNumerosFechasDisponiblesByDivision = function(req, res){
+    Partido.find({'division':req.params.division}).distinct('fecha_numero', function(error, numeros_fechas) {
+        console.log('GET /partido/numeros_fechas');
+        res.status(200).jsonp(numeros_fechas);
+    });
+}
+
 //POST - Insert a new partido in the DB
 exports.addPartido = function(req, res) {
 	console.log('POST /partido');

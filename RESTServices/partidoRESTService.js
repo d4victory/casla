@@ -97,6 +97,29 @@ module.exports = function(express,app) {
      */
     partidos.get('/cancha/:cancha_id', PartidoCtrl.findByCancha);
 
+    /**
+     * @swagger
+     * /partido/fechas/division/{division}:
+     *   get:
+     *     tags:
+     *       - PartidoModel
+     *     description: Returns partidos's fechas with a specific divition
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: divition
+     *         description: divition's model
+     *         in: path
+     *         required: true
+     *         type: integer
+     *     responses:
+     *       200:
+     *         description: An array of Fechas
+     *         schema:
+     *           $ref: '#/definitions/PartidoModel'
+     */
+    partidos.get('/fechas/division/:division', PartidoCtrl.findNumerosFechasDisponiblesByDivision);
+
 	 /**
 	 * @swagger
 	 * /partido/estado/{estado}:
