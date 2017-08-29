@@ -54,7 +54,8 @@
                             <div class="headline09 smallpoint">Nombre</div>
                             <div class="headline09 smallpoint">Division</div>
                             <div class="headline09 smallpoint">Jugadores</div>
-                            <div class="headline09 smallpoint">Partidos</div>
+                            <!-- TODO: implementar a futuro -->
+                            <!--<div class="headline09 smallpoint">Partidos</div>-->
 
                             <div class="headline09 smallpoint row row">
                                 <div class="headline09 smallpoint1"><span></span></div>
@@ -102,14 +103,15 @@
                                 Ninguno
                                 <% } %>
                             </div>
-                            <div class="headline09 smallpoint">
-                                <% if (equipos[i].partidos ) { %>
-                                <button  type="submit">Ver Partidos</button></span>
-                                <!-- <%= equipos[i].partidos  %>  -->
-                                <% } else { %>
-                                Ninguno
-                                <% } %>
-                            </div>
+                            <!--TODO: implementar a futuro -->
+                            <!--<div class="headline09 smallpoint">-->
+                                <!--<% if (equipos[i].partidos ) { %>-->
+                                <!--<button  type="submit">Ver Partidos</button></span>-->
+                                <!--&lt;!&ndash; <%= equipos[i].partidos  %>  &ndash;&gt;-->
+                                <!--<% } else { %>-->
+                                <!--Ninguno-->
+                                <!--<% } %>-->
+                            <!--</div>-->
                             <div class="headline09 smallpoint row row">
                                 <div class="headline09 smallpoint1"><span>
 								<form onsubmit="return confirm('Seguro que desea eliminar al equipo <%= equipos[i].nombre %>?');" action="/deleteEquipo" method="post">
