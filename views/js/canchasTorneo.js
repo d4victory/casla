@@ -18,7 +18,7 @@ $("#canchaSelect").change(function(){
 		$("#dataCancha").empty();
 
 		var canchaId = $("#canchaSelect").val();
-		$.get('http://localhost:3000/cancha/'+canchaId, function(cancha) {
+		$.get('http://localhost:8080/cancha/'+canchaId, function(cancha) {
 			var html = "";
 			html += '<li class="clearfix">';
 			html += '<div class="subPoint_table">';

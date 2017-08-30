@@ -6,12 +6,12 @@ var id = getParameterByName("partidoid");
 // $("#horario-div").hide();
 // $("#cancha-div").hide();
 
-$.get('http://localhost:3000/partido/' + id, function (partido){
-    $.get('http://localhost:3000/equipo', function (equipos) {
-        $.get('http://localhost:3000/jugador/equipo/'+partido.equipo1, function (jugadores1) {
-            $.get('http://localhost:3000/jugador/equipo/'+partido.equipo2, function (jugadores2) {
-                $.get('http://localhost:3000/division/'+partido.division, function (division) {
-                    $.get('http://localhost:3000/cancha/torneo/'+division.torneo, function (canchas) {
+$.get('http://localhost:8080/partido/' + id, function (partido){
+    $.get('http://localhost:8080/equipo', function (equipos) {
+        $.get('http://localhost:8080/jugador/equipo/'+partido.equipo1, function (jugadores1) {
+            $.get('http://localhost:8080/jugador/equipo/'+partido.equipo2, function (jugadores2) {
+                $.get('http://localhost:8080/division/'+partido.division, function (division) {
+                    $.get('http://localhost:8080/cancha/torneo/'+division.torneo, function (canchas) {
                         console.log('Entrando en cargarPartido, partido: '+id);
                         partidoGlobal = partido;
                         var equiposMap = {};
