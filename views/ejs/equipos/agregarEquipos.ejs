@@ -51,7 +51,15 @@
                     <div class="form-group">
                       <div class="headline01 largepoint1">Nombre</div>
                       <input type="text" class="form-control" name="nombre">
+                        <div class="headline01 largepoint1">Division</div>
+                        <select name="division" id="divisionSelect">
+                            <option value="none" selected></option>
+                            <% for(var i=0; i < divisiones.length; i++) { %>
+                            <option value=<%= divisiones[i]._id %>> <%=divisiones[i].nombre %></option>
+                            <% } %>
+                        </select>
                     </div>
+
 
                     <!--  <div class="form-group">
                       <div class="headline01 largepoint1">Logo</div>

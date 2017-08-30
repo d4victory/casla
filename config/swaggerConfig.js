@@ -7,7 +7,7 @@ var swaggerDefinition = {
     version: '1.0.0',
     description: 'CASLA RESTful API',
   },
-  host: 'localhost:3000',
+  host: 'localhost:8080',
   basePath: '/',
 };
 // options for the swagger docs

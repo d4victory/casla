@@ -6,7 +6,7 @@ const logDir = 'logs';
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
-const tsFormat = () => (new Date()).toLocaleTimeString();
+const tsFormat = (new Date()).toLocaleTimeString();
 const logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({ 
@@ -14,7 +14,7 @@ const logger = new (winston.Logger)({
       colorize: true,
       level: 'info' }),
     new (require('winston-daily-rotate-file'))({
-      filename: `${logDir}/-log.log`,
+      filename: 'logs/-log.log',
       timestamp: tsFormat,
       datePattern: 'yyyy-MM-dd',
       prepend: true,

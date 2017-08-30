@@ -74,6 +74,52 @@ module.exports = function(express,app) {
 	 */
 	 partidos.get('/fecha_numero/:fecha_numero', PartidoCtrl.findByFechaNumero);
 
+    /**
+     * @swagger
+     * /partido/cancha/{cancha_id}:
+     *   get:
+     *     tags:
+     *       - PartidoModel
+     *     description: Returns partidos with a specific cancha_id
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: cancha_id
+     *         description: cancha's id
+     *         in: path
+     *         required: true
+     *         type: integer
+     *     responses:
+     *       200:
+     *         description: An array of partidos
+     *         schema:
+     *           $ref: '#/definitions/PartidoModel'
+     */
+    partidos.get('/cancha/:cancha_id', PartidoCtrl.findByCancha);
+
+    /**
+     * @swagger
+     * /partido/fechas/division/{division}:
+     *   get:
+     *     tags:
+     *       - PartidoModel
+     *     description: Returns partidos's fechas with a specific divition
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: divition
+     *         description: divition's model
+     *         in: path
+     *         required: true
+     *         type: integer
+     *     responses:
+     *       200:
+     *         description: An array of Fechas
+     *         schema:
+     *           $ref: '#/definitions/PartidoModel'
+     */
+    partidos.get('/fechas/division/:division', PartidoCtrl.findNumerosFechasDisponiblesByDivision);
+
 	 /**
 	 * @swagger
 	 * /partido/estado/{estado}:
@@ -207,7 +253,6 @@ module.exports = function(express,app) {
 	 *         description: Successfully deleted
 	 */
 	 partidos.delete('/:id', PartidoCtrl.deletePartido);
-
 
 	app.use('/partido', partidos);
 

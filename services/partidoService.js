@@ -34,6 +34,15 @@ exports.findByFechaNumero = function(req, res) {
 	});
 };
 
+//GET - Return partidos from a fecha_numero
+exports.findByCancha = function(req, res) {
+    Partido.find({'cancha': req.params.cancha_id}, function(err, partidos) {
+        if(err) return res.send(500, err.message);
+        console.log('GET /partido/cancha/' + req.params.cancha_id);
+        res.status(200).jsonp(partidos);
+    });
+};
+
 //GET - Return partidos with an estado
 exports.findByEstado = function(req, res) {
 	Partido.find({ 'estado': req.params.estado}, function(err, partidos) {
@@ -48,6 +57,14 @@ exports.findNumerosFechasDisponibles = function(req, res){
 	Partido.find().distinct('fecha_numero', function(error, numeros_fechas) {
         console.log('GET /partido/numeros_fechas');
 		res.status(200).jsonp(numeros_fechas);
+    });
+}
+
+//GET - Returns distinct fecha_numero from partidos by Division
+exports.findNumerosFechasDisponiblesByDivision = function(req, res){
+    Partido.find({'division':req.params.division}).distinct('fecha_numero', function(error, numeros_fechas) {
+        console.log('GET /partido/numeros_fechas');
+        res.status(200).jsonp(numeros_fechas);
     });
 }
 
@@ -253,7 +270,31 @@ exports.deletePartido = function(req, res) {
 	});
 };
 
+//GET - Return partidos from a fecha_numero
+exports.deleteByEquipoId = function(req, res) {
+    Partido.find({$or:[{"equipo1":req.params.id},{"equipo2":req.params.id}]}, function(err, partidos) {
 
+        for (var i = 0; i<partidos.length; i++) {
+            Division.findById(partidos[i].division, function (err, division) {
+                if (err) return res.send(500, err.message);
+                if (!division) {
+                    return res.send(404, "Division id not found");
+                }
+                division.partidos.pop(partido);
+                division.save(function (err, division) {
+                    if (err) return res.send(500, err.message);
+                    logger.info("La division " + division.nombre + " ha quitado al partido " + partido.equipo1 + " VS " + partido.equipo2 + ", fecha " + partido.fecha_numero);
+                });
+            });
+
+            partido.remove(function(err) {
+                if(err) return res.send(500, err.message);
+                logger.info(req.user+" ha borrado el partido "+partido.nombre);
+                res.status(200).jsonp(partidos);
+            })
+        }
+    });
+};
 //EXAMPLE POST
 // {
 //   "equipo1": "58865fe1c6058e592e000002",

@@ -18,12 +18,9 @@ $("#divisionSelect").change(function(){
 		$("#dataDivision").empty();
 
 		var divisionid = $("#divisionSelect").val();
-		$.get('http://localhost:3000/division/'+divisionid, function(division) {
-			$.get('http://localhost:3000/equipo/division/'+divisionid, function(equipos) {
+		$.get('/division/'+divisionid, function(division) {
+			$.get('/equipo/division/'+divisionid, function(equipos) {
 				var html = "";
-
-
-
 
 				if(equipos.length==0){
 					html += '<tr class="headline05"> <td> Ninguno </td></tr>';
@@ -33,15 +30,11 @@ $("#divisionSelect").change(function(){
 					};
 				}
 
-
-
                 html += '<tr class="headline01 "><td><br>' +
                     '<form action="/deleteDivision" method="post" id="formDelete'+divisionid+'">'+
                     '<button class="deleteDivision" id="'+divisionid+'-'+division.nombre+'" type="submit">Eliminar</button>'+
                     '<input type="hidden" value='+ divisionid +' name="divisionid"/>'+
                     '</form><br></td></tr>';
-
-
 				$("#dataDivision").append(html);
 			});
 			

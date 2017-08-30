@@ -23,8 +23,8 @@ $("#torneoSelect").change(function(){
         $("#canchaSelect").empty();
 
         var idTorneo = $("#torneoSelect").val();
-        $.get('http://localhost:3000/division/torneo/'+idTorneo, function(divisiones) {
-            $.get('http://localhost:3000/cancha/torneo/'+idTorneo, function(canchas) {
+        $.get({url:'division/torneo/'+idTorneo}, function(divisiones) {
+            $.get({url:'/cancha/torneo/'+idTorneo}, function(canchas) {
                 if ( divisiones.length == 0 ){
                     $("#divisionesTorneo").hide();
                     $("#elegirEquipo1").hide();
@@ -64,7 +64,7 @@ $("#divisionSelect").change(function(){
         $("#elegirEquipo2").show();
         $("#elegirEquipo2").css("visibility","visible");
         var idDivision = $("#divisionSelect").val();
-        $.get('http://localhost:3000/division/'+idDivision+'/equipos', function(equipos) {
+        $.get({url:'/division/'+idDivision+'/equipos'}, function(equipos) {
             if ( equipos.length == 0 ){
                 $("#elegirEquipo1").hide();
                 $("#elegirEquipo2").hide();
