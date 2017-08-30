@@ -30,49 +30,47 @@
     <div class="innerbannerwrap">
       <div class="content"></div>
       <div class="innerbannergoleadores">
-        <h2 class="bannerHeadline">Canchas del torneo <%= torneo.nombre %><span></span></h2>
+        <h2 class="bannerHeadline" >Canchas del torneo <br> <span style="color: darkblue"><%= torneo.nombre %></span></h2>
       </div>
     </div>
 
     <section class="innerpage_all_wrap bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="matchSchedule_details row">
+      <div class="table-responsive">
+        <table class=" table table-striped" align="center" style="text-align: center; background-color: #262626; margin-bottom: 50px; width: 85%">
 
 
 
-            <div class="match_versus-wrap2">
-              <div class="wrap_match-innerdetails">
-                <div class="headline01 largepoint1">Canchas</div>
 
-                <ul class="point_table2">
+          <thead>
+          <tr style="background-color: #b81e20; ">
+            <td class="headline03 " style="color: darkblue">Canchas</td>
 
-                  <li class="clearfix">
-                    <div class="subPoint_table">
-                      <% for(var i=0; i < canchas.length; i++) { %>
-                        <div class="headline01 largepoint1">
-                          <%=canchas[i].nombre %>
-                        </div>
+          </tr>
+          </thead>
+          <tbody>
+                <% for(var i=0; i < canchas.length; i++) { %>
+                        <tr class="headline01 largepoint1">
+                          <td><%=canchas[i].nombre %></td>
+                        </tr>
                       <% } %>
-                      <div class="headline01 smallpoint row row">
-                      </div>
-                    </div>
-                  </li>
+
 
                   <div id="dataCancha"></div>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
+
+
+        <tr>
+          <td>
       <form action="/torneos" method="get">
         <button type="submit">VOLVER A TORNEOS</button>
       </form>
+          </td>
+        </tr>
+        </table>
+      </div>
     </section>
 
-    </section>
+
 
 
     <!-- footer -->
