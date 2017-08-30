@@ -30,6 +30,11 @@ $("#divisionSelect").change(function(){
 					};
 				}
 
+                html += '<tr class="headline01 "><td><br>' +
+                    '<form action="/deleteDivision" method="post" id="formDelete'+divisionid+'">'+
+                    '<button class="deleteDivision" id="'+divisionid+'-'+division.nombre+'" type="submit">Eliminar</button>'+
+                    '<input type="hidden" value='+ divisionid +' name="divisionid"/>'+
+                    '</form><br></td></tr>';
 				$("#dataDivision").append(html);
 			});
 			
