@@ -5,7 +5,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Torneo de Fútbol Para Socios del Club Atlético San Lorenzo de Almagro</title>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
      <link rel="stylesheet" href="vendor.css">       
      <link rel="stylesheet" href="style.css">   
@@ -40,100 +40,93 @@
           <% } %>
       <% } %>
 
-      <section class="innerpage_all_wrap bg-white"> 
-        <div class="container">
-			<div class="row">
-			<div class="matchSchedule_details row">
-          
+      <section class="innerpage_all_wrap bg-white">
+          <div class="table-responsive">
+              <table class=" table table-striped" align="center" style="text-align: center; background-color: #262626; margin-bottom: 50px; width: 85%">
           
 				      <% if (equipo!=null) { %>
-				      		<div class="match_versus-wrap2">
-			                  <div class="wrap_match-innerdetails">
-			                    <ul class="point_table2">
-			                       <li class="clearfix">
-			                        <div class="subPoint_table">
-			                          <div class="headline01 smallpoint">Indice</div>
-			                          <div class="headline01 smallpoint">Nombre</div>
-			                          <div class="headline01 smallpoint">Numero</div>
-                                <div class="headline01 smallpoint">Capitan</div>
-                                <div class="headline01 smallpoint">SubCapitan</div>
-			                          <div class="headline01 smallpoint">Editar</div>
-                          			  <div class="headline01 smallpoint row row">
-            						  <div class="headline01 smallpoint1"><span>ELIMINAR/AGREGAR</span></div>
-                                    </div>
-            						</div>
-                      </li>
+                        <thead>
+                        <tr style="background-color: #b81e20; ">
+			                          <td class="headline01 " style="color: darkblue">Indice</td>
+			                          <td class="headline01 " style="color: darkblue">Nombre</td>
+			                          <td class="headline01" style="color: darkblue">Numero</td>
+                                <td class="headline01" style="color: darkblue">Capitan</td>
+                                <td class="headline01" style="color: darkblue">SubCapitan</td>
+			                          <td class="headline01" style="color: darkblue">Editar</td>
 
+            						  <td class="headline01" style="color: darkblue"><span>ELIMINAR/AGREGAR</span></td>
+
+
+                      </tr>
+                        </thead>
+
+                        <tbody>
                       		<% for(var i=0; i < 25; i++) { %>
-            					               <li class="clearfix">
-                                     			 <div class="subPoint_table">
+            					     <tr>
 
                                             <% if (jugadores[i]!=undefined) { %>
-                                                  <div class="headline01 smallpoint"><%= i+1 %></div>
-                                            			 <div class="headline01 smallpoint"><%= jugadores[i].apellido %>, <%= jugadores[i].nombre %></div>
-                                            			 <div class="headline01 smallpoint"><%= jugadores[i].numero %> (<%= jugadores[i].posicion %>)</div>
-                                                   <div class="headline01 smallpoint">
+                                                  <td class="headline01 "><%= i+1 %></td>
+                                            			 <td class="headline01 "><%= jugadores[i].apellido %>, <%= jugadores[i].nombre %></td>
+                                            			 <td class="headline01 "><%= jugadores[i].numero %> (<%= jugadores[i].posicion %>)</td>
+                                                   <td class="headline01 ">
                                                       <% if ( equipo.capitan == jugadores[i]._id ) { %>
                                                         SI
                                                       <% } else { %> NO <% } %>
-                                                    </div>
-                                                  <div class="headline01 smallpoint">
+                                                    </td>
+                                                  <td class="headline01 ">
                                                       <% if ( equipo.subcapitan == jugadores[i]._id ) { %>
                                                         SI
                                                       <% } else { %> NO <% } %>
-                                                    </div>
-                                            			<div class="headline01 smallpoint">
+                                                    </td>
+                                            			<td class="headline01 ">
                                                     <form action="/datosJugador" method="post">
                                                               <button type="submit">Editar </button>
                                                               <input type="hidden" value=<%= jugadores[i]._id %> name="jugadorid"/>
                                                     </form>
-                                                  </div>
+                                                  </td>
                                           
-                  			                          <div class="headline01 smallpoint row row">
-                              										<div class="headline01 smallpoint1">
+
+                              										<td class="headline01 ">
                               											<span>
                               											<form onsubmit="return confirm('Seguro que desea eliminar al jugador <%= jugadores[i].apellido%>?');" action="/deleteJugador" method="post">
                               								                <button type="submit">Eliminar</button>
                               								                <input type="hidden" value=<%= jugadores[i]._id %> name="jugadorid"/>
                               								            </form>
                               											</span>
-                              										</div>
-                              									  </div>
+                              										</td>
+
                               									
                                           <% } else { %>
-                                                  <div class="headline01 smallpoint"><%= i+1 %></div>
-                                                   <div class="headline01 smallpoint">-</div>
-                                                   <div class="headline01 smallpoint">-</div>
-                                                   <div class="headline01 smallpoint">-</div>
-                                                   <div class="headline01 smallpoint">-</div>
-                                                  <div class="headline01 smallpoint">-</div>
+                                                  <td class="headline01 "><%= i+1 %></td>
+                                                   <td class="headline01">-</td>
+                                                   <td class="headline01">-</td>
+                                                   <td class="headline01">-</td>
+                                                   <td class="headline01">-</td>
+                                                  <td class="headline01 ">-</td>
                                           
-                                                  <div class="headline01 smallpoint row row">
-                                                  <div class="headline01 smallpoint1">
+
+                                                  <td class="headline01 ">
                                                     <span>
                                                     <form action="/addJugador" method="get">
                                                               <button type="submit">Agregar</button>
                                                     </form>
                                                     </span>
-                                                  </div>
-                                                  </div>
+                                                  </td>
+
                                          <% } %>
-                                        </div>
-                      				</li>
+                                     </tr>
 
                       		<% } %>
 
-                    </ul>
-                    </div>
-                  </div>
- 				</div>
-            </div>
-        </div>
+
 				      <% } else { %>
 				      	<h2> USTED NO TIENE EQUIPO ASIGNADO. HABLE CON EL ADMINISTRADOR PARA ASIGNARLE UNO </h2>
 				      <% } %>
-				 
-		
+
+                        </tbody>
+
+              </table>
+          </div>
 		
       </section>
     
