@@ -146,7 +146,7 @@ module.exports = function(express,app) {
 	 *       200:
 	 *         description: Successfully deleted
 	 */
-	//canchas.delete('/:id', CanchaRESTService.deleteCancha);
+	canchas.delete('/:id', CanchaRESTService.deleteCancha);
 
 
 	app.use('/cancha', canchas);

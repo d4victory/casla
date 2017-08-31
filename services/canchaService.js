@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Cancha = mongoose.model('Cancha');
 var Torneo = mongoose.model('Torneo');
+var Partido =  mongoose.model('Partido');
 var logger = require('../logger');
 
 //GET - Return all canchas in the DB
@@ -87,28 +88,25 @@ exports.updateCancha = function(req, res) {
 };
 
 //DELETE - Delete an cancha with specified ID
-// exports.deleteCancha = function(req, res) {
-// 	Cancha.findById(req.params.id, function(err, cancha) {
+exports.deleteCancha = function(req, res) {
+	Cancha.findById(req.params.id, function(err, cancha) {
 
-// 		var torneoDeLaCancha = cancha.torneo;
-		
-// 		Torneo.findById(torneoDeLaCancha, function(err, torneo_de_la_cancha) {
-// 			torneo_de_la_cancha.canchas.pop(cancha);
-// 			torneo_de_la_cancha.save(function(err, torneo_de_la_cancha) {
-// 				if(err) return res.send(500, err.message);
-// 				logger.info("El torneo "+torneoDeLaCancha+" ha quitado a la cancha "+cancha.nombre);
-// 			});
-// 		});
+		if(err) return res.send(500, err.message);
+		if (!cancha) {return res.send(404, "Cancha not found");}
 
-// 		if(err) return res.send(500, err.message);
-// 		if (!cancha) {return res.send(404, "Cancha not found");}
-// 		cancha.remove(function(err) {
-// 			if(err) return res.send(500, err.message);
-// 			logger.info(req.user+" ha borrado la cancha "+cancha.nombre);
-//       		res.status(200).jsonp("Successfully deleted");
-// 		})
-// 	});
-// };
+        Partido.findOne({"cancha":req.params.id}, function(err, partido) {
+            if (!partido){
+                cancha.remove(function(err) {
+                    if(err) return res.send(500, err.message);
+                    logger.info(req.user+" ha borrado la cancha "+cancha.nombre);
+                    res.status(200).jsonp(cancha);
+                })
+            } else {
+                res.status(200).jsonp(cancha);
+            }
+        });
+	});
+};
 
 // EXAMPLE POST:
 // {

@@ -3,10 +3,10 @@ $("#dataPartidos").css("visibility", "visible");
 $("#dataPartidos").empty();
 
 var torneoId = $("#dataPartidos").attr("name");
-$.get('http://localhost:8080/torneo/' + torneoId, function(torneo){
-	$.get('http://localhost:8080/torneo/' + torneo._id + '/partidos', function (partidos) {
-		$.get('http://localhost:8080/equipo', function (equipos) {
-			$.get('http://localhost:8080/division', function (divisiones) {
+$.get({url:'/torneo/' + torneoId}, function(torneo){
+	$.get({url:'/torneo/' + torneo._id + '/partidos'}, function (partidos) {
+		$.get({url:'/equipo'}, function (equipos) {
+			$.get({url:'/division'}, function (divisiones) {
 
 				partidos = partidos.partidos;
 
@@ -114,9 +114,9 @@ $("#fechaSelect").change(function () {
 		$("#dataPartidosConFecha").empty();
 
 		var fecha_numero = $("#fechaSelect").val();
-		$.get('http://localhost:8080/partido/fecha_numero/' + fecha_numero, function (partidos) {
-			$.get('http://localhost:8080/equipo', function (equipos) {
-				$.get('http://localhost:8080/division', function (divisiones) {
+		$.get({url:'/partido/fecha_numero/' + fecha_numero}, function (partidos) {
+			$.get({url:'/equipo'}, function (equipos) {
+				$.get({url:'/division'}, function (divisiones) {
 
 					var equiposMap = {};
 					for (var i = 0; i < equipos.length; i++) {

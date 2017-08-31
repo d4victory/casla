@@ -15,7 +15,6 @@ module.exports = function(app,isAdmin, client) {
     });
 
     app.get('/partidosDelTorneo', isAdmin, function(req, res) {
-      console.log('estoy en /partidosDelTorneo');
       client.get("/torneo/"+req.query.torneoid, function (err, response, torneo) {
         client.get("/division", function (err, response, divisiones) {
           res.render('./ejs/torneos/partidosTorneo.ejs', {

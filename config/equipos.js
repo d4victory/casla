@@ -28,22 +28,22 @@ module.exports = function(app,isAdmin, client) {
 
     app.post('/updateEquipo', isAdmin, function(req, res) {
         client.post({url: "/posicionEquipo/", body: req.body}, function (err, response, data) {
-          client.put({url: "/equipo/"+req.body.equipoid, body: req.body}, function (err, response, data) {
-            console.log("PUT /equipo");
-            res.redirect('/equipos');
-          });
+            client.put({url: "/equipo/"+req.body.equipoid, body: req.body}, function (err, response, data) {
+                console.log("PUT /equipo");
+                res.redirect('/equipos');
+            });
         });
     });
 
 
     app.post('/deleteEquipo', isAdmin, function(req, res) {
-      client.delete("/equipo"+req.body.equipoid, function (err, response, data) {
-        client.delete("/posicionEquipo/equipo/"+req.body.equipoid, function (err, response, info) {
-          console.log("DELETE /equipo/"+req.body.equipoid);
-          req.session.statusDelete = response.statusCode;
-          res.redirect('/equipos');
+        client.delete("/equipo/"+req.body.equipoid, function (err, response, data) {
+            client.delete("/posicionEquipo/equipo/"+req.body.equipoid, function (err, response, info) {
+                console.log("DELETE /equipo/"+req.body.equipoid);
+                req.session.statusDelete = response.statusCode;
+                res.redirect('/equipos');
+            });
         });
-      });
     });
 
 }

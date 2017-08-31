@@ -2,90 +2,92 @@
 <html class="no-js" lang="">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Torneo de Fútbol Para Socios del Club Atlético San Lorenzo de Almagro</title>
-  <link rel="shortcut icon" href="images/favicon.ico">
-  <!-- Place images/favicon.ico and apple-touch-icon.png in the root directory -->
-  <link rel="stylesheet" href="vendor.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" type="text/css" href="css/layerslider.css">
-  <script src="js/vendor/modernizr.js"></script>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Torneo de Fútbol Para Socios del Club Atlético San Lorenzo de Almagro</title>
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <!-- Place images/favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="vendor.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/layerslider.css">
+    <script src="js/vendor/modernizr.js"></script>
 </head>
 
 <body>
-  <!--[if lt IE 10]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-  <div class="wrapper">
+<!--[if lt IE 10]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<div class="wrapper">
     <!-- header -->
     <header class="header-main">
-      <div class="header-lower clearfix">
-        <%- include ../menu.ejs %>
-      </div>
+        <div class="header-lower clearfix">
+            <%- include ../menu.ejs %>
+        </div>
     </header>
 
     <!-- banner section -->
     <div class="innerbannerwrap">
-      <div class="content"></div>
-      <div class="innerbannergoleadores">
-        <h2 class="bannerHeadline" >Canchas del torneo <br> <span style="color: darkblue"><%= torneo.nombre %></span></h2>
-      </div>
+        <div class="content"></div>
+        <div class="innerbannergoleadores">
+            <h2 class="bannerHeadline">Canchas del torneo <br> <span style="color: darkblue"><%= torneo.nombre %></span>
+            </h2>
+        </div>
     </div>
 
     <section class="innerpage_all_wrap bg-white">
-      <div class="table-responsive">
-        <table class=" table table-striped" align="center" style="text-align: center; background-color: #262626; margin-bottom: 50px; width: 85%">
+        <div class="table-responsive">
+            <table class=" table table-striped" align="center"
+                   style="text-align: center; background-color: #262626; margin-bottom: 50px; width: 85%">
 
 
+                <thead>
+                <tr style="background-color: #b81e20; ">
+                    <td class="headline03 " style="color: darkblue">Canchas</td>
+
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i = 0; i < canchas.length; i++) { %>
+                <tr class="headline01 largepoint1">
+                    <td><%= canchas[i].nombre %></td>
+
+                    <div class="headline01 smallpoint row row">
+                        <td>
+                            <button onclick="canchaDelete(this.id)" id=<%= canchas[i]._id %>>Eliminar</button>
+                        </td>
+                    </div>
+                </tr>
+                <% } %>
+
+                <div id="dataCancha"></div>
 
 
-          <thead>
-          <tr style="background-color: #b81e20; ">
-            <td class="headline03 " style="color: darkblue">Canchas</td>
-
-          </tr>
-          </thead>
-          <tbody>
-                <% for(var i=0; i < canchas.length; i++) { %>
-                        <tr class="headline01 largepoint1">
-                          <td><%=canchas[i].nombre %></td>
-                        </tr>
-                      <% } %>
-
-
-                  <div id="dataCancha"></div>
-
-
-
-        <tr>
-          <td>
-      <form action="/torneos" method="get">
-        <button type="submit">VOLVER A TORNEOS</button>
-      </form>
-          </td>
-        </tr>
-        </table>
-      </div>
+                <tr>
+                    <td>
+                        <form action="/torneos" method="get">
+                            <button type="submit">VOLVER A TORNEOS</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </section>
-
-
 
 
     <!-- footer -->
     <footer>
-      <!--class="footer-type01"-->
-      <%- include ../footer.ejs %>
+        <!--class="footer-type01"-->
+        <%- include ../footer.ejs %>
     </footer>
-  </div>
+</div>
 
 
-
-  <script src="js/vendor/vendor.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/admin.js"></script>
-  <script src="js/canchasTorneo.js"></script>
+<script src="js/vendor/vendor.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/canchasTorneo.js"></script>
 </body>
 
 </html>

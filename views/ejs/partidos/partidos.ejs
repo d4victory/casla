@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Torneo de Fútbol Para Socios del Club Atlético San Lorenzo de Almagro</title>
+<html class="no-js" lang="" xmlns:background-color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Torneo de Fútbol Para Socios del Club Atlético San Lorenzo de Almagro</title>
         <link rel="shortcut icon" href="images/favicon.ico">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="vendor.css">
@@ -91,89 +91,100 @@
                         <div class="wrap_match-innerdetails">
                         <table class="table table-striped " style="text-align: center ">
 
-                             <% if ((user.role == "ADMIN") || (user.role == "SUPER_ADMIN")) { %>
+
+                        <% if ((user.role == "ADMIN") || (user.role == "SUPER_ADMIN") || (user.role == "PLANILLERO")) { %>
 
 
-                                    <tr>
-                                    <div class="headline02 largepoint1" style="color:midnightblue; text-align: center; background-color: #b81e20">Ver partidos fecha:
-                                    <select name="fechaSelectName" id="fechaSelect">
-                                        <option value="none"></option>
-                                        <% for(var i=0; i < numeros_fechas.length; i++) { %>
-                                        <option value="<%= numeros_fechas[i] %>"><%= numeros_fechas[i] %></option>
-                                        <% } %>
-                                    </select>
-                                    </div>
-                                    </tr>
+                            <table style="background-color: #b81e20" class="table" style="text-align: center">
+                                <tr>
+                                    <td width="50%">
+                                        <div class="headline02 largepoint1" style="color:midnightblue;text-align: right; background-color: #b81e20">Division:
+                                            <select name="divisionSelect" id="divisionSelect">
+                                                <option value="none"></option>
+                                                <% for(var i=0; i < divisiones.length; i++) { %>
+                                                <option value="<%= divisiones[i]._id %>"><%= divisiones[i].nombre %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td width="50%">
+                                        <div class="headline02 largepoint1" style="color:midnightblue; text-align: left; background-color: #b81e20">Fecha:
+                                            <select name="fechaSelectName" id="fechaSelect">
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
 
-                            <% } else { %>
+                        <% } else { %>
 
-                            <tr>
-                                <div class="headline02 largepoint1" style="color:midnightblue; text-align: center; background-color: #b81e20">Ver partidos fecha:
-                                    <select name="fechaSelectName1" id="fechaSelect1">
-                                        <option value="none"></option>
-                                        <% for(var i=0; i < numeros_fechas.length; i++) { %>
-                                        <option value="<%= numeros_fechas[i] %>"><%= numeros_fechas[i] %></option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                            </tr>
+                        <tr>
+                            <div class="headline02 largepoint1" style="color:midnightblue; text-align: center; background-color: #b81e20">Ver partidos fecha:
+                                <select name="fechaSelectName1" id="fechaSelect1">
+                                    <option value="none"></option>
+                                    <% for(var i=0; i < numeros_fechas.length; i++) { %>
+                                    <option value="<%= numeros_fechas[i] %>"><%= numeros_fechas[i] %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </tr>
 
-                            <% } %>
+                        <% } %>
 
+                    <table class="table table-striped " style="text-align: center ">
 
+                        <thead>
+                        <tr style="text-align: center">
 
-                            <thead>
-                                    <tr style="text-align: center">
+                            <th scope="col" class="headline06" style="text-align: center">Estado</th>
+                            <th scope="col" class="headline06" style="text-align: center">Equipo 1</th>
+                            <th scope="col" class="headline06" style="text-align: center">Res 1</th>
+                            <th scope="col" class="headline06" style="text-align: center">Res 2</th>
+                            <th scope="col" class="headline06" style="text-align: center">Equipo 2</th>
+                            <th scope="col" class="headline06" style="text-align: center">Dia</th>
+                            <th scope="col" class="headline06" style="text-align: center">Hora</th>
+                            <th scope="col" class="headline06" style="text-align: center">Division</th>
+                            <th scope="col" class="headline06" style="text-align: center">Cancha</th>
 
-                                                <th scope="col" class="headline06" style="text-align: center">Estado</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Equipo 1</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Res 1</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Res 2</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Equipo 2</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Dia</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Hora</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Division</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Cancha</th>
+                            <!--<th scope="col" class="headline06" style="text-align: center">Amonestados</th>
+                            <th scope="col" class="headline06" style="text-align: center">Expulsados</th>
+                            <th scope="col" class="headline06" style="text-align: center">Goles</th>-->
 
-                                                <th scope="col" class="headline06" style="text-align: center">Amonestados</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Expulsados</th>
-                                                <th scope="col" class="headline06" style="text-align: center">Goles</th>
+                            <th scope="col" class="headline06"></th>
+                            <th scope="col" class="headline06"></th>
 
-                                                <th scope="col" class="headline06"></th>
-                                                <th scope="col" class="headline06"></th>
+                        </tr>
+                        </thead>
 
-                                        </tr>
-                            </thead>
-
-                            <tbody id="dataPartidosConFecha">
-
-
-
-
-                            </tbody>
+                        <tbody id="dataPartidosConFecha">
 
 
 
-                        </table>
-                    </div>
-                    </div>
+
+                        </tbody>
 
 
+
+                    </table>
                 </div>
-            </section>
-            <!-- footer -->
-            <footer >
-                <!--class="footer-type01"-->
-                <%- include ../footer.ejs %>
-            </footer>
+            </div>
+
+
         </div>
+    </section>
+    <!-- footer -->
+    <footer >
+        <!--class="footer-type01"-->
+        <%- include ../footer.ejs %>
+    </footer>
+</div>
 
-        <script src="js/vendor/vendor.js"></script>     
-        <script src="js/main.js"></script>
-        <script src="js/admin.js"></script> 
-        <script src="js/planillero.js"></script>
-        <script src="js/partidos.js"></script>
+<script src="js/vendor/vendor.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/planillero.js"></script>
+<script src="js/partidos.js"></script>
 
-        
-    </body>
+
+</body>
 </html>

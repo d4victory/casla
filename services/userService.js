@@ -5,7 +5,7 @@ var logger = require('../logger');
 var paginate = require('express-paginate');
 
 //GET - Return all users in the DB
-exports.findAllUsuarios = function(req, res, next) {
+exports.findAllUsuarios = function(	req, res, next) {
 	User.find(function(err, users) {
     if(err) res.send(500, err.message);
 
