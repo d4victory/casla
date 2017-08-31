@@ -58,6 +58,7 @@ exports.addEquipo = function(req, res) {
 };
 
 //PUT - Update a register already exists
+
 exports.updateEquipo = function(req, res) {
     Equipo.findById(req.params.id, function(err, equipo) {
         if(err) return res.send(500, err.message);
@@ -175,7 +176,13 @@ function guardarEquipo(req,res,equipo){
         // torneo.save(function(err) {
         // if(err) return res.send(500, err.message);
         // logger.info(req.user+" ha agregado al torneo "+torneo.nombre+" un nuevo equipo: "+equipo.nombre);
-        res.status(200).jsonp(equipo);
+        var response = {
+            division:  equipo.division ,
+            equipoid : equipo._id,
+            nombre : equipo.nombre,
+            headers: { "Content-Type": "application/json" }
+        };
+        res.status(200).jsonp(response);
         // });
     });
 };

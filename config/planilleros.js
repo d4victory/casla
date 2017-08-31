@@ -38,7 +38,7 @@ module.exports = function(app, client) {
     });
 
     app.post('/cargarPartido', isPlanillero, function(req, res) {
-        client.put({url: "/partido/"+req.query.partidoid, body: req.body}, function (err, response, data) {
+        client.put({url: ('/partido/'+req.query.partidoid), body: req.body}, function (err, response, data) {
             if (err) {
               console.log("ERROR en PUT de /cargarPartido");
               console.log(err);
@@ -50,7 +50,7 @@ module.exports = function(app, client) {
             data.data["status"] = data.status;
             data.data["statusOld"] = data.statusOld;
 
-            client.post({url: "/posicionEquipo/updatePosicionEquipo/", body: data.data}, function (err, response, data) {
+            client.post({url: ('/posicionEquipo/updatePosicionEquipo/'),body: data.data}, function (err, response, data) {
               if (err) {
                 console.log("ERROR en POST de /cargarPartido");
                 console.log(err);
@@ -58,7 +58,6 @@ module.exports = function(app, client) {
               }
               console.log("PUT /partido");
               console.log('response statusCode:' + response.statusCode);
-              console.log("body", body);
               res.redirect('/partidos');
             });
         });

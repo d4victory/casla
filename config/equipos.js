@@ -21,8 +21,10 @@ module.exports = function(app,isAdmin, client) {
 
     app.post('/agregarEquipo', isAdmin, function(req, res) {
         client.post({url: "/equipo/", body: req.body}, function (err, response, data) {
-            console.log("POST /equipo");
-            res.redirect('/equipos');
+            client.post({url: "/posicionEquipo/", body: response.body}, function (err, response, data) {
+                console.log("POST /equipo");
+                res.redirect('/equipos');
+            });
         });
     });
 
