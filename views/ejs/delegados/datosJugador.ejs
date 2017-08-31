@@ -5,7 +5,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Torneo de Fútbol Para Socios del Club Atlético San Lorenzo de Almagro</title>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
      <link rel="stylesheet" href="vendor.css">       
      <link rel="stylesheet" href="style.css">   
@@ -21,7 +21,7 @@
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="wrapper">
+    <tr class="wrapper">
       <!-- header -->
       <header class="header-main">
         <div class="header-lower clearfix">
@@ -33,7 +33,7 @@
       <div class="innerbannerwrap">
         <div class="content"></div>
         <div class="innerbannergoleadores">
-          <h2 class="bannerHeadline">Datos del jugador <%= jugador.nombre %> <%= jugador.apellido %> <span></span></h2>
+          <h2 class="bannerHeadline">Datos del jugador <br><span style="color: darkblue"> <%= jugador.nombre %> <%= jugador.apellido %> </span></h2>
         </div>
       </div>
 
@@ -45,92 +45,84 @@
           <% } %>
       <% } %>
 
-      <section class="innerpage_all_wrap bg-white"> 
-        <div class="container">
-			<div class="row">
-			<div class="matchSchedule_details row">
-          
-				      		<div class="match_versus-wrap2">
-			                  <div class="wrap_match-innerdetails">
-			                    <ul class="point_table2">
-			                       <li class="clearfix">
-			                        <div class="subPoint_table">
-			                          <div class="headline01 smallpoint">Nombre</div>
-                                <div class="headline01 smallpoint">Apellido</div>
-			                          <div class="headline01 smallpoint">Apodo</div>
-			                          <div class="headline01 smallpoint">Fecha nac</div>
-			                          <div class="headline01 smallpoint">DNI</div>
-			                          <div class="headline01 smallpoint">Pos</div>
-			                          <div class="headline01 smallpoint">Nro</div>
-			                          <div class="headline01 smallpoint">Capitan</div>
-                                	  <div class="headline01 smallpoint">SubCapitan</div>
-                                	  <div class="headline01 smallpoint">Mail</div>
-                                    </div>
-            						</div>
-                      				</li>
-            					     <li class="clearfix">
-                                     			 <div class="subPoint_table">
-                                     			 		<div class="headline01 smallpoint"><%= jugador.nombre %></div>
-                                              <div class="headline01 smallpoint"><%= jugador.apellido %></div>
-                                            			 <div class="headline01 smallpoint"><%= jugador.apodo %></div>
-                                            			 <div class="headline01 smallpoint"><%= moment(jugador.fecha_de_nacimiento).format('DD/MM/YYYY') %></div>
-                                            			 <div class="headline01 smallpoint"><%= jugador.dni %></div>
-                                            			 <div class="headline01 smallpoint"><%= jugador.posicion %></div>
-                                            			 <div class="headline01 smallpoint"><%= jugador.numero %></div>
+      <section class="innerpage_all_wrap bg-white">
+          <div class="table-responsive">
+              <table class=" table table-striped" align="center" style="text-align: center; background-color: #262626; margin-bottom: 50px; width: 85%">
+                  <thead>
+                  <tr style="background-color: #b81e20; ">
+				      		          <td class="headline01 " style="color: darkblue">Nombre</td>
+                                <td class="headline01 smallpoint" style="color: darkblue">Apellido</td>
+			                          <td class="headline01 smallpoint" style="color: darkblue">Apodo</td>
+			                          <td class="headline01 smallpoint" style="color: darkblue">Fecha nac</td>
+			                          <td class="headline01 smallpoint" style="color: darkblue">DNI</td>
+			                          <td class="headline01 smallpoint" style="color: darkblue">Pos</td>
+			                          <td class="headline01 smallpoint" style="color: darkblue">Nro</td>
+			                          <td class="headline01 smallpoint" style="color: darkblue">Capitan</td>
+                                	  <td class="headline01 smallpoint" style="color: darkblue">SubCapitan</td>
+                                	  <td class="headline01 smallpoint" style="color: darkblue">Mail</td>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                      				<tr>
+
+                                     			 		<td class="headline01 smallpoint"><%= jugador.nombre %></td>
+                                              <td class="headline01 smallpoint"><%= jugador.apellido %></td>
+                                            			 <td class="headline01 smallpoint"><%= jugador.apodo %></td>
+                                            			 <td class="headline01 smallpoint"><%= moment(jugador.fecha_de_nacimiento).format('DD/MM/YYYY') %></td>
+                                            			 <td class="headline01 smallpoint"><%= jugador.dni %></td>
+                                            			 <td class="headline01 smallpoint"><%= jugador.posicion %></td>
+                                            			 <td class="headline01 smallpoint"><%= jugador.numero %></td>
                                             			 
 
-                                                   <div class="headline01 smallpoint">
+                                                   <td class="headline01 smallpoint">
                                                       <% if ( equipo.capitan == jugador._id ) { %>
                                                         SI
                                                       <% } else { %> NO <% } %>
-                                                    </div>
-                                                  <div class="headline01 smallpoint">
+                                                    </td>
+                                                  <td class="headline01 smallpoint">
                                                       <% if ( equipo.subcapitan == jugador._id ) { %>
                                                         SI
                                                       <% } else { %> NO <% } %>
-                                                    </div>
-                                            			<div class="headline01 smallpoint"><%= jugador.email %></div>
-                      				</li>
+                                                    </td>
+                                            			<td class="headline01 smallpoint"><%= jugador.email %></td>
+                      				</tr>
 
-                              <h2 class="bannerHeadline"> Editar Jugador </h2>
-                               <div>
+                   <tr><td colspan="10" class="headline06" style="color: red"> Cambios a Realizar</td></tr>
+                   <tr>
                                   <form action="/actualizarDatosJugador" method="post" id="formActualizarJugador">
-                                    <div class="form-group">
-                                        <div class="headline01 largepoint1">Nombre</div>
+
+                                     <td>
                                         <input type="text" class="form-control" name="nombre" id="nombre" value=<%= jugador.nombre %>>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="headline01 largepoint1">Apellido</div>
+
+                                     </td>
+                                    <td>
                                         <input type="text" class="form-control" name="apellido" id="apellido" value=<%= jugador.apellido %>>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="headline01 largepoint1">Apodo</div>
+                                    </td>
+                                    <td>
+
                                         <input type="text" class="form-control" name="apodo" id="apodo" value=<%= jugador.apodo %>>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="headline01 largepoint1">Fecha de nacimiento (yyyy-mm-dd)</div>
+                                    </td>
+                                    <td>
+
                                         <input type="text" id="fecha_de_nacimiento" class="form-control" name="fecha_de_nacimiento" id="fecha_de_nacimiento" value=<%= moment(jugador.fecha_de_nacimiento).format('YYYY-MM-DD') %>>>
-                                    </div>
-                                     <div class="form-group">
-                                        <div class="headline01 largepoint1">DNI</div>
-                                        <input type="text" class="form-control" name="dni" id="dni" value=<%= jugador.dni %>>
-                                    </div>
-                                     <div class="form-group">
-                                        <div class="headline01 largepoint1">Posicion</div>
-                                        <select name="posicion" id="posicionSelect" value=<%= jugador.posicion %>>
+                                    </td>
+                                     <td>
+                                         <input type="text" class="form-control" name="dni" id="dni" value=<%= jugador.dni %>>
+                                    </td>
+                                     <td>   <select name="posicion" id="posicionSelect" value=<%= jugador.posicion %>>
                                                   <option value="ARQUERO">ARQUERO</option>
                                                   <option value="DEFENSOR">DEFENSOR</option>
                                                   <option value="VOLANTE" selected>VOLANTE</option>
                                                   <option value="DELANTERO">DELANTERO</option>
                                          </select>
-                                    </div>
-                                     <div class="form-group">
-                                        <div class="headline01 largepoint1">Numero</div>
+                                    </td>
+                                     <td>
+
                                         <input type="text" class="form-control" name="numero" id="numero" value=<%= jugador.numero %>>
-                                    </div>
-                                     <div class="form-group">
-                                        <div class="headline01 largepoint1">Capitan</div>
-                                        <select name="capitan" id="capitanSelect">
+                                    </td>
+                                     <td>
+                                         <select name="capitan" id="capitanSelect">
                                               <% if (equipo.capitan == jugador._id) { %>
                                                     <option value="false">NO</option>
                                                   <option value="true" selected>SI</option>
@@ -140,9 +132,8 @@
                                               <% } %>
                                                   
                                                 </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="headline01 largepoint1">SubCapitan</div>
+                                    </td>
+                                    <td>
                                         <select name="subcapitan" id="subcapitanSelect">
                                           <% if (equipo.subcapitan == jugador._id) { %>
                                                     <option value="false">NO</option>
@@ -152,28 +143,33 @@
                                                   <option value="true">SI</option>
                                               <% } %>
                                                 </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="headline01 largepoint1">Email</div>
-                                        <input type="text" class="form-control" name="email" id="email" value=<%= jugador.email %>>
-                                    </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"  name="email" id="email" value=<%= jugador.email %>>
+                                    </td>
                                     <input type="hidden" value=<%= equipo._id %> name="equipo"/>
                                     <input type="hidden" value=<%= jugador._id %> name="jugadorid"/>
-                                    <button type="submit" id="botonActualizarJugador" class="btn btn-warning btn-lg center-block">Actualizar</button>
-                                </form>
-                              </div>
-   
-                    </ul>
-                    </div>
-                  </div>
- 				</div>
-            </div>
-        </div>
+
+                    <tr><td colspan="10">
+                                      <button type="submit" id="botonActualizarJugador" class="btn btn-warning btn-lg center-block">Actualizar</button>
+                                        </td>
+                                    </tr>
+
+
+                                    </form>
+
+
+
+
 				 
-		
+		<tr> <td colspan="10">
 		<form action="/delegado" method="get">
              <button type="submit">VOLVER A MI EQUIPO</button>
         </form>
+            </td>   </tr>
+                  </tbody>
+              </table>
+          </div>
       </section>
     
 
