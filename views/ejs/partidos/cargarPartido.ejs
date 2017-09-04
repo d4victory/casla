@@ -14,7 +14,8 @@
 </head>
 <body>
 <!--[if lt IE 10]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
 <![endif]-->
 <div class="wrapper">
     <!-- header -->
@@ -38,7 +39,7 @@
     <% } %>
     <% } %>
 
-    <div class="table-responsive" style="background-color: #b81e20; text-align: center" >
+    <div class="table-responsive" style="background-color: #b81e20; text-align: center">
         <!-- show any messages that come back with authentication -->
         <% if (message.length > 0) { %>
         <div class="alert alert-danger"><%= message %></div>
@@ -48,18 +49,21 @@
             <input type="hidden" class="form-control">
 
             <!--DATOS FIJOS -->
-            <table class="table-bordered table-striped " style=" background-color: black; text-align: center; margin: 0 auto;">
+            <table class="table-bordered table-striped "
+                   style=" background-color: black; text-align: center; margin: 0 auto;">
                 <thead>
                 <tr style="background-color: #b81e20">
 
                     <td class="form-group headline05" id="fecha_numero">
                         Numero Fecha:
-                        <a class="headline05 largepoint1" style="color: darkblue" id="nro-fecha-id" name="fecha_numero"></a>
+                        <a class="headline05 largepoint1" style="color: darkblue" id="nro-fecha-id"
+                           name="fecha_numero"></a>
                     </td>
 
                     <td class="form-group headline05" id="fecha">
                         DIA:
-                        <a class="headline05 largepoint1" style="color: darkblue" id="fecha-id" type="date" name="fecha"></a>
+                        <a class="headline05 largepoint1" style="color: darkblue" id="fecha-id" type="date"
+                           name="fecha"></a>
 
 
                     </td>
@@ -78,28 +82,28 @@
                     <!-- DATOS VARIABLES -->
 
 
-                    <td class="form-group" colspan="3" >
+                    <td class="form-group" colspan="3">
                         <br>
                         <div class="headline01 largepoint1">Estado partido
                             <select class="headline07" id="estado-id" name="estado_partido"></select>
                         </div>
 
                         <br>
-                        <% if ((user.role !="SUPER_ADMIN")||(user.role != "ADMIN")) { %>
+                        <% if ((user.role != "SUPER_ADMIN") || (user.role != "ADMIN")) { %>
                         <div hidden>
-                            <%}%>
-                        <div class="headline01 largepoint1" id="horario-div">Horario
-                            <input type="time" class="headline07" id="horario-id" name="horario">
+                            <% } %>
+                            <div class="headline01 largepoint1" id="horario-div">Horario
+                                <input type="time" class="headline07" id="horario-id" name="horario">
 
-                        </div>
+                            </div>
 
-                        <br>
-                        <div class="headline01 largepoint1" id="cancha-div">Cancha
-                            <select class="headline07" id="cancha-id" name="cancha"></select>
+                            <br>
+                            <div class="headline01 largepoint1" id="cancha-div">Cancha
+                                <select class="headline07" id="cancha-id" name="cancha"></select>
+                            </div>
+                            <% if ((user.role == "SUPER_ADMIN") || (user.role != "ADMIN")) { %>
                         </div>
-                            <% if ((user.role =="SUPER_ADMIN") ||(user.role != "ADMIN")) { %>
-                        </div>
-                        <%}%>
+                        <% } %>
                         <br>
                     </td>
 
@@ -113,14 +117,14 @@
 
                     </td>
 
-                    <td class="form-group" id="equipo1" >
+                    <td class="form-group" id="equipo1">
                         <div class="headline01 largepoint1">
                             <div class="headline01 largepoint1" id="team1-id" name="equipo1"></div>
                         </div>
                     </td>
 
-                    <td class="form-group" id="equipo2" >
-                        <div class="headline01 largepoint1"  >
+                    <td class="form-group" id="equipo2">
+                        <div class="headline01 largepoint1">
                             <div class="headline01 largepoint1" id="team2-id" name="equipo2"></div>
                         </div>
                     </td>
@@ -130,18 +134,20 @@
                 <tr>
 
 
-                    <td class="form-group" id="goles_equipo1" >
+                    <td class="form-group" id="goles_equipo1">
                         <div class="headline01 largepoint1">
                             <div class="headline01 largepoint1" id="goles1-id"></div>
-                            <input class="headline07" type="number" min="0" value="0" name="goles_equipo1" id="goles1-id">
+                            <input class="headline07" type="number" min="0" value="0" name="goles_equipo1"
+                                   id="goles1-id">
                         </div>
                     </td>
 
 
-                    <td class="form-group" id="goles_equipo2" >
-                        <div class="headline01 largepoint1"  >
+                    <td class="form-group" id="goles_equipo2">
+                        <div class="headline01 largepoint1">
                             <div class="headline01 largepoint1" id="goles2-id"></div>
-                            <input class="headline07" min="0" value="0" type="number" name="goles_equipo2" id="goles2-id">
+                            <input class="headline07" min="0" value="0" type="number" name="goles_equipo2"
+                                   id="goles2-id">
                         </div>
                     </td>
 
@@ -225,10 +231,11 @@
 
                     <td colspan="3">
                         <br>
-                        <a href="/planillero"><input type="button" class="botonCancelar-id" value="Cancelar" /></a>
+                        <a href="/planillero"><input type="button" class="botonCancelar-id" value="Cancelar"/></a>
                         <input type="hidden" id="idPartido" value=<%= partido._id %> name="partidoId"/>
-                        <button type="submit" id = "botonGuardarCambios-id" class="botonGuardarCambios-id">Guardar cambios</button>
-
+                        <button type="submit" id="botonGuardarCambios-id" class="botonGuardarCambios-id">Guardar
+                            cambios
+                        </button>
                         <br>
                     </td>
 
@@ -243,15 +250,21 @@
     </div>
 
     <!-- footer -->
-    <footer >
+    <footer>
         <!--class="footer-type01"-->
         <%- include ../footer.ejs %>
     </footer>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 <script src="js/vendor/vendor.js"></script>
 <script src="js/main.js"></script>
 <script src="js/admin.js"></script>
