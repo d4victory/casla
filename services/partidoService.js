@@ -94,7 +94,7 @@ exports.addPartido = function(req, res) {
 					var partido = new Partido({
 						equipo1:    		req.body.equipo1,
 						equipo2:    		req.body.equipo2,
-						fecha: 				req.body.fecha + " " + req.body.hora,
+						fecha: 				req.body.fecha + " " + (parseInt((req.body.hora).split(':')[0]) + 3) + ":" +(req.body.hora).split(':')[1],
 						fecha_numero: 		req.body.fecha_numero,
 						division: 			req.body.division,
 						amonestados: 		req.body.amonestados,
@@ -162,7 +162,7 @@ exports.updatePartido = function(req, res) {
         partido.fecha = req.body.fecha == null ? partido.fecha : req.body.fecha;
 		    var date = new Date(partido.fecha)
 		if(req.body.horario != "") {
-            date.setHours((req.body.horario).split(':')[0])
+            date.setHours(parseInt((req.body.horario).split(':')[0]) + 3)
             date.setMinutes((req.body.horario).split(':')[1])
 		}else{
             date.setHours(0)
