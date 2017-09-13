@@ -107,8 +107,8 @@ exports.cargaDePartido = function(req, res) {
                         posicion2.perdidos = posicion2.perdidos + 1;
                     } else if (req.body.marcador_equipo_1 < req.body.marcador_equipo_2) {
                         posicion2.puntos = posicion2.puntos + 3;
-                        posicion2.ganados = posicion1.ganados + 1;
-                        posicion1.perdidos = posicion2.perdidos + 1;
+                        posicion2.ganados = posicion2.ganados + 1;
+                        posicion1.perdidos = posicion1.perdidos + 1;
                     } else {
                         posicion1.puntos = posicion1.puntos + 1;
                         posicion2.puntos = posicion2.puntos + 1;
