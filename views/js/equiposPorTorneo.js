@@ -88,11 +88,11 @@ $( "#submitForm" ).click(function(e){
         alert("Los equipos deben ser distintos");
         return false;
     }
-    var fecha = $("#fecha").val();
-    if (!fecha){
-        alert("Debe ingresar la fecha del partido");
-        return false;
-    }
+    // var fecha = $("#fecha").val();
+    // if (!fecha){
+    //     alert("Debe ingresar la fecha del partido");
+    //     return false;
+    // }
     // var hora = $("#hora").val();
     // if (!hora){
     //     alert("Debe ingresar la hora del partido");
