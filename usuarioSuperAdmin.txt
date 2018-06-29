@@ -1,0 +1,5 @@
+{
+    "role" : "SUPER_ADMIN",
+    "password" : "_556_2005",
+    "email" : "super_admin"
+}

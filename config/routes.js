@@ -9,6 +9,7 @@ module.exports = function(express,app, passport, client, logger) {
     require('../RESTServices/divisionRESTService')(express,app);
     require('../RESTServices/partidoRESTService')(express,app);
     require('../RESTServices/posicionEquipoRESTService')(express,app);
+    require('../RESTServices/goleadoresDivisionRESTService')(express,app);
 
     // =====================================
     // HOME PAGE (with login links) ========
@@ -89,7 +90,7 @@ module.exports = function(express,app, passport, client, logger) {
     //VIEWS
     app.get('/goleadores', function(req, res) {
         client.get("/division", function (err, response, divisiones) {
-            res.render('./ejs/goleadores.ejs', {user: req.user, divisiones:divisiones})
+            res.render('./ejs/divisiones/goleadoresDeLaDivision.ejs', {user: req.user, divisiones:divisiones})
         });
     });
 

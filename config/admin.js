@@ -18,6 +18,7 @@ module.exports = function(app, client) {
     require("./divisiones.js")(app, isAdmin, client);
     require("./posicionEquipo.js")(app, isAdmin, client);
     require("./fixture.js")(app, isAdmin, client);
+    require("./goleadoresDivision.js")(app,isAdmin,client);
 
     //------------------------------CANCHAS----------------------------------------//
     require("./canchas.js")(app,isAdmin, client);
