@@ -4,93 +4,89 @@ var id = getParameterByName('partidoid')
 
 $.get('/partido/' + id, function (partido) {
   $.get('/equipo', function (equipos) {
-    $.get('/jugador/equipo/' + partido.equipo1, function (jugadores1) {
-      $.get('/jugador/equipo/' + partido.equipo2, function (jugadores2) {
-        $.get('/division/' + partido.division, function (division) {
-          $.get('/cancha/torneo/' + division.torneo, function (canchas) {
-            console.log('Entrando en cargarPartido, partido: ' + id)
-            partidoGlobal = partido
-            var equiposMap = {}
-            for (var i = 0; i < equipos.length; i++) {
-              equiposMap[equipos[i]._id] = equipos[i].nombre
-            }
+    $.get('/division/' + partido.division, function (division) {
+      $.get('/cancha/torneo/' + division.torneo, function (canchas) {
+        console.log('Entrando en cargarPartido, partido: ' + id)
+        partidoGlobal = partido
+        var equiposMap = {}
+        for (var i = 0; i < equipos.length; i++) {
+          equiposMap[equipos[i]._id] = equipos[i].nombre
+        }
 
-            $('#team1-id').html('<b>' + equiposMap[partido.equipo1] + '</b>')
-            $('#team2-id').html('<b>' + equiposMap[partido.equipo2] + '</b>')
-            $('#nro-fecha-id').html(partido.fecha_numero)
-            $('#fecha-id').html(formatDate(partido.fecha))
+        $('#team1-id').html('<b>' + equiposMap[partido.equipo1] + '</b>')
+        $('#team2-id').html('<b>' + equiposMap[partido.equipo2] + '</b>')
+        $('#nro-fecha-id').html(partido.fecha_numero)
+        $('#fecha-id').html(formatDate(partido.fecha))
 
-            var options = ['N.E.', 'FIN', 'SUSP', 'POST']
-            var aux = ''
-            for (var i = 0; i < options.length; i++) {
-              if (options[i] == partido.estado) {
-                aux += '<option value="' + options[i] + '" selected="selected">' + options[i] + '</option>'
-              } else {
-                aux += '<option value="' + options[i] + '">' + options[i] + '</option>'
-              }
-            }
-            $('#estado-id').html(aux)
+        var options = ['N.E.', 'FIN', 'SUSP', 'POST']
+        var aux = ''
+        for (var i = 0; i < options.length; i++) {
+          if (options[i] == partido.estado) {
+            aux += '<option value="' + options[i] + '" selected="selected">' + options[i] + '</option>'
+          } else {
+            aux += '<option value="' + options[i] + '">' + options[i] + '</option>'
+          }
+        }
+        $('#estado-id').html(aux)
 
-            var auxCanchas = ''
-            auxCanchas += '<option value="" selected="selected">' + '-' + '</option>'
-            for (var k = 0; k < canchas.length; k++) {
-              if (canchas[k]._id == partido.cancha) {
-                auxCanchas += '<option value="' + canchas[k]._id + '" selected="selected">' + canchas[k].nombre + '</option>'
-              } else {
-                auxCanchas += '<option value="' + canchas[k]._id + '">' + canchas[k].nombre + '</option>'
-              }
-            }
+        var auxCanchas = ''
+        auxCanchas += '<option value="" selected="selected">' + '-' + '</option>'
+        for (var k = 0; k < canchas.length; k++) {
+          if (canchas[k]._id == partido.cancha) {
+            auxCanchas += '<option value="' + canchas[k]._id + '" selected="selected">' + canchas[k].nombre + '</option>'
+          } else {
+            auxCanchas += '<option value="' + canchas[k]._id + '">' + canchas[k].nombre + '</option>'
+          }
+        }
 
-            $('#cancha-id').html(auxCanchas)
+        $('#cancha-id').html(auxCanchas)
 
-            $('#horario-id').val(formatDate2(partido.fecha))
+        $('#horario-id').val(formatDate2(partido.fecha))
 
-            $('#division-id').html(division.nombre)
+        $('#division-id').html(division.nombre)
 
-            var lista = '<form id="form-jugadoresequipo1-id">'
-            for (var i = 0; i < jugadores1.length; i++) {
-              lista += jugadores1[i].numero + ' - ' + jugadores1[i].nombre + ' ' + jugadores1[i].apellido + ' ' +'<input type="number" min="0" value="0" style="text-align: center" value="' + jugadores1[i].numero + '">' + '<br>'
-            }
+        // var lista = '<form name="form-jugadoresequipo1-id" id="form-jugadoresequipo1-id">'
+        // for (var i = 0; i < jugadores1.length; i++) {
+        //   lista += jugadores1[i].numero + ' - ' + jugadores1[i].nombre + ' ' + jugadores1[i].apellido + ' ' +'<input name="golesJugadorEquipo1" id="golesJugadorEquipo1" type="number" min="0" value="0" style="text-align: center" value="' + jugadores1[i].numero + '">' + '<br>'
+        // }
+        //
+        // $('#jugadoresEquipo1').html(lista)
 
-            $('#jugadoresEquipo1').html(lista)
+        // var lista2 = '<form id="form-jugadoresequipo2-id">'
+        // for (var i = 0; i < jugadores2.length; i++) {
+        //   lista2 += jugadores2[i].numero + ' - ' + jugadores2[i].nombre + ' ' + jugadores2[i].apellido + ' ' +'<input type="number" min="0" value="0" style="text-align: center" value="' + jugadores2[i].numero + '">' + '<br>'
+        // }
+        //
+        // $('#jugadoresEquipo2').html(lista2)
 
-            var lista2 = '<form id="form-jugadoresequipo2-id">'
-            for (var i = 0; i < jugadores2.length; i++) {
-              lista2 += jugadores2[i].numero + ' - ' + jugadores2[i].nombre + ' ' + jugadores2[i].apellido + ' ' +'<input type="number" min="0" value="0" style="text-align: center" value="' + jugadores2[i].numero + '">' + '<br>'
-            }
+        // var lista = '<form id="form-amonestados1-id">'
+        // for (var i = 0; i < jugadores1.length; i++) {
+        //   lista += '<input type="checkbox" value="' + jugadores1[i].numero + '">' + jugadores1[i].numero + ' - ' + jugadores1[i].apellido + ' ' + jugadores1[i].nombre + '<br>'
+        // }
+        //
+        // $('#amonestados1-id').html(lista)
+        //
+        // var lista = '<form id="form-expulsados1-id">'
+        // for (var i = 0; i < jugadores1.length; i++) {
+        //   lista += '<input type="checkbox" value="' + jugadores1[i].numero + '">' + jugadores1[i].numero + ' - ' + jugadores1[i].apellido + ' ' + jugadores1[i].nombre + '<br>'
+        // }
+        //
+        // $('#expulsados1-id').html(lista)
+        //
+        // var lista = '<form id="form-amonestados2-id">'
+        // for (var i = 0; i < jugadores2.length; i++) {
+        //   lista += '<input type="checkbox" value="' + jugadores2[i].numero + '">' + jugadores2[i].numero + ' - ' + jugadores2[i].apellido + ' ' + jugadores2[i].nombre + '<br>'
+        // }
+        //
+        // $('#amonestados2-id').html(lista)
+        //
+        // var lista = '<form id="form-expulsados2-id">'
+        // for (var i = 0; i < jugadores2.length; i++) {
+        //   lista += '<input type="checkbox" value="' + jugadores2[i].numero + '">' + jugadores2[i].numero + ' - ' + jugadores2[i].apellido + ' ' + jugadores2[i].nombre + '<br>'
+        // }
+        //
+        // $('#expulsados2-id').html(lista)
 
-            $('#jugadoresEquipo2').html(lista2)
-
-            // var lista = '<form id="form-amonestados1-id">'
-            // for (var i = 0; i < jugadores1.length; i++) {
-            //   lista += '<input type="checkbox" value="' + jugadores1[i].numero + '">' + jugadores1[i].numero + ' - ' + jugadores1[i].apellido + ' ' + jugadores1[i].nombre + '<br>'
-            // }
-            //
-            // $('#amonestados1-id').html(lista)
-            //
-            // var lista = '<form id="form-expulsados1-id">'
-            // for (var i = 0; i < jugadores1.length; i++) {
-            //   lista += '<input type="checkbox" value="' + jugadores1[i].numero + '">' + jugadores1[i].numero + ' - ' + jugadores1[i].apellido + ' ' + jugadores1[i].nombre + '<br>'
-            // }
-            //
-            // $('#expulsados1-id').html(lista)
-            //
-            // var lista = '<form id="form-amonestados2-id">'
-            // for (var i = 0; i < jugadores2.length; i++) {
-            //   lista += '<input type="checkbox" value="' + jugadores2[i].numero + '">' + jugadores2[i].numero + ' - ' + jugadores2[i].apellido + ' ' + jugadores2[i].nombre + '<br>'
-            // }
-            //
-            // $('#amonestados2-id').html(lista)
-            //
-            // var lista = '<form id="form-expulsados2-id">'
-            // for (var i = 0; i < jugadores2.length; i++) {
-            //   lista += '<input type="checkbox" value="' + jugadores2[i].numero + '">' + jugadores2[i].numero + ' - ' + jugadores2[i].apellido + ' ' + jugadores2[i].nombre + '<br>'
-            // }
-            //
-            // $('#expulsados2-id').html(lista)
-
-          })
-        })
       })
     })
   })
@@ -110,7 +106,7 @@ function getParameterByName (name, url) {
 
 $('#botonGuardarCambios-id').click(function (e) {
   e.preventDefault()
-  document.formCargarPartido.action = '/cargarPartido?partidoid=' + id
+  document.formCargarPartido.action = '/cargarPartido?partidoid=' + id;
   $('#formCargarPartido').submit()
 })
 
@@ -128,4 +124,17 @@ function formatDate2 (fechaS) {
     ('0' + (date.getHours())).slice(-2) + ':' +
     ('0' + (date.getMinutes())).slice(-2)
   return fecha == ('00:00') ? '' : fecha
+}
+
+function getFormData () {
+  // var config = {}
+  // $('input').each(function () {
+  //   config[this.name] = this.value
+  // })
+  // console.log(config)
+
+  var usercard = document.formCargarPartido.getElementsByName("golesJugador");
+  // En la propiedad dataset del elemento estarán todos los atributos data-*
+  var id = usercard.dataset.idJugador;
+  console.log('holahola' + id);
 }

@@ -34,12 +34,18 @@ module.exports = function (app, client) {
   app.get('/cargarPartido', isPlanillero, function (req, res) {
     client.get('/partido/' + req.query.partidoid, function (err, response, partido) {
       client.get('/division', function (err, response, divisiones) {
-        res.render('./ejs/partidos/cargarPartido.ejs', {
-          user: req.user,
-          divisiones: divisiones,
-          partido: partido,
-          message: req.flash('loginMessage'),
-          resultado: req.session.statusSaved
+        client.get('/jugador/equipo/' + partido.equipo1, function (err, response, jugadores1) {
+          client.get('/jugador/equipo/' + partido.equipo2, function (err, response, jugadores2) {
+            res.render('./ejs/partidos/cargarPartido.ejs', {
+              user: req.user,
+              divisiones: divisiones,
+              partido: partido,
+              jugadoresEquipo1: jugadores1,
+              jugadoresEquipo2: jugadores2,
+              message: req.flash('loginMessage'),
+              resultado: req.session.statusSaved
+            })
+          })
         })
       })
     })
@@ -64,9 +70,24 @@ module.exports = function (app, client) {
           console.log(err)
           console.log('something went wrong al cargar partido', err.request.options)
         }
-        console.log('PUT /partido')
+        console.log('POST de /posicionEquipo/updatePosicionEquipo/')
         console.log('response statusCode:' + response.statusCode)
         res.redirect('/partidos')
+
+        // client.post({
+        //   url: ('/goleadoresDivision/updateGoleadoresDivision/'),
+        //   body: data.data
+        // }, function (err, response, data) {
+        //   if (err) {
+        //     console.log('ERROR en POST de /goleadoresDivision/updateGoleadoresDivision/')
+        //     console.log(err)
+        //     console.log('something went wrong al cargar partido', err.request.options)
+        //   }
+        //   console.log('POST de /goleadoresDivision/updateGoleadoresDivision/')
+        //   console.log('response statusCode:' + response.statusCode)
+        //   res.redirect('/partidos')
+        // })
+
       })
     })
   })

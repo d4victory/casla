@@ -24,7 +24,7 @@ function chequear (atributo){
 
 $("#capitanSelect").change(function(){
 	if ($("#capitanSelect").val() == true){
-		$("#subcapitanSelect").val() = false;
+			$("#subcapitanSelect").val() = false;
 	}
 });
 

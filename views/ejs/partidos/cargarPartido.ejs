@@ -165,68 +165,72 @@
                     </td>
 
                     <td class="form-group">
-                        <div class="headline01 largepoint1" role="tab" id="hJugadoresEquipo1-id">
-                            <a class="collapsed" data-toggle="collapse" href="#jugadoresEquipo1" aria-expanded="false" aria-controls="jugadoresEquipo1">
-                            </a>
-                        </div>
-                        <div class="headline06" name="jugadoresEquipo1" id="jugadoresEquipo1" class="collapse" role="tabpanel" aria-labelledby="hJugadoresEquipo1-id"></div>
+                        <% for(let i = 0; i < jugadoresEquipo1.length; i++) { %>
+                        <h2 class="headline06" class="collapse" role="tabpanel" style="text-align: left ">
+                            <%= jugadoresEquipo1[i].numero %>
+                            - <%= jugadoresEquipo1[i].nombre %> <%= jugadoresEquipo1[i].apellido %>
+                            <input name="golesJugador[<%= jugadoresEquipo1[i]._id %>]"  type="number" min="0" max="50" value="0">
+                        </h2>
+                        <% } %>
                     </td>
 
                     <td class="form-group">
-                        <div class="headline01 largepoint1" role="tab" id="hJugadoresEquipo2-id">
-                            <a class="collapsed" data-toggle="collapse" href="#jugadoresEquipo2" aria-expanded="false" aria-controls="jugadoresEquipo2">
-                            </a>
-                        </div>
-                        <div class="headline06" name="jugadoresEquipo2" id="jugadoresEquipo2" class="collapse" role="tabpanel" aria-labelledby="hJugadoresEquipo2-id"></div>
+                        <% for(let i = 0; i < jugadoresEquipo2.length; i++) { %>
+                        <h2 class="headline06" class="collapse" role="tabpanel" style="text-align: left ">
+                            <%= jugadoresEquipo2[i].numero %>
+                            - <%= jugadoresEquipo2[i].nombre %> <%= jugadoresEquipo2[i].apellido %>
+                            <input name="golesJugador[<%= jugadoresEquipo2[i]._id %>]"  type="number" min="0" max="50" value="0">
+                        </h2>
+                        <% } %>
                     </td>
 
                 </tr>
 
-                    <!--
-                   <div class="form-inline">
+                <!--
+               <div class="form-inline">
 
-                       <div class="form-group">
-                           <div class="headline01 largepoint1" role="tab" id="hAmonestados1-id">
-                               <a class="collapsed" data-toggle="collapse" href="#amonestados1-id" aria-expanded="false" aria-controls="amonestados1-id">
-                                   Amonestados Equipo 1
-                               </a>
-                           </div>
-                           <div class="headline06" name="amonestados1" id="amonestados1-id" class="collapse" role="tabpanel" aria-labelledby="hAmonestados1-id"></div>
+                   <div class="form-group">
+                       <div class="headline01 largepoint1" role="tab" id="hAmonestados1-id">
+                           <a class="collapsed" data-toggle="collapse" href="#amonestados1-id" aria-expanded="false" aria-controls="amonestados1-id">
+                               Amonestados Equipo 1
+                           </a>
                        </div>
-
-                       <div class="form-group">
-                           <div class="headline01 largepoint1" role="tab" name="amonestados2" id="hAmonestados2-id">
-                               <a class="collapsed" data-toggle="collapse" href="#amonestados2-id" aria-expanded="false" aria-controls="amonestados2-id">
-                                   Amonestados Equipo 2
-                               </a>
-                           </div>
-                           <div class="headline06" name="amonestados2" id="amonestados2-id" class="collapse" role="tabpanel" aria-labelledby="hAmonestados2-id"></div>
-                       </div>
+                       <div class="headline06" name="amonestados1" id="amonestados1-id" class="collapse" role="tabpanel" aria-labelledby="hAmonestados1-id"></div>
                    </div>
 
-                    </tr>
-
-
-                   <tr>
-                   <div class="form-inline">
-                       <div class="form-group">
-                           <div class="headline01 largepoint1" role="tab" id="hExpulsados1-id-id">
-                               <a class="collapsed" data-toggle="collapse" href="#expulsados1-id" aria-expanded="false" aria-controls="expulsados1-id">
-                                   Expulsados Equipo 1
-                               </a>
-                           </div>
-                           <div class="headline06" id="expulsados1-id" class="collapse" role="tabpanel" aria-labelledby="hExpulsados1-id"></div>
+                   <div class="form-group">
+                       <div class="headline01 largepoint1" role="tab" name="amonestados2" id="hAmonestados2-id">
+                           <a class="collapsed" data-toggle="collapse" href="#amonestados2-id" aria-expanded="false" aria-controls="amonestados2-id">
+                               Amonestados Equipo 2
+                           </a>
                        </div>
+                       <div class="headline06" name="amonestados2" id="amonestados2-id" class="collapse" role="tabpanel" aria-labelledby="hAmonestados2-id"></div>
+                   </div>
+               </div>
 
-                       <div class="form-group">
-                           <div class="headline01 largepoint1" role="tab" id="hExpulsados2-id">
-                               <a class="collapsed" data-toggle="collapse" href="#expulsados2-id" aria-expanded="false" aria-controls="expulsados2-id">
-                                   Expulsados Equipo 2
-                               </a>
-                           </div>
-                           <div class="headline06" id="expulsados2-id" class="collapse" role="tabpanel" aria-labelledby="hExpulsados2-id"></div>
+                </tr>
+
+
+               <tr>
+               <div class="form-inline">
+                   <div class="form-group">
+                       <div class="headline01 largepoint1" role="tab" id="hExpulsados1-id-id">
+                           <a class="collapsed" data-toggle="collapse" href="#expulsados1-id" aria-expanded="false" aria-controls="expulsados1-id">
+                               Expulsados Equipo 1
+                           </a>
                        </div>
-                   </div> -->
+                       <div class="headline06" id="expulsados1-id" class="collapse" role="tabpanel" aria-labelledby="hExpulsados1-id"></div>
+                   </div>
+
+                   <div class="form-group">
+                       <div class="headline01 largepoint1" role="tab" id="hExpulsados2-id">
+                           <a class="collapsed" data-toggle="collapse" href="#expulsados2-id" aria-expanded="false" aria-controls="expulsados2-id">
+                               Expulsados Equipo 2
+                           </a>
+                       </div>
+                       <div class="headline06" id="expulsados2-id" class="collapse" role="tabpanel" aria-labelledby="hExpulsados2-id"></div>
+                   </div>
+               </div> -->
 
                 </tr>
                 <!-- cambios , para implementar a futuro-->
@@ -259,7 +263,8 @@
                         <br>
                         <a href="/planillero"><input type="button" class="botonCancelar-id" value="Cancelar"/></a>
                         <input type="hidden" id="idPartido" value=<%= partido._id %> name="partidoId"/>
-                        <button type="submit" id="botonGuardarCambios-id" class="botonGuardarCambios-id">Guardar
+                        <button onclick="getFormData()" type="submit" id="botonGuardarCambios-id"
+                                class="botonGuardarCambios-id">Guardar
                             cambios
                         </button>
                         <br>
