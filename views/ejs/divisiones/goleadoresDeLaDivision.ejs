@@ -36,7 +36,9 @@
                     <thead>
                     <tr>
                         <h4 class="headline04 " style="color:darkblue; text-align: center; background-color: #b81e20">
-                            Division <span><%= division.nombre %> </span></h4>
+                            Goleadores de
+                            <span><%= division.nombre %> </span>
+                        </h4>
                     </tr>
 
                     <tr>
@@ -47,16 +49,15 @@
                     </thead>
 
                     <tbody>
-                    <% if (goleadoresDivision.length > 0 ){ %>
-                    <% for (var i = 0; i < goleadoresDivision.length ; i++ ) { %>
+                    <% if (goleadores.length > 0 ){ %>
+                    <% for (var i = 0; i < goleadores.length ; i++ ) { %>
                     <tr>
-                        <% if (goleadoresDivision[i].equipo) { %>
+                        <% if (goleadores[i]) { %>
+                        <% console.log(JSON.stringify(goleadores)) %>
 
-                        <th scope="row" class="headline05"><%= i + 1 %></th>
-                        <td class="headline05" colspan="7"><%= goleadoresDivision[i].nombre %> <%= goleadoresDivision[i].apellido %></td>
-                        <td class="headline05"><span><%= goleadoresDivision[i].equipo %></span></td>
-                        <td class="headline05"><span><%= goleadoresDivision[i].cantidadDeGoles %></span></td>
-
+                        <td class="headline05"><%= goleadores[i].jugadorNombre %></td>
+                        <td class="headline05"><span><%= goleadores[i].equipoNombre %></span></td>
+                        <td class="headline05"><span><%= goleadores[i].cantidadDeGoles %></span></td>
 
                         <% } %>
 
@@ -70,6 +71,7 @@
         <script src="js/vendor/vendor.js"></script>
         <script src="js/main.js"></script>
         <script src="js/admin.js"></script>
+        <script src="js/goleadoresDeLaDivision.js"></script>
 
     </section>
     <!-- footer -->

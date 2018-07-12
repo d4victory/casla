@@ -4,6 +4,7 @@ var Equipo = mongoose.model('Equipo')
 var Torneo = mongoose.model('Torneo')
 var Division = mongoose.model('Division')
 var GoleadoresDivision = mongoose.model('GoleadoresDivision')
+var Jugador = mongoose.model('Jugador')
 var logger = require('../logger')
 
 //GET - Return all partidos in the DB
@@ -187,75 +188,69 @@ exports.updatePartido = function (req, res) {
 
     console.log('GOLES EQUIPO 1 ' + JSON.stringify(req.body.golesJugador))
 
-    //ARMO ARRAY DE GOLEADORESDIVISION
-    var array = []
-    Object.keys(req.body.golesJugador).map(function (key, index) {
-      console.log('key' + key);
+    //ARMO ARRAY DE GOLEADORESDIVISION Equipo1
+    Object.keys(req.body.golesJugadorEquipo1).map(function (key, index) {
       GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
-        console.log(JSON.stringify(goleadoresDivision));
-        if (!goleadoresDivision.length > 0) {
-          var goleador = new GoleadoresDivision();
-          goleador.idJugador = key
-          goleador.cantidadDeGoles = parseInt(req.body.golesJugador[key])
-          console.log('if')
-          console.log(goleadoresDivision)
-        } else {
-          var goleador = goleadoresDivision.pop();
-          goleador.cantidadDeGoles = goleador.cantidadDeGoles + parseInt(req.body.golesJugador[key])
-          console.log('else')
-        }
-        goleador.save(function (err) {
-          if (err) return res.status(500).send(err.message)
+        Jugador.findById(key, function (err, jugador) {
+          Equipo.findById(partido.equipo1, function (err, equipo1) {
+            if (err) return res.send(500, err.message)
+            if (!jugador) return res.send(404, 'Jugador not found')
+            console.log('GET /jugador/' + key)
+
+            if (!goleadoresDivision.length > 0) {
+              var goleador = new GoleadoresDivision()
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.equipo = req.body.equipo1 == null ? partido.equipo1 : req.body.equipo1
+              goleador.equipoNombre = equipo1.nombre
+              goleador.jugadorNombre = jugador.nombre + ' ' + jugador.apellido
+              goleador.idJugador = key
+              goleador.cantidadDeGoles = parseInt(req.body.golesJugadorEquipo1[key])
+            } else {
+              var goleador = goleadoresDivision.pop()
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.cantidadDeGoles = goleador.cantidadDeGoles + parseInt(req.body.golesJugadorEquipo1[key])
+            }
+            goleador.save(function (err) {
+              if (err) return res.status(500).send(err.message)
+            })
+          })
         })
       })
     })
-    //console.log(array)
 
-    //PERSISTO GOLEADORES
-    /*for(var i = 0 ; i< array.length; i++){
-     var jug = array[i];
-     GoleadoresDivision.find({'idJugador':jug.idJugador}, function (err, goleadorDivision) {
-     console.log('golea' + goleadorDivision)
-     if(goleadorDivision){
-     goleadorDivision.cantidadDeGoles = goleadorDivision.cantidadDeGoles + jug.cantidadDeGoles;
-     }else{
-     goleadorDivision = new GoleadoresDivision();
-     goleadorDivision.cantidadDeGoles = jug.cantidadDeGoles;
-     }
-
-     jug.save(function (err) {
-     if (err) return res.status(500).send(err.message)
-     })
-     })
-     }*/
+    //ARMO ARRAY DE GOLEADORESDIVISION Equipo2
+    Object.keys(req.body.golesJugadorEquipo2).map(function (key, index) {
+      console.log('key' + key)
+      GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
+        Jugador.findById(key, function (err, jugador) {
+          Equipo.findById(partido.equipo2, function (err, equipo2) {
+            console.log(JSON.stringify(goleadoresDivision))
+            console.log('division' + req.body.division)
+            if (!goleadoresDivision.length > 0) {
+              var goleador = new GoleadoresDivision()
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.equipo = req.body.equipo2 == null ? partido.equipo2 : req.body.equipo2
+              goleador.equipoNombre = equipo2.nombre
+              goleador.jugadorNombre = jugador.nombre + ' ' + jugador.apellido
+              goleador.idJugador = key
+              goleador.cantidadDeGoles = parseInt(req.body.golesJugadorEquipo2[key])
+            } else {
+              var goleador = goleadoresDivision.pop()
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.cantidadDeGoles = goleador.cantidadDeGoles + parseInt(req.body.golesJugadorEquipo2[key])
+            }
+            goleador.save(function (err) {
+              if (err) return res.status(500).send(err.message)
+            })
+          })
+        })
+      })
+    })
 
     partido.save(function (err) {
       if (err) return res.status(500).send(err.message)
       res.status(200).jsonp(response)
     })
-
-    // Cancha.findById(req.params.id, function(err, cancha) {
-
-    // 	if(err) return res.send(500, err.message);
-    // 	if (!cancha) {return res.send(404, "Cancha not found");}
-
-    // 	Torneo.findById(req.body.torneo_actual, function(err, torneo) {
-    // 		if(err) return res.send(500, err.message);
-    // 		if (!torneo) {return res.send(404, "Torneo id not found");}
-
-    // 		cancha.nombre 				= req.body.nombre,
-    // 		cancha.torneo_actual		= req.body.torneo_actual
-
-    // 		cancha.save(function(err) {
-    // 			if(err) return res.send(500, err.message);
-    // 			torneo.canchas.push(cancha);
-    // 			torneo.save(function(err) {
-    // 				if(err) return res.send(500, err.message);
-    // 				res.status(200).jsonp(cancha);
-    // 			});
-    // 		});
-    // 	});
-    // })
   })
 }
 
