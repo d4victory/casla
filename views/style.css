@@ -6639,7 +6639,7 @@ h6 {
         transition: color 0.4s ease-in-out; }
 
 .header-main .header-lower {
-  background: rgba(40, 54, 143, 0.9);
+  background: rgba(255, 137, 34, 0.9);
   position: absolute;
   width: 100%;
   transition: background, -webkit-transform 0.7s ease-in-out;
@@ -7481,7 +7481,7 @@ h6 {
         width: 35.6666666667%; } }
     .booking-fig h2 {
       font-family: "Oswald", sans-serif;
-      font-size: 30px;
+      font-size: 20px;
       color: #232a32;
       font-weight: 400;
       text-transform: uppercase;
@@ -7489,9 +7489,9 @@ h6 {
       position: relative; }
       .booking-fig h2:after {
         position: absolute;
-        background: url("images/logo.png");
+        background: url("images/logo_anden.png");
         content: '';
-        width: 140px;
+        width: 120px;
         top: -119px;
         left: 25%;
         height: auto;
