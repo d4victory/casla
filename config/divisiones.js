@@ -10,6 +10,7 @@ module.exports = function(app,isAdmin, client) {
 
     app.post('/agregarDivision', isAdmin, function(req, res) {
         client.post({url: "/division", body: req.body}, function (err, response, data) {
+            console.log('ERROR TORNEO' + data.torneo);
             res.redirect('/divisionesDelTorneo?torneoid='+data.torneo._id);
         });
     });
