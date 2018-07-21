@@ -14,13 +14,10 @@ module.exports = function (app, isAdmin, client) {
   })
 
   app.post('/agregarCancha', isAdmin, function (req, res) {
-    client.post({url: '/cancha/', body: req.body}, function (err, response, data) {
-      console.log("POST /cancha");
-      console.log('data:' + JSON.stringify(data))
-      console.log('response:' + JSON.stringify(response))
-      console.log('req:' + JSON.stringify(req))
-      console.log('res:' + JSON.stringify(res))
-      res.redirect('/canchasDelTorneo?torneoid='+torneoId);
+    client.get('/torneo/' + req.body.torneoid, function (err, response, torneo) {
+      client.post({url: '/cancha/', body: req.body}, function (err, response, data) {
+        res.redirect('/canchasDelTorneo?torneoid=' + torneo)
+      })
     })
   })
 
