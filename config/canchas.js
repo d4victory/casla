@@ -1,6 +1,6 @@
 module.exports = function (app, isAdmin, client) {
 
-  app.post('/nuevaCancha', isAdmin, function (req, res) {
+  app.get('/nuevaCancha', isAdmin, function (req, res) {
     client.get('/division', function (err, response, divisiones) {
       client.get('/torneo/' + req.body.torneoid, function (err, response, torneo) {
         res.render('./ejs/canchas/agregarCancha.ejs', {
@@ -15,7 +15,8 @@ module.exports = function (app, isAdmin, client) {
 
   app.post('/agregarCancha', isAdmin, function (req, res) {
     client.post({url: '/cancha/', body: req.body}, function (err, response, data) {
-      res.redirect('/cancha')
+      console.log("POST /cancha");
+      res.redirect('/nuevaCancha')
     })
   })
 
