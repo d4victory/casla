@@ -3,9 +3,9 @@ module.exports = {
   port: process.env.PORT, // heroku settings
   requestBase: 'http://localhost:' + process.env.PORT,
   mongo: {
-    db: 'casla',
-    uri: 'mongodb://copaviejogasometro:Ka1438657@ds123182.mlab.com:23182/casla',
-    username: 'copaviejogasometro',
+    db: 'adnfutbol',
+    uri: 'mongodb://adnfutboluser:Ka1438657@ds021346.mlab.com:21346/adnfutbol',
+    username: 'adnfutboluser',
     password: 'Ka1438657'
   }
 };
