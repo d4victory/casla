@@ -4,7 +4,7 @@ module.exports = function (app, isAdmin, client) {
   app.post('/nuevaCancha', isAdmin, function (req, res) {
     client.get('/division', function (err, response, divisiones) {
       client.get('/torneo/' + req.body.torneoid, function (err, response, torneo) {
-        torneoId = torneo
+        torneoGlobal = torneo
         res.render('./ejs/canchas/agregarCancha.ejs', {
           user: req.user,
           torneo: torneo,
