@@ -16,13 +16,15 @@ module.exports = function (app, isAdmin, client) {
   app.post('/agregarCancha', isAdmin, function (req, res) {
     client.post({url: '/cancha/', body: req.body}, function (err, response, data) {
       console.log("POST /cancha");
-      res.redirect('/canchasDelTorneo?torneoid=' + data.torneo._id);
+      console.log('data:' + data)
+      console.log('response:' + response)
+      console.log('req:' + req)
+      console.log('res:' + res)
+      res.redirect('/canchasDelTorneo?torneoid='+torneoId);
     })
   })
 
   app.get('/canchasDelTorneo', isAdmin, function (req, res) {
-    console.log('canchasDelTorneo: ' + req.query.torneo)
-    console.log('canchasDelTorneo: ' + req.query.torneoid)
     client.get('/torneo/' + req.query.torneoid, function (err, response, torneo) {
       client.get('/division', function (err, response, divisiones) {
         client.get('/cancha/torneo/' + req.query.torneoid, function (err, response, canchas) {
@@ -33,7 +35,6 @@ module.exports = function (app, isAdmin, client) {
         })
       })
     })
-
   })
 
   app.post('/deleteCancha', isAdmin, function (req, res) {
