@@ -16,10 +16,10 @@ module.exports = function (app, isAdmin, client) {
   app.post('/agregarCancha', isAdmin, function (req, res) {
     client.post({url: '/cancha/', body: req.body}, function (err, response, data) {
       console.log("POST /cancha");
-      console.log('data:' + data)
-      console.log('response:' + response)
-      console.log('req:' + req)
-      console.log('res:' + res)
+      console.log('data:' + JSON.stringify(data))
+      console.log('response:' + JSON.stringify(response))
+      console.log('req:' + JSON.stringify(req))
+      console.log('res:' + JSON.stringify(res))
       res.redirect('/canchasDelTorneo?torneoid='+torneoId);
     })
   })
