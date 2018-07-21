@@ -11,7 +11,7 @@ module.exports = function(app,isAdmin, client) {
 
     app.post('/agregarCancha', isAdmin, function(req, res) {
         console.log('estoy en /agregarCancha');
-        client.post({url: "/cancha", body: req.body}, function (err, response, data) {
+        client.post({url: "/cancha/", body: req.body}, function (err, response, data) {
             console.log('/agregarCancha. Info del torneo: ' + data.torneo)
             res.redirect('/canchasDelTorneo?torneoid='+data.torneo._id);
         });
