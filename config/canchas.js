@@ -17,7 +17,7 @@ module.exports = function (app, isAdmin, client) {
 
   app.post('/agregarCancha', isAdmin, function (req, res) {
       client.post({url: '/cancha/', body: req.body}, function (err, response, data) {
-        res.redirect('/canchasDelTorneo?torneoid=' + torneoId)
+        res.redirect('/canchasDelTorneo?torneoid=' + torneoId.id)
       })
   })
 
