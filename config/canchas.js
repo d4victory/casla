@@ -21,6 +21,8 @@ module.exports = function (app, isAdmin, client) {
   })
 
   app.get('/canchasDelTorneo', isAdmin, function (req, res) {
+    console.log('canchasDelTorneo: ' + req.query.torneo)
+    console.log('canchasDelTorneo: ' + req.query.torneoid)
     client.get('/torneo/' + req.query.torneoid, function (err, response, torneo) {
       client.get('/division', function (err, response, divisiones) {
         client.get('/cancha/torneo/' + req.query.torneoid, function (err, response, canchas) {
