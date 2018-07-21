@@ -3,6 +3,7 @@ module.exports = function(app,isAdmin, client) {
     app.post('/nuevaCancha', isAdmin, function(req, res) {
         client.get("/division", function (err, response, divisiones) {
         client.get("/torneo/"+req.body.torneoid, function (err, response, torneo) {
+            console.log('/nuevaCancha. Info del torneo: ' + data.torneo)
             res.render('./ejs/canchas/agregarCancha.ejs', {user: req.user, torneo: torneo, divisiones:divisiones, message: req.flash('loginMessage')});
         });
         });
@@ -11,6 +12,7 @@ module.exports = function(app,isAdmin, client) {
     app.post('/agregarCancha', isAdmin, function(req, res) {
         console.log('estoy en /agregarCancha');
         client.post({url: "/cancha", body: req.body}, function (err, response, data) {
+            console.log('/agregarCancha. Info del torneo: ' + data.torneo)
             res.redirect('/canchasDelTorneo?torneoid='+data.torneo._id);
         });
     });
