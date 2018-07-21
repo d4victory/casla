@@ -1,6 +1,6 @@
 module.exports = function (app, isAdmin, client) {
 
-  var torneoId;
+  var torneoGlobal;
   app.post('/nuevaCancha', isAdmin, function (req, res) {
     client.get('/division', function (err, response, divisiones) {
       client.get('/torneo/' + req.body.torneoid, function (err, response, torneo) {
@@ -18,7 +18,7 @@ module.exports = function (app, isAdmin, client) {
   app.post('/agregarCancha', isAdmin, function (req, res) {
       client.post({url: '/cancha/', body: req.body}, function (err, response, data) {
         console.log(JSON.stringify(torneoId))
-        res.redirect('/canchasDelTorneo?torneoid=' + torneoId._id)
+        res.redirect('/canchasDelTorneo?torneoid=' + torneoGlobal._id)
       })
   })
 
