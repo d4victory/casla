@@ -187,7 +187,7 @@ exports.updatePartido = function (req, res) {
     partido.estado = req.body.estado_partido == null ? partido.estado : req.body.estado_partido
 
     //ARMO ARRAY DE GOLEADORESDIVISION Equipo1
-    console.log('GOLES JUGADOR EQUIPO 1 '+req.body.golesJugadorEquipo1);
+    console.log('GOLES JUGADOR EQUIPO 1 '+JSON.stringify(req.body.golesJugadorEquipo1));
     if (req.body.golesJugadorEquipo1 === null) {
       return null
     } else {
