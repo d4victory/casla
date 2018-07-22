@@ -1,8 +1,10 @@
 module.exports = function(app,isAdmin, client) {
 
+    var torneoGlobal;
     app.post('/nuevaDivision', isAdmin, function(req, res) {
       client.get("/division", function (err, response, divisiones) {
         client.get("/torneo/"+req.body.torneoid, function (err, response, torneo) {
+          torneoGlobal = torneo;
           res.render('./ejs/divisiones/agregarDivision.ejs', {user: req.user, divisiones:divisiones, torneo: torneo, message: req.flash('loginMessage')});
         });
       });
@@ -10,7 +12,7 @@ module.exports = function(app,isAdmin, client) {
 
     app.post('/agregarDivision', isAdmin, function(req, res) {
         client.post({url: "/division", body: req.body}, function (err, response, data) {
-            res.redirect('/divisionesDelTorneo?torneoid='+data.torneo._id);
+            res.redirect('/divisionesDelTorneo?torneoid='+torneoGlobal._id);
         });
     });
 
