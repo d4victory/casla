@@ -192,9 +192,13 @@ exports.updatePartido = function (req, res) {
       return null
     } else {
       Object.keys(req.body.golesJugadorEquipo1).map(function (key, index) {
+        console.log('pase el keys')
         GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
+          console.log('pase el goleadoresDivision')
           Jugador.findById(key, function (err, jugador) {
+            console.log('pase el jugador')
             Equipo.findById(partido.equipo1, function (err, equipo1) {
+              console.log('pase el equipo')
               if (err) return res.send(500, err.message)
               if (!jugador) return res.send(404, 'Jugador not found')
               console.log('GET /jugador/' + key)
