@@ -192,7 +192,7 @@ exports.updatePartido = function (req, res) {
       return null
     } else {
       Object.keys(req.body.golesJugadorEquipo1).map(function (key, index) {
-        console.log('pase el keys')
+        console.log('mongoose key' + mongoose.Types.ObjectId(key))
         GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
           console.log('pase el goleadoresDivision')
           Jugador.findById(key, function (err, jugador) {
