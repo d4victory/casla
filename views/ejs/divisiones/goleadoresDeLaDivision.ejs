@@ -52,7 +52,7 @@
                     <% if (goleadores.length > 0 ){ %>
                     <% for (var i = 0; i < goleadores.length ; i++ ) { %>
                     <tr>
-                        <% if (goleadores[i]) { %>
+                        <% if (goleadores[i] && goleadores[i].cantidadDeGoles > 0) { %>
                         <% console.log(JSON.stringify(goleadores)) %>
 
                         <td class="headline05"><%= goleadores[i].jugadorNombre %></td>

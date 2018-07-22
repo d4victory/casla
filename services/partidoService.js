@@ -187,10 +187,6 @@ exports.updatePartido = function (req, res) {
     partido.estado = req.body.estado_partido == null ? partido.estado : req.body.estado_partido
 
     //ARMO ARRAY DE GOLEADORESDIVISION Equipo1
-    console.log('GOLES JUGADOR EQUIPO 1 '+JSON.stringify(req.body.golesJugadorEquipo1));
-    if (req.body.golesJugadorEquipo1 === null) {
-      return null
-    } else {
       Object.keys(req.body.golesJugadorEquipo1).map(function (key, index) {
         console.log('mongoose key' + mongoose.Types.ObjectId(key))
         GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
@@ -223,12 +219,8 @@ exports.updatePartido = function (req, res) {
           })
         })
       })
-    }
 
     //ARMO ARRAY DE GOLEADORESDIVISION Equipo2
-    if (req.body.golesJugadorEquipo2 === null) {
-      return null
-    } else {
       Object.keys(req.body.golesJugadorEquipo2).map(function (key, index) {
         console.log('key' + key)
         GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
@@ -256,7 +248,6 @@ exports.updatePartido = function (req, res) {
           })
         })
       })
-    }
     partido.save(function (err) {
       if (err) return res.status(500).send(err.message)
       res.status(200).jsonp(response)
