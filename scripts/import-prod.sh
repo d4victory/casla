@@ -1,11 +1,11 @@
 #!/bin/bash
 
 DATE=`date "+%Y-%m-%d@%H_%M_%S"`
-MONGO_URL="ds123182.mlab.com"
-MONGO_PORT="23182"
-REMOTE_DB_NAME="casla"
+MONGO_URL="ds145881.mlab.com"
+MONGO_PORT="45881"
+REMOTE_DB_NAME="adnFutbol"
 LOCAL_DB_NAME="casla_dev"
-USER="copaviejogasometro"
+USER="adnfutboluser"
 PASSWORD="Ka1438657"
 
 echo "            "
