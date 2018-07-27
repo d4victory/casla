@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Torneo de Fútbol Para Socios del Club Atlético San Lorenzo de Almagro</title>
+    <title>Torneo de Fútbol EL ANDEN</title>
     <link rel="shortcut icon" href="images/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="vendor.css">
@@ -51,6 +51,7 @@
                 <ul class="point_table2 table-responsive">
                     <li class="clearfix">
                         <div class="subPoint_table2">
+                            <div class="headline09 smallpoint"><c>Logo</c></div>
                             <div class="headline09 smallpoint">
                                 <c>Nombre</c>
                             </div>
@@ -58,7 +59,7 @@
                             <!-- TODO: implementar a futuro -->
                             <!--<div class="headline09 smallpoint">Jugadores</div>-->
                             <!--<div class="headline09 smallpoint">Partidos</div>-->
-                            <!--<div class="headline09 smallpoint"><c>Logo</c></div>-->
+
 
                             <div class="headline09 smallpoint row row">
                                 <div class="headline09 smallpoint1"><span></span></div>
@@ -69,15 +70,15 @@
                     <% for(var i = 0; i < equipos.length; i++) { %>
                     <li class="clearfix">
                         <div class="subPoint_table2">
-                            <!--<div class="headline09 smallpoint">-->
-                                <!--<c>-->
-                                    <!--<% if (equipos[i].logo) { %>-->
-                                    <!--<%= equipos[i].logo %>-->
-                                    <!--<% } else { %>-->
-                                    <!--Ninguno-->
-                                    <!--<% } %>-->
-                                <!--</c>-->
-                            <!--</div>-->
+                            <div class="headline09 smallpoint">
+                                <c>
+                                    <% if (equipos[i].logo) { %>
+                                    <%= equipos[i].logo %>
+                                    <% } else { %>
+                                    Ninguno
+                                    <% } %>
+                                </c>
+                            </div>
                             <div class="headline09 smallpoint"><%= equipos[i].nombre %></div>
                             <div>
                                 <div class="headline09 smallpoint">
@@ -103,6 +104,17 @@
                                     </form>
                                 </div>
                             </div>
+
+                            <div class="headline09 smallpoint row row">
+                                <div class="headline09 smallpoint1"><span>
+								<form onsubmit="return confirm('Seguro que desea eliminar al equipo <%= equipos[i].nombre %>?')"
+                                      action="/deleteEquipo" method="post">
+					                <button type="submit">Eliminar</button>
+					                <input type="hidden" value=<%= equipos[i]._id %> name="equipoid"/>
+					            </form>
+							</span></div>
+                            </div>
+
                             <!--<div class="headline09 smallpoint">-->
                             <!--<% if (equipos[i].jugadores ) { %>-->
                             <!--<button  type="submit">Ver Jugadores</button></span>-->
@@ -120,15 +132,6 @@
                             <!--Ninguno-->
                             <!--<% } %>-->
                             <!--</div>-->
-                            <div class="headline09 smallpoint row row">
-                                <div class="headline09 smallpoint1"><span>
-								<form onsubmit="return confirm('Seguro que desea eliminar al equipo <%= equipos[i].nombre %>?')"
-                                      action="/deleteEquipo" method="post">
-					                <button type="submit">Eliminar</button>
-					                <input type="hidden" value=<%= equipos[i]._id %> name="equipoid"/>
-					            </form>
-							</span></div>
-                            </div>
                         </div>
                     </li>
                     <% } %>
