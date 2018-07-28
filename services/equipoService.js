@@ -155,11 +155,27 @@ exports.deleteEquipo = function(req, res) {
 function crearEquipo(body){
     var equipo;
     if (body.division != "none") {
-        equipo  = new Equipo({
-            nombre: body.nombre,
-            division: body.division
-            // torneo_actual: 	body.torneo_actual
-        });
+        if (body.logo != "none") {
+
+            console.log("hola");
+            equipo = new Equipo({
+                nombre: body.nombre,
+                division: body.division,
+                logo: {
+                    data: body.image,
+                    contentType: body.image
+                }
+
+            });
+
+        } else {
+
+            equipo = new Equipo({
+                nombre: body.nombre,
+                division: body.division
+                // torneo_actual: 	body.torneo_actual
+            });
+        }
     } else {
         equipo  = new Equipo({
             nombre: body.nombre
@@ -177,11 +193,14 @@ function guardarEquipo(req,res,equipo){
         // if(err) return res.send(500, err.message);
         // logger.info(req.user+" ha agregado al torneo "+torneo.nombre+" un nuevo equipo: "+equipo.nombre);
         var response = {
+
+            logo: equipo.logo ,
             division:  equipo.division ,
             equipoid : equipo._id,
             nombre : equipo.nombre,
             headers: { "Content-Type": "application/json" }
         };
+        console.log("seeee");
         res.status(200).jsonp(response);
         // });
     });
