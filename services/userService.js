@@ -81,10 +81,13 @@ exports.updateUser = function(req, res) {
 		if(err) return res.send(500, err.message);
 		if (!usuario) {return res.send(404, "User not found");}
 
+		console.log(usuario);
+    console.log(usuario.equipo);
 		var previoEquipo = usuario.equipo;
 		if (previoEquipo != undefined){
 			Equipo.findById(previoEquipo, function(err, equipo) {	
 				if(err) return res.send(500, err.message);
+				console.log('equipo: '+ equipo)
 				equipo.delegado = undefined;
 				equipo.save(function(err, equipo) {
 					if(err) return res.send(500, err.message);

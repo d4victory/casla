@@ -141,7 +141,6 @@ exports.addPartido = function (req, res) {
 
 //PUT - Update a register already exists
 exports.updatePartido = function (req, res) {
-  console.log('estoy en partidoService /updatePartido')
   Partido.findById(req.params.id, function (err, partido) {
 
     var idPartido = partido._id
@@ -187,32 +186,30 @@ exports.updatePartido = function (req, res) {
     partido.estado = req.body.estado_partido == null ? partido.estado : req.body.estado_partido
 
     //ARMO ARRAY DE GOLEADORESDIVISION Equipo1
-    if(!req.body.golesJugadorEquipo1 === null && !req.body.golesJugadorEquipo1 === undefined) {
-      Object.keys(req.body.golesJugadorEquipo1).map(function (key, index) {
-        console.log('mongoose key' + mongoose.Types.ObjectId(key))
-        GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
-          console.log('pase el goleadoresDivision')
-          Jugador.findById(key, function (err, jugador) {
-            console.log('pase el jugador')
-            Equipo.findById(partido.equipo1, function (err, equipo1) {
-              console.log('pase el equipo')
-              if (err) return res.send(500, err.message)
-              if (!jugador) return res.send(404, 'Jugador not found')
-              console.log('GET /jugador/' + key)
+    console.log('goles jugador equipo 1 :' + JSON.stringify(req.body.golesJugadorEquipo1))
+    console.log('goles jugador equipo 2 :' + JSON.stringify(req.body.golesJugadorEquipo2))
 
-              if (!goleadoresDivision.length > 0) {
-                var goleador = new GoleadoresDivision()
-                goleador.division = req.body.division == null ? partido.division : req.body.division
-                goleador.equipo = req.body.equipo1 == null ? partido.equipo1 : req.body.equipo1
-                goleador.equipoNombre = equipo1.nombre
-                goleador.jugadorNombre = jugador.nombre + ' ' + jugador.apellido
-                goleador.idJugador = key
-                goleador.cantidadDeGoles = parseInt(req.body.golesJugadorEquipo1[key])
-              } else {
-                var goleador = goleadoresDivision.pop()
-                goleador.division = req.body.division == null ? partido.division : req.body.division
-                goleador.cantidadDeGoles = goleador.cantidadDeGoles + parseInt(req.body.golesJugadorEquipo1[key])
-              }
+    if (req.body.golesJugadorEquipo1) {
+      console.log('golesJugadorEquipo1: ')
+      console.log(JSON.stringify(req.body.golesJugadorEquipo1))
+      Object.keys(req.body.golesJugadorEquipo1).map(function (key, index) {
+        console.log('key' + key)
+        GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
+          console.log('goleadoresDivision: ' + goleadoresDivision)
+          Jugador.findById(key, function (err, jugador) {
+            console.log('jugador: ' + jugador)
+            Equipo.findById(partido.equipo1, function (err, equipo1) {
+              console.log('equipo1: ' + equipo1)
+              var goleador = goleadoresDivision.pop()
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.equipo = req.body.equipo1 == null ? partido.equipo1 : req.body.equipo1
+              goleador.equipoNombre = equipo1.nombre
+              goleador.jugadorNombre = jugador.nombre + ' ' + jugador.apellido
+              goleador.idJugador = key
+              goleador.cantidadDeGoles = parseInt(req.body.golesJugadorEquipo1[key])
+
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.cantidadDeGoles = goleador.cantidadDeGoles + parseInt(req.body.golesJugadorEquipo1[key])
               goleador.save(function (err) {
                 if (err) return res.status(500).send(err.message)
               })
@@ -223,27 +220,27 @@ exports.updatePartido = function (req, res) {
     }
 
     //ARMO ARRAY DE GOLEADORESDIVISION Equipo2
-    if(!req.body.golesJugadorEquipo2 === null && !req.body.golesJugadorEquipo2 === undefined) {
+    if (req.body.golesJugadorEquipo2) {
+      console.log('golesJugadorEquipo2: ')
+      console.log(JSON.stringify(req.body.golesJugadorEquipo2))
       Object.keys(req.body.golesJugadorEquipo2).map(function (key, index) {
         console.log('key' + key)
         GoleadoresDivision.find({idJugador: mongoose.Types.ObjectId(key)}, function (err, goleadoresDivision) {
+          console.log('goleadoresDivision: ' + goleadoresDivision)
           Jugador.findById(key, function (err, jugador) {
+            console.log('jugador: ' + jugador)
             Equipo.findById(partido.equipo2, function (err, equipo2) {
-              console.log(JSON.stringify(goleadoresDivision))
-              console.log('division' + req.body.division)
-              if (!goleadoresDivision.length > 0) {
-                var goleador = new GoleadoresDivision()
-                goleador.division = req.body.division == null ? partido.division : req.body.division
-                goleador.equipo = req.body.equipo2 == null ? partido.equipo2 : req.body.equipo2
-                goleador.equipoNombre = equipo2.nombre
-                goleador.jugadorNombre = jugador.nombre + ' ' + jugador.apellido
-                goleador.idJugador = key
-                goleador.cantidadDeGoles = parseInt(req.body.golesJugadorEquipo2[key])
-              } else {
-                var goleador = goleadoresDivision.pop()
-                goleador.division = req.body.division == null ? partido.division : req.body.division
-                goleador.cantidadDeGoles = goleador.cantidadDeGoles + parseInt(req.body.golesJugadorEquipo2[key])
-              }
+              console.log('equipo2: ' + equipo2)
+              var goleador = goleadoresDivision.pop()
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.equipo = req.body.equipo2 == null ? partido.equipo2 : req.body.equipo2
+              goleador.equipoNombre = equipo2.nombre
+              goleador.jugadorNombre = jugador.nombre + ' ' + jugador.apellido
+              goleador.idJugador = key
+              goleador.cantidadDeGoles = parseInt(req.body.golesJugadorEquipo2[key])
+
+              goleador.division = req.body.division == null ? partido.division : req.body.division
+              goleador.cantidadDeGoles = goleador.cantidadDeGoles + parseInt(req.body.golesJugadorEquipo2[key])
               goleador.save(function (err) {
                 if (err) return res.status(500).send(err.message)
               })

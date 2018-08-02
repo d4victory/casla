@@ -72,6 +72,9 @@ module.exports = function (app, client) {
 
   app.post('/agregarJugador', isDelegado, function (req, res) {
     client.post({url: '/jugador', body: req.body}, function (err, response, data) {
+      var jugadorId = response.body._id;
+      console.log('PRUEBA1-POSTENJUGADOR: '+ data)
+      console.log('PRUEBA1-POSTENJUGADOR: '+ JSON.stringify(response.body))
       client.post({url: '/goleadoresDivision', body: response.body}, function (err, response, data) {
         console.log('POST /jugador')
         res.redirect('/delegado')

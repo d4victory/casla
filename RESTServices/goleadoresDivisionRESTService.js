@@ -56,6 +56,28 @@ module.exports = function (express, app) {
 
   goleadoresDivision.get('/division/:id', GoleadoresDivisionCtrl.findGoleadoresDivisionByDivisionId)
 
+  /**
+   * @swagger
+   * /goleadoresDivision:
+   *   post:
+   *     tags:
+   *       - GoleadorDivisionModel
+   *     description: Creates a new GoleadorDivision
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: jugador
+   *         description: Jugador object
+   *         in: body
+   *         required: true
+   *         schema:
+   *           $ref: '#/definitions/JugadorModel'
+   *     responses:
+   *       200:
+   *         description: Successfully created
+   */
+  goleadoresDivision.post('/', GoleadoresDivisionCtrl.addGoleadoresDivision);
+
   app.use('/goleadoresDivision', goleadoresDivision)
 
 }

@@ -3,7 +3,7 @@
 DATE=`date "+%Y-%m-%d@%H_%M_%S"`
 MONGO_URL="ds145881.mlab.com"
 MONGO_PORT="45881"
-REMOTE_DB_NAME="adnFutbol"
+REMOTE_DB_NAME="adnfutbol"
 LOCAL_DB_NAME="casla_dev"
 USER="adnfutboluser"
 PASSWORD="Ka1438657"
